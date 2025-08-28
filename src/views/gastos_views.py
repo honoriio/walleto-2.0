@@ -1,15 +1,18 @@
 # área destinada as importações
-from decimal import Decimal, InvalidOperation   
+from decimal import Decimal, InvalidOperation  
+import string 
+import datetime
 
-def nome_gasto():
+
+def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME
     while True:
         try:
             nome = input('Nome do gasto: ').strip()
             
-            if not nome: # --> Validação 1, O nome não pode estar vazio
+            if not nome: # --> VALIDAÇÃO 1, VERIFICA SE A STRING ESTA VAZIA
                 raise ValueError("O nome não pode estar vazio.")
             
-            if len(nome) > 40: #-->  Validação 2, O nome não pode ter mais que 40 caracteres.
+            if len(nome) >= 41: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
                 raise ValueError("O nome não pode ter mais que 40 caracteres.")
             return nome
             
@@ -17,13 +20,13 @@ def nome_gasto():
             print(f"ERRO: {erro}")
 
 
-def valor_gasto(): # --> Função que coleta e valida o valor do gasto inserido pelo usuario.
+def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
     while True:
         try:
-            valor = input("Valor R$: ") #-->  corrigir o mesmo pois gera erro ao usar virgula como separador.
+            valor = input("Valor R$: ")
             valor = valor.replace(',', '.')  # --> Substitui a vírgula por ponto
             valor = Decimal(valor)
-            if valor <= 0: # --> Validação 1, o valor não pode ser menor que zero.
+            if valor <= 0: # --> VALIDAÇÃO 1, O VALOR NÃO PODE SER MENOR OU IGUAL A ZERO.
                 raise ValueError
             
             return valor
@@ -35,3 +38,62 @@ def valor_gasto(): # --> Função que coleta e valida o valor do gasto inserido 
             print("O valor não pode ser negativo ou menor que zero.")
             
         
+
+def categoria_gasto(): # --> COLETA E TRATA A CATEGORIA
+    while True:
+        try:
+            categoria = input('Categoria: ').strip().capitalize()
+            if not categoria: # --> CASO O USUARIO NÃO INFORME A CATEGORIA DO GASTO, O PROGRAMA INSERE UMA MENSAGEM GENERICA NA CATEORIA
+                categoria = "Categoria não informada"
+            
+            caracteres_proibidos = string.punctuation + string.digits
+            if any(char in caracteres_proibidos for char in categoria): # --> BARRA O USUARIO DE INSERIR CARACTERES E NUMEROS NA CATEGORIA.
+                raise ValueError("A categoria deve conter apenas letras.")
+            
+            if len(categoria) >= 50: # --> O CAMPO CATEGORIA E LIMITADO A 50  CARACTERES.
+                raise ValueError("A categoria não pode ser maior que 50 caracteres.")
+            
+            return categoria
+            
+        except ValueError as erro:
+            print(f"ERRO: {erro}")
+            
+
+def descricao_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
+    while True:
+        try:
+            descricao = input("Descrição: ").strip().lower()
+            if not descricao: # --> CASO O USUARIO NÃO INFPORME UMA DESCRIÇÃO O PROGRAMA IRA INSERIR UMA DESCRIÇÃO GENERICA
+                descricao = "Descrição não informada pelo usuario"
+            
+            if len(descricao) >= 500: # -->  CAMPO DESCRIÇÃO NÃO PODE TER MAIS DE 500 CARACTERES
+                raise ValueError("Descrção não pode ter mais que 500 caracteres.")
+            return descricao
+        
+        except ValueError as erro:
+            print(f"ERRO: {erro}")
+
+
+
+def data_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO
+    while True:
+        try:
+            data_str = input("Data (DD/MM/AAAA): ").strip()
+            
+            if not data_str:
+                return datetime.date.today().strftime("%d/%m/%Y")
+            
+            
+            if len(data_str) == 8 and data_str.isdigit(): # --> TRATA DATOS SEM SEPARADORES (DDMMAAAA)
+                data_str = f"{data_str[0:2]}/{data_str[2:4]}/{data_str[4:8]}"
+
+            # --> TRATA DADOS COM OUTROS SEPARADORES
+            data_limpa = data_str.replace('.', '/').replace('-', '/').replace('_', '/').replace('=', '/')
+
+            data_valida = datetime.datetime.strptime(data_limpa, "%d/%m/%Y").date()
+            
+            return data_valida.strftime("%d/%m/%Y") # --> RETORNA A DATA NO FORMATO BRASILEIRO
+        
+        except ValueError:
+            print("ERRO: Formato de data inválido ou data não existe. Por favor, use DD/MM/AAAA ou DDMMAAAA.")
+
