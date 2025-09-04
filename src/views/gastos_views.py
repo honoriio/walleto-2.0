@@ -97,3 +97,4 @@ def data_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO
         except ValueError:
             print("ERRO: Formato de data inválido ou data não existe. Por favor, use DD/MM/AAAA ou DDMMAAAA.")
 
+
