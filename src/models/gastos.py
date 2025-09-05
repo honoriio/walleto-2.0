@@ -2,20 +2,28 @@
 from src.database.connection import get_connection
 from decimal import Decimal
 from src.views.colors import cores
+import uuid
 
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET = cores()
 
 
 # --- Definição da Classe Gasto ---
 class Gasto:
-    def __init__(self, id, nome, valor, categoria, descricao, data):
-        self.id = id
+    def __init__(self, nome, valor, categoria, descricao, data, id=None):
+
+        # Lógica para o ID
+        if id is None:
+            self.id = str(uuid.uuid4())  # Se nenhum id foi passado, GERE um novo.
+        else:
+            self.id = id
+
         self.nome = nome
-        # Usar Decimal é uma ótima prática para valores monetários
-        self.valor = Decimal(valor)
+        self.valor = Decimal(valor) # --> como iremos usar valores monetarios, decidimos usar decimal.
         self.categoria = categoria
         self.descricao = descricao
         self.data = data
+
+
 
 
 # --- Funções do Banco de Dados Refatoradas ---

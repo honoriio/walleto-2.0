@@ -2,6 +2,8 @@
 from decimal import Decimal, InvalidOperation  
 import string 
 import datetime
+from src.models.gastos import Gasto
+
 
 
 def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME
@@ -98,3 +100,11 @@ def data_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO
             print("ERRO: Formato de data inválido ou data não existe. Por favor, use DD/MM/AAAA ou DDMMAAAA.")
 
 
+def entrada_gastos():
+    nome = nome_gasto()
+    valor = valor_gasto()
+    categoria = categoria_gasto()
+    descricao = descricao_gasto()
+    data = data_gasto()
+
+    return Gasto(nome, valor, categoria, descricao, data)
