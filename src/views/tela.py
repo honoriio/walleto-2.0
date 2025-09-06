@@ -5,7 +5,7 @@ import platform
 import time
 from src.views.colors import cores
 
-TM = 100
+TM = 120
 
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET =  cores()
 
@@ -20,6 +20,8 @@ def limpar_tela():
 
 def exibir_mensagem(mensagem, cor):
     print(f'{cor}{mensagem}{RESET}')
+
+
 
 
 def encerrar_programa():
