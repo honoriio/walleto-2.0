@@ -6,7 +6,7 @@ import uuid
 
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET = cores()
 
-TM = 120
+TM = 160
 
 
 # --- Definição da Classe Gasto ---
@@ -260,22 +260,27 @@ def filtrar_gastos_categoria(categoria):
             cursor.execute("SELECT * FROM gastos WHERE categoria = ?", (categoria,))
             resultados = cursor.fetchall()
 
+            if not resultados:  # Verifica se a consulta retornou algo
+                print(f"Nenhum gasto encontrado na categoria: {categoria}.")
+                return None
+
             gastos_objetos = []
             for tupla in resultados:
                 gastos_objetos.append(Gasto(id=tupla[0], nome=tupla[1], valor=tupla[2], 
                                             categoria=tupla[3], descricao=tupla[4], data=tupla[5]))
         
+            # Este loop agora vai rodar por completo para todos os gastos
             for gasto in gastos_objetos:
                 valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
 
-                print('-' * TM)
+                print(f'{VERDE}-{RESET}' * TM)
                 print(f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, Valor: {valor_formatado}, Categoria: {VERDE}{gasto.categoria}{RESET}, Descrição: {gasto.descricao}, Data: {gasto.data} ")
-                print('-' * TM)
+                print(f'{VERDE}-{RESET}' * TM)
         
-                return gastos_objetos
+            # O return foi movido para fora do loop.
+            # Ele só será executado DEPOIS que o loop de print terminar.
+            return gastos_objetos
 
-            print(f"Nenhum gasto encontrado Na categoria: {categoria}.")
-            return None
     except Exception as e:
         print(f"Erro ao buscar gasto: {e}")
         return None

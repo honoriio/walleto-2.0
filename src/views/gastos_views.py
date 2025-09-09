@@ -4,7 +4,7 @@ import string
 import datetime
 from src.models.gastos import Gasto
 
-TM = 120
+TM = 160
 
 def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME
     while True:
@@ -23,11 +23,11 @@ def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME
             print(f"ERRO: {erro}")
 
 
-def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
+def valor_gasto(valor): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
     while True:
         try:
             print("-" * TM)
-            valor = input("Valor R$: ")
+            valor = input(valor)
             valor = valor.replace(',', '.')  # --> Substitui a vírgula por ponto
             valor = Decimal(valor)
             if valor <= 0: # --> VALIDAÇÃO 1, O VALOR NÃO PODE SER MENOR OU IGUAL A ZERO.
@@ -121,6 +121,7 @@ def entrada_gastos(): # --> REUNE TODAS AS FUNÇÕES DE COLETA DE DADOS NA ORDEM
 def id_editar_gsato(): # --> Função que coleta o ID do gasto para edição
    while True:
         # Pede o dado ao usuário usando a mensagem fornecida
+        print("-" * TM)
         entrada_usuario = input("Informe o id do gasto: ")
         
         try:
@@ -134,6 +135,7 @@ def id_editar_gsato(): # --> Função que coleta o ID do gasto para edição
 def nome_editar_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME PARA EDITAR UM GASTO
     while True:
         try:
+            print("-" * TM)
             nome = input('Nome do gasto: ').strip()
             
             if len(nome) >= 41: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
@@ -147,6 +149,7 @@ def nome_editar_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME PARA 
 def valor_editar_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
     while True:
         try:
+            print("-" * TM)
             valor = input("Valor R$: ")
             if valor == "":
                 return valor
@@ -167,6 +170,7 @@ def valor_editar_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO G
 def categoria_editar_gasto(): # --> COLETA E TRATA A CATEGORIA
     while True:
         try:
+            print("-" * TM)
             categoria = input('Categoria: ').strip().capitalize()
             
             caracteres_proibidos = string.punctuation + string.digits
@@ -185,6 +189,7 @@ def categoria_editar_gasto(): # --> COLETA E TRATA A CATEGORIA
 def descricao_editar_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
     while True:
         try:
+            print("-" * TM)
             descricao = input("Descrição: ").strip().lower()
             
             if len(descricao) >= 500: # -->  CAMPO DESCRIÇÃO NÃO PODE TER MAIS DE 500 CARACTERES
@@ -197,6 +202,7 @@ def descricao_editar_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
 def data_editar_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO
     while True:
         try:
+            print("-" * TM)
             data_str = input("Data (DD/MM/AAAA): ").strip()
             
             if not data_str:

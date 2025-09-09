@@ -2,9 +2,10 @@
 from src.views.gastos_views import entrada_gastos, coletar_dados_edicao
 from src.views.usuario_views import nome_usuario, email_usuario, sexo_usuario, data_nascimento_usuario
 from src.models.gastos import criar_tabela, inserir_gasto, listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor, Gasto
-from src.views.menus import menu_principal, menu_gerenciar_gastos, consultas_e_relatorios, menu_listar_gastos, cabecalho_excluir_gasto, cabecalho_buscar_por_id, menu_filtrar_categoria, menu_filtrar_data, menu_filtrar_valor, menu_anterior
-from src.views.tela import encerrar_programa, limpar_tela, exibir_mensagem
+from src.views.menus import *
+from src.views.tela import encerrar_programa, exibir_mensagem
 from src.views.colors import cores
+import time
 
 
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET =  cores()
@@ -22,6 +23,7 @@ def main():
 
                 match opc:
                     case 1: # --> ADICIONAR GASTOS
+                        menu_adicionar_gastos()
                         novo_gasto  = entrada_gastos()
                         resultado = inserir_gasto(novo_gasto)
                         if resultado["status"] == "sucesso":
@@ -30,6 +32,7 @@ def main():
                             exibir_mensagem(resultado["mensagem"], VERMELHO)
 
                     case 2: # --> EDITAR GASTOS JA CRIADOS.
+                        menu_editar_gasto()
                         dados = coletar_dados_edicao()
                         resultado = editar_gastos(dados)
 
@@ -48,9 +51,13 @@ def main():
                         else:
                             exibir_mensagem(resultado["mensagem"], VERMELHO)
                             menu_anterior() # --> Retorna ao menu anterior
-
+                    
                     case 0: # --> Volta para o menu anterior
-                        continue
+                        break
+                    
+                    case _: # O "_" captura qualquer outra opção
+                        print(f"{VERMELHO}Opção inválida. Por favor, tente novamente.{RESET}")
+                        time.sleep(2)
 
             case 2: # --> Menu de consultas e relatorios.
                 opc = consultas_e_relatorios()
@@ -82,10 +89,18 @@ def main():
                         menu_anterior() # --> Retorna ao menu anterior
 
                     case 0: # --> volta ao menu principal
-                        continue
+                        break
+
+                    case _: # O "_" captura qualquer outra opção
+                        print(f"{VERMELHO}Opção inválida. Por favor, tente novamente.{RESET}")
+                        time.sleep(2)
 
             case 0: # --> Encerra o Programa.
                 encerrar_programa()
+
+            case _: # O "_" captura qualquer outra opção
+                print(f"{VERMELHO}Opção inválida. Por favor, tente novamente.{RESET}")
+                time.sleep(2)
 
 if __name__ == "__main__":   
     main()

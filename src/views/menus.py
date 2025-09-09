@@ -9,7 +9,7 @@ from utils.utils_layer import validar_e_converter_data
 
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET = cores()
 
-TM = 120
+TM = 160
 
 def menu_principal():
     limpar_tela()
@@ -142,11 +142,12 @@ def cabecalho_buscar_por_id():
 def menu_filtrar_categoria():
     limpar_tela() 
     print('=' * TM)
-    print(f'{AMARELO}BUSCA POR ID{RESET}'.center(TM))
+    print(f'{AMARELO}BUSCAR POR CATEGORIA{RESET}'.center(TM))
     print('=' * TM)
 
     while True:
         try:
+            print("-" * TM)
             categoria = input('Categoria: ').strip().capitalize()
             if not categoria: # --> CASO O USUARIO NÃO INFORME A CATEGORIA DO GASTO, O PROGRAMA INSERE UMA MENSAGEM GENERICA NA CATEORIA
                 categoria = "Categoria não informada"
@@ -175,6 +176,7 @@ def menu_filtrar_data():
     while True:
         # --- Obter Data Inicial ---
         try:
+            print("-" * TM)
             data_inicio_str = input("Data início (DD/MM/AAAA) [Obrigatório]: ").strip()
             if not data_inicio_str:
                 print("ERRO: A data inicial não pode estar em branco. Tente novamente.")
@@ -216,10 +218,10 @@ def menu_filtrar_valor(): # --> Analisar possiveis melhorias na coleta dos valor
     print('=' * TM)
     print(f'{VERDE}BUSCA POR VALOR{RESET}'.center(TM))
     print('=' * TM)
-
-    valor_min = valor_gasto()
-    print("-" * TM)
-    valor_max = valor_gasto()
+    valor_a = "Valor Inicio: R$ "
+    valor_b =  "Valor Final: R$ "
+    valor_min = valor_gasto(valor_a)
+    valor_max = valor_gasto(valor_b)
     print("=" * TM)
 
     return valor_min, valor_max
@@ -229,6 +231,27 @@ def menu_anterior():
     print("=" * TM)
     print(f"{VERDE}[0]{RESET} - {AMARELO}VOLTAR AO MENU ANTERIOR{RESET}")
     print("=" * TM)
-    opc = input("Opção: ")
+    while True:
+        try:    
+            opc = int(input("Opção: "))
 
-    return opc
+            if opc != 0:
+                raise ValueError
+        
+            return opc
+        
+        except ValueError:
+            print("Por favor, digite ZERO para voltar ao menu anterior.")
+
+
+def menu_adicionar_gastos():
+    limpar_tela()
+    print("=" * TM)
+    print(f"{VERDE}ADICIONAR GASTOS{RESET}".center(TM))
+    print("=" * TM)
+
+def menu_editar_gasto():
+    limpar_tela()
+    print("=" * TM)
+    print(f"{VERDE}EDITAR GASTOS{RESET}".center(TM))
+    print("=" * TM)
