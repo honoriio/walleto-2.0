@@ -19,8 +19,9 @@ def limpar_tela():
 
 
 def exibir_mensagem(mensagem, cor):
+    print("-" * TM)
     print(f'{cor}{mensagem}{RESET}')
-
+    time.sleep(2)
 
 
 

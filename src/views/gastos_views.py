@@ -4,11 +4,12 @@ import string
 import datetime
 from src.models.gastos import Gasto
 
-
+TM = 120
 
 def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME
     while True:
         try:
+            print("-" * TM)
             nome = input('Nome do gasto: ').strip()
             
             if not nome: # --> VALIDAÇÃO 1, VERIFICA SE A STRING ESTA VAZIA
@@ -25,6 +26,7 @@ def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME
 def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
     while True:
         try:
+            print("-" * TM)
             valor = input("Valor R$: ")
             valor = valor.replace(',', '.')  # --> Substitui a vírgula por ponto
             valor = Decimal(valor)
@@ -44,6 +46,7 @@ def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO IN
 def categoria_gasto(): # --> COLETA E TRATA A CATEGORIA
     while True:
         try:
+            print("-" * TM)
             categoria = input('Categoria: ').strip().capitalize()
             if not categoria: # --> CASO O USUARIO NÃO INFORME A CATEGORIA DO GASTO, O PROGRAMA INSERE UMA MENSAGEM GENERICA NA CATEORIA
                 categoria = "Categoria não informada"
@@ -64,6 +67,7 @@ def categoria_gasto(): # --> COLETA E TRATA A CATEGORIA
 def descricao_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
     while True:
         try:
+            print("-" * TM)
             descricao = input("Descrição: ").strip().lower()
             if not descricao: # --> CASO O USUARIO NÃO INFPORME UMA DESCRIÇÃO O PROGRAMA IRA INSERIR UMA DESCRIÇÃO GENERICA
                 descricao = "Descrição não informada pelo usuario"
@@ -80,6 +84,7 @@ def descricao_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
 def data_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO
     while True:
         try:
+            print("-" * TM)
             data_str = input("Data (DD/MM/AAAA): ").strip()
             
             if not data_str:

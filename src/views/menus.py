@@ -2,6 +2,7 @@
 from src.views.colors import cores
 from decimal import InvalidOperation 
 from src.views.tela import limpar_tela
+from src.views.gastos_views import valor_gasto
 import string
 import datetime 
 from utils.utils_layer import validar_e_converter_data
@@ -208,3 +209,26 @@ def menu_filtrar_data():
 
         
         return data_inicio_obj.strftime("%d/%m/%Y"), data_final_obj.strftime("%d/%m/%Y")
+    
+
+def menu_filtrar_valor(): # --> Analisar possiveis melhorias na coleta dos valores.
+    limpar_tela()
+    print('=' * TM)
+    print(f'{VERDE}BUSCA POR VALOR{RESET}'.center(TM))
+    print('=' * TM)
+
+    valor_min = valor_gasto()
+    print("-" * TM)
+    valor_max = valor_gasto()
+    print("=" * TM)
+
+    return valor_min, valor_max
+
+
+def menu_anterior():
+    print("=" * TM)
+    print(f"{VERDE}[0]{RESET} - {AMARELO}VOLTAR AO MENU ANTERIOR{RESET}")
+    print("=" * TM)
+    opc = input("Opção: ")
+
+    return opc

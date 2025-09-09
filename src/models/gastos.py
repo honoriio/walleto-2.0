@@ -60,6 +60,7 @@ def inserir_gasto(gasto): # insere os valores informados pelo usuario a tabela g
                 return {"status": "sucesso", "mensagem": "Gasto Cadastrado com Sucesso!"}
             else:
                 return {"status": "erro", "mensagem": "Nenhum gasto cadastrado"}
+            
     except Exception as e:
         return {"status": "erro", "mensagem": f"Erro ao cadastrar gasto: {e}"}
 
@@ -232,9 +233,12 @@ def filtrar_gastos_data(data_inicio, data_final):
 def filtrar_gasto_valor(valor_min, valor_max):
     with get_connection() as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM gastos WHERE valor BETWEEN ? AND ?", (valor_min, valor_max))
+        cursor.execute("SELECT * FROM gastos WHERE valor BETWEEN ? AND ?", (str(valor_min), str(valor_max)))
         resultados = cursor.fetchall()
         
+        if not resultados:
+            print("Não existe gasto com essa faixa de valor.")
+
         gastos_objetos = []
         for tupla in resultados:
             gastos_objetos.append(Gasto(id=tupla[0], nome=tupla[1], valor=tupla[2], 
