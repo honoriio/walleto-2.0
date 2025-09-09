@@ -3,6 +3,9 @@ from src.views.colors import cores
 from decimal import InvalidOperation 
 from src.views.tela import limpar_tela
 import string
+import datetime 
+from utils.utils_layer import validar_e_converter_data
+
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET = cores()
 
 TM = 120
@@ -158,3 +161,50 @@ def menu_filtrar_categoria():
             
         except ValueError as erro:
             print(f"ERRO: {erro}")
+
+
+
+
+def menu_filtrar_data():
+    limpar_tela()
+    print('=' * TM)
+    print(f'{VERDE}BUSCA POR DATA{RESET}'.center(TM))
+    print('=' * TM)
+
+    while True:
+        # --- Obter Data Inicial ---
+        try:
+            data_inicio_str = input("Data início (DD/MM/AAAA) [Obrigatório]: ").strip()
+            if not data_inicio_str:
+                print("ERRO: A data inicial não pode estar em branco. Tente novamente.")
+                continue
+
+            data_inicio_obj = validar_e_converter_data(data_inicio_str)
+
+        except ValueError as e:
+            print(f"ERRO (Data Início): {e}")
+            continue
+
+        # --- Obter Data Final ---
+        try:
+            print("-" * TM)
+            data_final_str = input("Data final (DD/MM/AAAA) [Pressione ENTER para hoje]: ").strip()
+            
+            if not data_final_str:
+                # Se o usuário pressionar Enter, usa a data de hoje como padrão
+                data_final_obj = datetime.date.today()
+            else:
+                data_final_obj = validar_e_converter_data(data_final_str)
+
+        except ValueError as e:
+            print(f"ERRO (Data Final): {e}")
+            continue
+        
+        # --- Validação de Intervalo ---
+        if data_final_obj < data_inicio_obj:
+            print(f"ERRO: A data final ({data_final_obj.strftime('%d/%m/%Y')}) não pode ser anterior à data inicial ({data_inicio_obj.strftime('%d/%m/%Y')}).")
+            print("-" * TM)
+            continue # Reinicia o processo de solicitação de datas
+
+        
+        return data_inicio_obj.strftime("%d/%m/%Y"), data_final_obj.strftime("%d/%m/%Y")
