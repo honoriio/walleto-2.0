@@ -1,7 +1,7 @@
 # Área destinada as importações
 from src.views.gastos_views import entrada_gastos, coletar_dados_edicao
 from src.views.usuario_views import nome_usuario, email_usuario, sexo_usuario, data_nascimento_usuario
-from src.models.gastos import criar_tabela, inserir_gasto, listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, Gasto
+from src.models.gastos import criar_tabela, inserir_gasto, listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, Gasto
 from src.views.menus import menu_principal, menu_gerenciar_gastos, consultas_e_relatorios, menu_listar_gastos, cabecalho_excluir_gasto, cabecalho_buscar_por_id, menu_filtrar_categoria, menu_filtrar_data
 from src.views.tela import encerrar_programa, limpar_tela, exibir_mensagem
 import time
@@ -72,7 +72,9 @@ def main():
                         time.sleep(5) # --> CRIAR A LOGICA PARA NÃO TER QUE USAR TIME
 
                     case 4:
-                        data_busca = menu_filtrar_data()
+                        data_inicio, data_final = menu_filtrar_data()
+                        filtrar_gastos_data(data_inicio, data_final)
+                        time.sleep(5)
                         
                         pass
 
