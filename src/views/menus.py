@@ -5,7 +5,7 @@ from src.views.tela import limpar_tela
 from src.views.gastos_views import valor_gasto
 import string
 import datetime 
-from utils.utils_layer import validar_e_converter_data
+from src.utils.utils_layer import validar_e_converter_data
 
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET = cores()
 
