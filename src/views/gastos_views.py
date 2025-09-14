@@ -23,11 +23,11 @@ def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME
             print(f"ERRO: {erro}")
 
 
-def valor_gasto(valor): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
+def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
     while True:
         try:
             print("-" * TM)
-            valor = input(valor)
+            valor = input('Valor: R$ ')
             valor = valor.replace(',', '.')  # --> Substitui a vírgula por ponto
             valor = Decimal(valor)
             if valor <= 0: # --> VALIDAÇÃO 1, O VALOR NÃO PODE SER MENOR OU IGUAL A ZERO.
@@ -243,3 +243,24 @@ def coletar_dados_edicao(): # --> essa função coleta e passa os dados para a f
         "descricao": descricao if descricao else None,
         "data": data if data else None
         }
+
+
+
+
+def valor_gasto_filtrar(mensagem): # --> FUNÇÃO USADA PARA COELTAR  VALORES PARA BUSCA DE GASTOS COM PERIODO DE VALOR, A MESMA RECEBE UYM STRING PARA A MENSAGEM PARA O USUARIO
+    while True:
+        try:
+            print("-" * TM)
+            valor = input(f"{mensagem}")
+            valor = valor.replace(',', '.')  # --> Substitui a vírgula por ponto
+            valor = Decimal(valor)
+            if valor <= 0: # --> VALIDAÇÃO 1, O VALOR NÃO PODE SER MENOR OU IGUAL A ZERO.
+                raise ValueError
+            
+            return valor
+            
+        except InvalidOperation:
+            print("Por favor, informe um valor numérico válido (ex: 10,50 ou 100).")
+
+        except ValueError:
+            print("O valor não pode ser negativo ou menor que zero.")

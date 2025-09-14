@@ -100,6 +100,7 @@ def buscar_gasto_por_id(id: int):
                 
                 # 2. Mantém o print de exibição
                 valor_formatado = f"R$ {gasto_obj.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+                print("-" * TM)
                 print(f"ID: {gasto_obj.id} | Nome Do Gasto: {gasto_obj.nome} | Valor: {valor_formatado} | Categoria: {gasto_obj.categoria} | Descrição: {gasto_obj.descricao} | Data: {gasto_obj.data} ")
                 print('-' * TM)
                 
@@ -222,7 +223,7 @@ def filtrar_gastos_data(data_inicio, data_final):
 
         for gasto in gastos_objetos:
             valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
-            # Removi a variável VERDE para funcionar em qualquer lugar
+            print("-" * TM)
             print(f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, Valor: {valor_formatado}, Categoria: {gasto.categoria}, Descrição: {gasto.descricao}, Data: {VERDE}{gasto.data}{RESET} ")
             print('-' * TM)
         

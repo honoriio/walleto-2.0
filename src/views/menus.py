@@ -2,7 +2,7 @@
 from src.views.colors import cores
 from decimal import InvalidOperation 
 from src.views.tela import limpar_tela
-from src.views.gastos_views import valor_gasto
+from src.views.gastos_views import valor_gasto_filtrar
 import string
 import datetime 
 from src.utils.utils_layer import validar_e_converter_data
@@ -99,7 +99,7 @@ def consultas_e_relatorios():
 def menu_listar_gastos():
     limpar_tela()
     print("=" * TM)
-    print(f"{VERDE}LISTA DE GASTOS{RESET}".center(120))
+    print(f"{VERDE}LISTA DE GASTOS{RESET}".center(TM))
     print("=" * TM)
 
 def cabecalho_excluir_gasto():
@@ -218,10 +218,10 @@ def menu_filtrar_valor(): # --> Analisar possiveis melhorias na coleta dos valor
     print('=' * TM)
     print(f'{VERDE}BUSCA POR VALOR{RESET}'.center(TM))
     print('=' * TM)
-    valor_a = "Valor Inicio: R$ "
-    valor_b =  "Valor Final: R$ "
-    valor_min = valor_gasto(valor_a)
-    valor_max = valor_gasto(valor_b)
+    valor_a = "Valor Inicial: R$ "
+    valor_b = "Valor Final: R$ "
+    valor_min = valor_gasto_filtrar(valor_a)
+    valor_max = valor_gasto_filtrar(valor_b)
     print("=" * TM)
 
     return valor_min, valor_max
