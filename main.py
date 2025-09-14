@@ -53,7 +53,7 @@ def main():
                             menu_anterior() # --> Retorna ao menu anterior
                     
                     case 0: # --> Volta para o menu anterior
-                        break
+                        continue # ---> usado para voltar ao menu anterior
                     
                     case _: # O "_" captura qualquer outra opção
                         print(f"{VERMELHO}Opção inválida. Por favor, tente novamente.{RESET}")
@@ -89,8 +89,8 @@ def main():
                         menu_anterior() # --> Retorna ao menu anterior
 
                     case 0: # --> volta ao menu principal
-                        break
-
+                        continue  # ---> usado para voltar ao menu anterior
+ 
                     case _: # O "_" captura qualquer outra opção
                         print(f"{VERMELHO}Opção inválida. Por favor, tente novamente.{RESET}")
                         time.sleep(2)

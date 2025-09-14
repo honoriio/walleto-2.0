@@ -14,7 +14,7 @@ TM = 160
 def menu_principal():
     limpar_tela()
     print('=' * TM)
-    print(f"{VERDE}WALLETO - MENU PRINCIPAL{RESET}".center(100))
+    print(f"{VERDE}WALLETO - MENU PRINCIPAL{RESET}".center(TM))
     print('=' * TM)
     print("[1] - Gerenciar Gastos")
     print("[2] - Consultar Gastos e Relatorios")
@@ -41,7 +41,7 @@ def menu_principal():
 def menu_gerenciar_gastos():
     limpar_tela()
     print('=' * TM)
-    print(f"{VERDE}GERENCIAR GASTOS{RESET}".center(100))
+    print(f"{VERDE}GERENCIAR GASTOS{RESET}".center(TM))
     print('=' * TM)
     print("[1] - Adicionar Novo Gasto")
     print("[2] - Editar Gasto")

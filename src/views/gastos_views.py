@@ -118,7 +118,7 @@ def entrada_gastos(): # --> REUNE TODAS AS FUNÇÕES DE COLETA DE DADOS NA ORDEM
 # ------------------- FUNÇÕES PARA COLETAR DADOS PARA EDIÇÃO ----------------------------------
 
 
-def id_editar_gsato(): # --> Função que coleta o ID do gasto para edição
+def id_editar_gasto(): # --> Função que coleta o ID do gasto para edição
    while True:
         # Pede o dado ao usuário usando a mensagem fornecida
         print("-" * TM)
@@ -225,7 +225,7 @@ def data_editar_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO
 
 
 def coletar_dados_edicao(): # --> essa função coleta e passa os dados para a função de editar gastos la no main
-    id = id_editar_gsato()
+    id =    ()
     nome = nome_editar_gasto()
     valor = valor_editar_gasto()
     categoria = categoria_editar_gasto()
