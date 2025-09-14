@@ -1,7 +1,7 @@
 # Área destinada as importações
 from src.views.gastos_views import entrada_gastos, coletar_dados_edicao
 from src.views.usuario_views import nome_usuario, email_usuario, sexo_usuario, data_nascimento_usuario
-from src.models.gastos import criar_tabela, inserir_gasto, listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor, Gasto
+from src.models.gastos import criar_tabela, inserir_gasto, listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor, calcular_gastos, Gasto
 from src.views.menus import *
 from src.views.tela import encerrar_programa, exibir_mensagem
 from src.views.colors import cores
@@ -65,7 +65,8 @@ def main():
                 match opc:
                     case 1:# --> Lista todos os gastos
                         menu_listar_gastos()
-                        listar_gastos()
+                        gasto = listar_gastos()
+                        calcular_gastos(gasto)
                         menu_anterior() # --> Retorna ao menu anterior
                     
                     case 2: # --> Busca gastos por ID

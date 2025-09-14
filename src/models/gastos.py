@@ -312,4 +312,8 @@ def calcular_gastos(lista_de_gastos: list[Gasto]):
     if not lista_de_gastos:
         return Decimal('0.00')
     total = sum(gasto.valor for gasto in lista_de_gastos)
+
+    valor_formatado = f"R$ {total:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+    print("=" * TM)
+    print(f"Valor Total Gasto: {VERDE}{valor_formatado}{RESET}")
     return total
