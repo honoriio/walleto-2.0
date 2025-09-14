@@ -225,7 +225,7 @@ def data_editar_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO
 
 
 def coletar_dados_edicao(): # --> essa função coleta e passa os dados para a função de editar gastos la no main
-    id =    ()
+    id = id_editar_gasto()
     nome = nome_editar_gasto()
     valor = valor_editar_gasto()
     categoria = categoria_editar_gasto()

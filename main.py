@@ -1,5 +1,5 @@
 # Área destinada as importações
-from src.views.gastos_views import entrada_gastos, coletar_dados_edicao
+from src.views.gastos_views import entrada_gastos, coletar_dados_edicao, id_editar_gasto
 from src.views.usuario_views import nome_usuario, email_usuario, sexo_usuario, data_nascimento_usuario
 from src.models.gastos import criar_tabela, inserir_gasto, listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor, calcular_gastos, Gasto
 from src.views.menus import *
@@ -76,17 +76,20 @@ def main():
 
                     case 3: # --> Busca gastos por categoria
                         categoria_busca = menu_filtrar_categoria()
-                        filtrar_gastos_categoria(categoria_busca)
+                        gasto = filtrar_gastos_categoria(categoria_busca)
+                        calcular_gastos(gasto)
                         menu_anterior() # --> Retorna ao menu anterior
 
                     case 4: # --> Busca gastos por datas
                         data_inicio, data_final = menu_filtrar_data()
-                        filtrar_gastos_data(data_inicio, data_final)
+                        gasto = filtrar_gastos_data(data_inicio, data_final)
+                        calcular_gastos(gasto)
                         menu_anterior() # --> Retorna ao menu anterior
 
                     case 5: # --> Filtra gastos por valores
                         valor_min, valor_max = menu_filtrar_valor()
-                        filtrar_gasto_valor(valor_min, valor_max)
+                        gasto = filtrar_gasto_valor(valor_min, valor_max)
+                        calcular_gastos(gasto)
                         menu_anterior() # --> Retorna ao menu anterior
 
                     case 0: # --> volta ao menu principal
