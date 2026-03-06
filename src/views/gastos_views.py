@@ -6,7 +6,7 @@ from src.models.gastos import Gasto
 
 TM = 160
 
-def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME
+def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME  --> Refatorar essa função e deixar a mesma mais simples, porem sem perder qualidade
     while True:
         try:
             print("-" * TM)
@@ -43,7 +43,7 @@ def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO IN
             
         
 
-def categoria_gasto(): # --> COLETA E TRATA A CATEGORIA
+def categoria_gasto(): # --> Refatorar essa função e adicionar um menu para escolhas de categorias. 
     while True:
         try:
             print("-" * TM)
@@ -119,7 +119,7 @@ def entrada_gastos(): # --> REUNE TODAS AS FUNÇÕES DE COLETA DE DADOS NA ORDEM
 
 
 def id_editar_gasto(): # --> Função que coleta o ID do gasto para edição
-   while True:
+    while True:
         # Pede o dado ao usuário usando a mensagem fornecida
         print("-" * TM)
         entrada_usuario = input("Informe o id do gasto: ")

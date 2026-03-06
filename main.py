@@ -94,7 +94,7 @@ def main():
 
                     case 0: # --> volta ao menu principal
                         continue  # ---> usado para voltar ao menu anterior
- 
+
                     case _: # O "_" captura qualquer outra opção
                         print(f"{VERMELHO}Opção inválida. Por favor, tente novamente.{RESET}")
                         time.sleep(2)

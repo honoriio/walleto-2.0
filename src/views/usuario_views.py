@@ -2,16 +2,16 @@
 import re 
 import datetime
 
-def nome_usuario():
-     while True:
+def nome_usuario(): # ---> refatorar e tirar o try o mesmo não tem necessidade de estar aqui.
+    while True:
         try:
             nome = input('Nome do usuário: ').strip()
             
             if not nome: # --> VALIDAÇÃO 1, VERIFICA SE A STRING ESTA VAZIA
                 raise ValueError("O nome não pode estar vazio.")
             
-            if len(nome) >= 300: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
-                raise ValueError("O nome não pode ter mais que 300 caracteres.")
+            if len(nome) >= 100: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 100 CARACTERES
+                raise ValueError("O nome não pode ter mais que 100 caracteres.")
             return nome
             
         except ValueError as erro:

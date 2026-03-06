@@ -120,7 +120,6 @@ def cabecalho_excluir_gasto():
             print("Erro: Por favor, digite apenas números inteiros. Tente novamente.")
 
 
-    
 def cabecalho_buscar_por_id():
     limpar_tela() 
     print('=' * TM)
@@ -163,8 +162,6 @@ def menu_filtrar_categoria():
             
         except ValueError as erro:
             print(f"ERRO: {erro}")
-
-
 
 
 def menu_filtrar_data():
