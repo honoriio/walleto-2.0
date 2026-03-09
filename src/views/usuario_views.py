@@ -4,18 +4,18 @@ import datetime
 
 def nome_usuario(): # ---> refatorar e tirar o try o mesmo não tem necessidade de estar aqui.
     while True:
-        try:
-            nome = input('Nome do usuário: ').strip()
+        nome = input('Nome do usuário: ').strip()
             
-            if not nome: # --> VALIDAÇÃO 1, VERIFICA SE A STRING ESTA VAZIA
-                raise ValueError("O nome não pode estar vazio.")
+        if not nome: # --> VALIDAÇÃO 1, VERIFICA SE A STRING ESTA VAZIA
+            print("O nome não pode estar vazio.")
+            continue
             
-            if len(nome) >= 100: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 100 CARACTERES
-                raise ValueError("O nome não pode ter mais que 100 caracteres.")
-            return nome
+        if len(nome) >= 100: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 100 CARACTERES
+            print("O nome não pode ter mais que 100 caracteres.")
+            continue
+
+        return nome
             
-        except ValueError as erro:
-            print(f"ERRO: {erro}")
 
 
 
@@ -33,7 +33,7 @@ def email_usuario():
         else:
             print('O e-mail informado não é válido.')
         
-        
+
 def sexo_usuario():
     masculino = "Masculino"
     feminino = "Feminino"
