@@ -191,10 +191,6 @@ def descricao_editar_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
     while True:
         print("-" * TM)
         descricao = input("Descrição: ").strip().lower()
-            
-        if not descricao:
-            print("Por favor informe a nova descrição")
-            continue
 
         if len(descricao) >= 300: # -->  CAMPO DESCRIÇÃO NÃO PODE TER MAIS DE 500 CARACTERES
             print("Descrção não pode ter mais que 300 caracteres.")
