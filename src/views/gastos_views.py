@@ -66,18 +66,16 @@ def categoria_gasto(): # --> Refatorar essa função e adicionar um menu para es
 
 def descricao_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
     while True:
-        try:
-            print("-" * TM)
-            descricao = input("Descrição: ").strip().lower()
-            if not descricao: # --> CASO O USUARIO NÃO INFPORME UMA DESCRIÇÃO O PROGRAMA IRA INSERIR UMA DESCRIÇÃO GENERICA
-                descricao = "Descrição não informada pelo usuario"
+        print("-" * TM)
+        descricao = input("Descrição: ").strip().lower()
+        if not descricao: # --> CASO O USUARIO NÃO INFPORME UMA DESCRIÇÃO O PROGRAMA IRA INSERIR UMA DESCRIÇÃO GENERICA
+            return "Descrição não informada pelo usuario"
             
-            if len(descricao) >= 500: # -->  CAMPO DESCRIÇÃO NÃO PODE TER MAIS DE 500 CARACTERES
-                raise ValueError("Descrção não pode ter mais que 500 caracteres.")
-            return descricao
-        
-        except ValueError as erro:
-            print(f"ERRO: {erro}")
+        if len(descricao) >= 300: # -->  CAMPO DESCRIÇÃO NÃO PODE TER MAIS DE 300 CARACTERES
+            print("Descrção não pode ter mais que 300 caracteres.")
+            continue
+
+        return descricao
 
 
 
