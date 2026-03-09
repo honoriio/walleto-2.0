@@ -247,7 +247,7 @@ def coletar_dados_edicao(): # --> essa função coleta e passa os dados para a f
 
 
 
-def valor_gasto_filtrar(mensagem): # --> FUNÇÃO USADA PARA COELTAR  VALORES PARA BUSCA DE GASTOS COM PERIODO DE VALOR, A MESMA RECEBE UYM STRING PARA A MENSAGEM PARA O USUARIO
+def valor_gasto_filtrar(mensagem): # --> FUNÇÃO USADA PARA COLETAR  VALORES PARA BUSCA DE GASTOS COM PERIODO DE VALOR, A MESMA RECEBE UYM STRING PARA A MENSAGEM PARA O USUARIO
     while True:
         try:
             print("-" * TM)

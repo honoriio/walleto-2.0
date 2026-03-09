@@ -1,4 +1,5 @@
 # Área destinada as importações
+import time
 from src.views.colors import cores
 from decimal import InvalidOperation 
 from src.views.tela import limpar_tela
@@ -209,19 +210,27 @@ def menu_filtrar_data():
         
         return data_inicio_obj.strftime("%d/%m/%Y"), data_final_obj.strftime("%d/%m/%Y")
     
-
-def menu_filtrar_valor(): # --> Analisar possiveis melhorias na coleta dos valores.
+# --> Essa função foi refatorada para verificar se o valor maximo e maior que o valor minimo inserido pelo usuario para ser usada para filtrar gasto por valor.
+def menu_filtrar_valor(): 
     limpar_tela()
     print('=' * TM)
     print(f'{VERDE}BUSCA POR VALOR{RESET}'.center(TM))
     print('=' * TM)
+
     valor_a = "Valor Inicial: R$ "
     valor_b = "Valor Final: R$ "
-    valor_min = valor_gasto_filtrar(valor_a)
-    valor_max = valor_gasto_filtrar(valor_b)
-    print("=" * TM)
 
-    return valor_min, valor_max
+    valor_min = valor_gasto_filtrar(valor_a)
+
+    while True:
+        valor_max = valor_gasto_filtrar(valor_b)
+
+        if valor_max <= valor_min:
+            print(f"O valor máximo deve ser maior que R$ {valor_min}.")
+            time.sleep(2)
+        else:
+            print("=" * TM)
+            return valor_min, valor_max
 
 
 def menu_anterior():
