@@ -138,7 +138,7 @@ def nome_editar_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME PARA 
         if not nome:
             print("O nome não pode estar vazio")
             continue
-            
+
         if len(nome) >= 41: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
             print("O nome não pode ter mais que 40 caracteres.")
             continue
@@ -189,16 +189,19 @@ def categoria_editar_gasto(): # --> COLETA E TRATA A CATEGORIA
 
 def descricao_editar_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
     while True:
-        try:
-            print("-" * TM)
-            descricao = input("Descrição: ").strip().lower()
+        print("-" * TM)
+        descricao = input("Descrição: ").strip().lower()
             
-            if len(descricao) >= 500: # -->  CAMPO DESCRIÇÃO NÃO PODE TER MAIS DE 500 CARACTERES
-                raise ValueError("Descrção não pode ter mais que 500 caracteres.")
-            return descricao
+        if not descricao:
+            print("Por favor informe a nova descrição")
+            continue
+
+        if len(descricao) >= 300: # -->  CAMPO DESCRIÇÃO NÃO PODE TER MAIS DE 500 CARACTERES
+            print("Descrção não pode ter mais que 300 caracteres.")
+            continue
+
+        return descricao
         
-        except ValueError as erro:
-            print(f"ERRO: {erro}")
 
 def data_editar_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO
     while True:
