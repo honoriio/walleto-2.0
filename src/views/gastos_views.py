@@ -6,22 +6,22 @@ from src.models.gastos import Gasto
 
 TM = 160
 
-def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME  --> Refatorar essa função e deixar a mesma mais simples, porem sem perder qualidade
+# Função refatorada, foi tirado o uso sem necessidade de try
+def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME  
     while True:
-        try:
-            print("-" * TM)
-            nome = input('Nome do gasto: ').strip()
+        print("-" * TM)
+        nome = input('Nome do gasto: ').strip()
             
-            if not nome: # --> VALIDAÇÃO 1, VERIFICA SE A STRING ESTA VAZIA
-                raise ValueError("O nome não pode estar vazio.")
+        if not nome: # --> VALIDAÇÃO 1, VERIFICA SE A STRING ESTA VAZIA
+            print("O nome não pode estar vazio.")
+            continue
             
-            if len(nome) >= 41: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
-                raise ValueError("O nome não pode ter mais que 40 caracteres.")
-            return nome
+        if len(nome) >= 41: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
+            print("O nome não pode ter mais que 40 caracteres.")
+            continue
+        
+        return nome
             
-        except ValueError as erro:
-            print(f"ERRO: {erro}")
-
 
 def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
     while True:
