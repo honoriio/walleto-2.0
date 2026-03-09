@@ -132,16 +132,19 @@ def id_editar_gasto(): # --> Função que coleta o ID do gasto para edição
 
 def nome_editar_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME PARA EDITAR UM GASTO
     while True:
-        try:
-            print("-" * TM)
-            nome = input('Nome do gasto: ').strip()
+        print("-" * TM)
+        nome = input('Nome do gasto: ').strip()
+
+        if not nome:
+            print("O nome não pode estar vazio")
+            continue
             
-            if len(nome) >= 41: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
-                raise ValueError("O nome não pode ter mais que 40 caracteres.")
-            return nome
+        if len(nome) >= 41: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
+            print("O nome não pode ter mais que 40 caracteres.")
+            continue
+        
+        return nome
             
-        except ValueError as erro:
-            print(f"ERRO: {erro}")
 
 
 def valor_editar_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
