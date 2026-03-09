@@ -22,23 +22,18 @@ def nome_usuario(): # ---> refatorar e tirar o try o mesmo não tem necessidade 
 def email_usuario():
     padrao = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' # --> PADRÃO DE CARACTERES QUE É USADO NOS EMAILS.
     while True:
-        try:
-            email = input("Digite o e-mail: ")
+        email = input("Digite o e-mail: ")
 
-            if not email: # --> VERIFICA SE A VARIAVEK EMAIL ESTA VAZIA
-                raise ValueError("O e-mail não pode estar em branco.")
+        if not email: # --> VERIFICA SE A VARIAVEK EMAIL ESTA VAZIA
+            print("O e-mail não pode estar em branco.")
             
-            if re.match(padrao, email): # --> FAZ A VERIFICAÇÃO SE O EMAIL SEGUE O PADRÃO CORRETO
-                print("E-mail válido!")
-                return email
-            else:
-                print('O e-mail informado não é válido.')
-
-        except ValueError as erro:
-                print(f"ERRO: {erro}")
+        if re.match(padrao, email): # --> FAZ A VERIFICAÇÃO SE O EMAIL SEGUE O PADRÃO CORRETO
+            print("E-mail válido!")
+            return email
+        else:
+            print('O e-mail informado não é válido.')
         
-    
-
+        
 def sexo_usuario():
     masculino = "Masculino"
     feminino = "Feminino"

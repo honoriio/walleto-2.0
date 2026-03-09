@@ -46,7 +46,7 @@ def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO IN
 def categoria_gasto(): # --> Refatorar essa função e adicionar um menu para escolhas de categorias. 
     while True:
         try:
-            print("-" * TM)
+            print(TM)
             categoria = input('Categoria: ').strip().capitalize()
             if not categoria: # --> CASO O USUARIO NÃO INFORME A CATEGORIA DO GASTO, O PROGRAMA INSERE UMA MENSAGEM GENERICA NA CATEORIA
                 categoria = "Categoria não informada"

@@ -11,6 +11,7 @@ from src.utils.utils_layer import validar_e_converter_data
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET = cores()
 
 TM = 160
+metade = TM // 2
 
 def menu_principal():
     limpar_tela()
@@ -261,3 +262,31 @@ def menu_editar_gasto():
     print("=" * TM)
     print(f"{VERDE}EDITAR GASTOS{RESET}".center(TM))
     print("=" * TM)
+
+
+"""def menu_categorias(): # --> Ainda irei decidir se devo ou não mudar a forma como adicionam as categorias.
+    largura = 29
+    categorias = [
+    "Alimentação","Mercado","Farmácia","Saúde",
+    "Transporte","Combustível","Moradia","Energia",
+    "Água","Internet","Telefone","Assinaturas",
+    "Educação","Cursos","Lazer","Viagem",
+    "Roupas","Beleza","Presentes","Pets",
+    "Manutenção","Casa","Impostos","Taxas",
+    "Investimentos","Poupança","Doações","Seguros",
+    "Trabalho","Outros"
+    ]
+
+    print("=" * TM)
+    print(f"{AMARELO}CATEGORIAS{RESET}".center(TM))
+    print("=" * TM)
+
+    for i in range(0, len(categorias), 2):
+        esquerda = f"[{i+1}] - {categorias[i]}"
+    
+        if i + 1 < len(categorias):
+            direita = f"[{i+2}] - {categorias[i+1]}"
+        else:
+            direita = ""
+    
+        print(f"{esquerda:<{largura}}| {direita:<{largura}}")"""
