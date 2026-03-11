@@ -5,6 +5,7 @@ import platform
 import time
 from src.views.colors import cores
 
+
 TM = 160
 
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET =  cores()
@@ -33,3 +34,15 @@ def encerrar_programa():
     time.sleep(2)
     limpar_tela()
     sys.exit()
+
+
+def extrato(relatorio, saldo): #--> precisamos passar o saldo da conta na hora de chamarmos a função e a lista de transação que e retornada da função obter transações
+
+    print("\nEXTRATO DA CONTA")
+    print("-" * 30)
+
+    for t in relatorio:
+        print(f"{t['tipo']} | R${t['valor']} | {t['descricao']}")
+
+    print("-" * 30)
+    print(f"Saldo atual: R${saldo}")
