@@ -6,22 +6,22 @@ from src.models.gastos import Gasto
 
 TM = 160
 
-def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME  --> Refatorar essa função e deixar a mesma mais simples, porem sem perder qualidade
+# Função refatorada, foi tirado o uso sem necessidade de try
+def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME  
     while True:
-        try:
-            print("-" * TM)
-            nome = input('Nome do gasto: ').strip()
+        print("-" * TM)
+        nome = input('Nome do gasto: ').strip()
             
-            if not nome: # --> VALIDAÇÃO 1, VERIFICA SE A STRING ESTA VAZIA
-                raise ValueError("O nome não pode estar vazio.")
+        if not nome: # --> VALIDAÇÃO 1, VERIFICA SE A STRING ESTA VAZIA
+            print("O nome não pode estar vazio.")
+            continue
             
-            if len(nome) >= 41: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
-                raise ValueError("O nome não pode ter mais que 40 caracteres.")
-            return nome
+        if len(nome) >= 41: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
+            print("O nome não pode ter mais que 40 caracteres.")
+            continue
+        
+        return nome
             
-        except ValueError as erro:
-            print(f"ERRO: {erro}")
-
 
 def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
     while True:
@@ -30,7 +30,7 @@ def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO IN
             valor = input('Valor: R$ ')
             valor = valor.replace(',', '.')  # --> Substitui a vírgula por ponto
             valor = Decimal(valor)
-            if valor <= 0: # --> VALIDAÇÃO 1, O VALOR NÃO PODE SER MENOR OU IGUAL A ZERO.
+            if valor <= 0: # --> VALIDAÇÃO 1, O VALOR NÃO PODE SER MENOR OU IGUAL A ZERO. ,,,
                 raise ValueError
             
             return valor
@@ -46,7 +46,7 @@ def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO IN
 def categoria_gasto(): # --> Refatorar essa função e adicionar um menu para escolhas de categorias. 
     while True:
         try:
-            print("-" * TM)
+            print(TM)
             categoria = input('Categoria: ').strip().capitalize()
             if not categoria: # --> CASO O USUARIO NÃO INFORME A CATEGORIA DO GASTO, O PROGRAMA INSERE UMA MENSAGEM GENERICA NA CATEORIA
                 categoria = "Categoria não informada"
@@ -66,18 +66,16 @@ def categoria_gasto(): # --> Refatorar essa função e adicionar um menu para es
 
 def descricao_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
     while True:
-        try:
-            print("-" * TM)
-            descricao = input("Descrição: ").strip().lower()
-            if not descricao: # --> CASO O USUARIO NÃO INFPORME UMA DESCRIÇÃO O PROGRAMA IRA INSERIR UMA DESCRIÇÃO GENERICA
-                descricao = "Descrição não informada pelo usuario"
+        print("-" * TM)
+        descricao = input("Descrição: ").strip().lower()
+        if not descricao: # --> CASO O USUARIO NÃO INFPORME UMA DESCRIÇÃO O PROGRAMA IRA INSERIR UMA DESCRIÇÃO GENERICA
+            return "Descrição não informada pelo usuario"
             
-            if len(descricao) >= 500: # -->  CAMPO DESCRIÇÃO NÃO PODE TER MAIS DE 500 CARACTERES
-                raise ValueError("Descrção não pode ter mais que 500 caracteres.")
-            return descricao
-        
-        except ValueError as erro:
-            print(f"ERRO: {erro}")
+        if len(descricao) >= 300: # -->  CAMPO DESCRIÇÃO NÃO PODE TER MAIS DE 300 CARACTERES
+            print("Descrção não pode ter mais que 300 caracteres.")
+            continue
+
+        return descricao
 
 
 
@@ -134,16 +132,19 @@ def id_editar_gasto(): # --> Função que coleta o ID do gasto para edição
 
 def nome_editar_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME PARA EDITAR UM GASTO
     while True:
-        try:
-            print("-" * TM)
-            nome = input('Nome do gasto: ').strip()
+        print("-" * TM)
+        nome = input('Nome do gasto: ').strip()
+
+        if not nome:
+            print("O nome não pode estar vazio")
+            continue
+
+        if len(nome) >= 41: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
+            print("O nome não pode ter mais que 40 caracteres.")
+            continue
+        
+        return nome
             
-            if len(nome) >= 41: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
-                raise ValueError("O nome não pode ter mais que 40 caracteres.")
-            return nome
-            
-        except ValueError as erro:
-            print(f"ERRO: {erro}")
 
 
 def valor_editar_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
@@ -188,16 +189,15 @@ def categoria_editar_gasto(): # --> COLETA E TRATA A CATEGORIA
 
 def descricao_editar_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
     while True:
-        try:
-            print("-" * TM)
-            descricao = input("Descrição: ").strip().lower()
-            
-            if len(descricao) >= 500: # -->  CAMPO DESCRIÇÃO NÃO PODE TER MAIS DE 500 CARACTERES
-                raise ValueError("Descrção não pode ter mais que 500 caracteres.")
-            return descricao
+        print("-" * TM)
+        descricao = input("Descrição: ").strip().lower()
+
+        if len(descricao) >= 300: # -->  CAMPO DESCRIÇÃO NÃO PODE TER MAIS DE 500 CARACTERES
+            print("Descrção não pode ter mais que 300 caracteres.")
+            continue
+
+        return descricao
         
-        except ValueError as erro:
-            print(f"ERRO: {erro}")
 
 def data_editar_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO
     while True:
@@ -247,7 +247,7 @@ def coletar_dados_edicao(): # --> essa função coleta e passa os dados para a f
 
 
 
-def valor_gasto_filtrar(mensagem): # --> FUNÇÃO USADA PARA COELTAR  VALORES PARA BUSCA DE GASTOS COM PERIODO DE VALOR, A MESMA RECEBE UYM STRING PARA A MENSAGEM PARA O USUARIO
+def valor_gasto_filtrar(mensagem): # --> FUNÇÃO USADA PARA COLETAR  VALORES PARA BUSCA DE GASTOS COM PERIODO DE VALOR, A MESMA RECEBE UYM STRING PARA A MENSAGEM PARA O USUARIO
     while True:
         try:
             print("-" * TM)

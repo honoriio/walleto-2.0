@@ -4,40 +4,35 @@ import datetime
 
 def nome_usuario(): # ---> refatorar e tirar o try o mesmo não tem necessidade de estar aqui.
     while True:
-        try:
-            nome = input('Nome do usuário: ').strip()
+        nome = input('Nome do usuário: ').strip()
             
-            if not nome: # --> VALIDAÇÃO 1, VERIFICA SE A STRING ESTA VAZIA
-                raise ValueError("O nome não pode estar vazio.")
+        if not nome: # --> VALIDAÇÃO 1, VERIFICA SE A STRING ESTA VAZIA
+            print("O nome não pode estar vazio.")
+            continue
             
-            if len(nome) >= 100: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 100 CARACTERES
-                raise ValueError("O nome não pode ter mais que 100 caracteres.")
-            return nome
+        if len(nome) >= 100: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 100 CARACTERES
+            print("O nome não pode ter mais que 100 caracteres.")
+            continue
+
+        return nome
             
-        except ValueError as erro:
-            print(f"ERRO: {erro}")
 
 
 
 def email_usuario():
     padrao = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$' # --> PADRÃO DE CARACTERES QUE É USADO NOS EMAILS.
     while True:
-        try:
-            email = input("Digite o e-mail: ")
+        email = input("Digite o e-mail: ")
 
-            if not email: # --> VERIFICA SE A VARIAVEK EMAIL ESTA VAZIA
-                raise ValueError("O e-mail não pode estar em branco.")
+        if not email: # --> VERIFICA SE A VARIAVEK EMAIL ESTA VAZIA
+            print("O e-mail não pode estar em branco.")
             
-            if re.match(padrao, email): # --> FAZ A VERIFICAÇÃO SE O EMAIL SEGUE O PADRÃO CORRETO
-                print("E-mail válido!")
-                return email
-            else:
-                print('O e-mail informado não é válido.')
-
-        except ValueError as erro:
-                print(f"ERRO: {erro}")
+        if re.match(padrao, email): # --> FAZ A VERIFICAÇÃO SE O EMAIL SEGUE O PADRÃO CORRETO
+            print("E-mail válido!")
+            return email
+        else:
+            print('O e-mail informado não é válido.')
         
-    
 
 def sexo_usuario():
     masculino = "Masculino"

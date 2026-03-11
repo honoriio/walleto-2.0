@@ -1,4 +1,5 @@
 # Área destinada as importações
+import time
 from src.views.colors import cores
 from decimal import InvalidOperation 
 from src.views.tela import limpar_tela
@@ -10,6 +11,7 @@ from src.utils.utils_layer import validar_e_converter_data
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET = cores()
 
 TM = 160
+metade = TM // 2
 
 def menu_principal():
     limpar_tela()
@@ -209,19 +211,27 @@ def menu_filtrar_data():
         
         return data_inicio_obj.strftime("%d/%m/%Y"), data_final_obj.strftime("%d/%m/%Y")
     
-
-def menu_filtrar_valor(): # --> Analisar possiveis melhorias na coleta dos valores.
+# --> Essa função foi refatorada para verificar se o valor maximo e maior que o valor minimo inserido pelo usuario para ser usada para filtrar gasto por valor.
+def menu_filtrar_valor(): 
     limpar_tela()
     print('=' * TM)
     print(f'{VERDE}BUSCA POR VALOR{RESET}'.center(TM))
     print('=' * TM)
+
     valor_a = "Valor Inicial: R$ "
     valor_b = "Valor Final: R$ "
-    valor_min = valor_gasto_filtrar(valor_a)
-    valor_max = valor_gasto_filtrar(valor_b)
-    print("=" * TM)
 
-    return valor_min, valor_max
+    valor_min = valor_gasto_filtrar(valor_a)
+
+    while True:
+        valor_max = valor_gasto_filtrar(valor_b)
+
+        if valor_max <= valor_min:
+            print(f"O valor máximo deve ser maior que R$ {valor_min}.")
+            time.sleep(2)
+        else:
+            print("=" * TM)
+            return valor_min, valor_max
 
 
 def menu_anterior():
@@ -252,3 +262,31 @@ def menu_editar_gasto():
     print("=" * TM)
     print(f"{VERDE}EDITAR GASTOS{RESET}".center(TM))
     print("=" * TM)
+
+
+"""def menu_categorias(): # --> Ainda irei decidir se devo ou não mudar a forma como adicionam as categorias.
+    largura = 29
+    categorias = [
+    "Alimentação","Mercado","Farmácia","Saúde",
+    "Transporte","Combustível","Moradia","Energia",
+    "Água","Internet","Telefone","Assinaturas",
+    "Educação","Cursos","Lazer","Viagem",
+    "Roupas","Beleza","Presentes","Pets",
+    "Manutenção","Casa","Impostos","Taxas",
+    "Investimentos","Poupança","Doações","Seguros",
+    "Trabalho","Outros"
+    ]
+
+    print("=" * TM)
+    print(f"{AMARELO}CATEGORIAS{RESET}".center(TM))
+    print("=" * TM)
+
+    for i in range(0, len(categorias), 2):
+        esquerda = f"[{i+1}] - {categorias[i]}"
+    
+        if i + 1 < len(categorias):
+            direita = f"[{i+2}] - {categorias[i+1]}"
+        else:
+            direita = ""
+    
+        print(f"{esquerda:<{largura}}| {direita:<{largura}}")"""

@@ -232,7 +232,7 @@ def filtrar_gastos_data(data_inicio, data_final):
 
 
 def filtrar_gasto_valor(valor_min, valor_max):
-    with get_connection() as conn:
+    with get_connection() as conn:  
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM gastos WHERE valor BETWEEN ? AND ?", (str(valor_min), str(valor_max)))
         resultados = cursor.fetchall()
