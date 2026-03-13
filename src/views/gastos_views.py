@@ -7,7 +7,7 @@ from src.models.gastos import Gasto
 TM = 160
 
 # Função refatorada, foi tirado o uso sem necessidade de try
-def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME  
+def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME  | NO CASO DESTA FUÇÃO E NA COLETA DO NOME, A MESMA ACEITA QALQUER CARACTER, POIS ALGUNS ESTABELECIMENTOS USAM NUMEROS NO NOME.
     while True:
         print("-" * TM)
         nome = input('Nome do gasto: ').strip()
@@ -46,7 +46,7 @@ def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO IN
 def categoria_gasto(): # --> Refatorar essa função e adicionar um menu para escolhas de categorias. 
     while True:
         try:
-            print(TM)
+            print('-' * TM)
             categoria = input('Categoria: ').strip().capitalize()
             if not categoria: # --> CASO O USUARIO NÃO INFORME A CATEGORIA DO GASTO, O PROGRAMA INSERE UMA MENSAGEM GENERICA NA CATEORIA
                 categoria = "Categoria não informada"
