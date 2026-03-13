@@ -19,10 +19,10 @@ class Conta:  # --> Acho que irei mudar essa classe, somente para aceitar um uni
         
 
 
-    def depositar(self, valor, descricao):
+    def depositar(self, valor, descricao="Depósito"):
 
         if valor <= 0:
-            return False
+            raise ValueError("O valor não pode ser menor ou igual a zero")
 
         self.saldo += valor
 
