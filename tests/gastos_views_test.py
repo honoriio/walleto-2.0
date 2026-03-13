@@ -30,7 +30,7 @@ def test_valor_gasto(monkeypatch):
     assert resultado == Decimal("10.50")
 
 
-def testar_valor_gasto_negaivo_ou_zero(monkeypatch):
+def test_valor_gasto_negaivo_ou_zero(monkeypatch):
     # Simula a senguencia: valor negativo, zero e por fim valido
     entradas = ["-5", "0", "100,25"]
     iter_entradas = iter(entradas)
@@ -49,5 +49,42 @@ def test_valor_gasto_texto_invalido(monkeypatch):
 
     monkeypatch.setattr("builtins.input", lambda _: next(iter_entradas))
 
-    resuultado = valor_gasto()
-    assert resuultado == Decimal("50.75")
+    resultado = valor_gasto()
+    assert resultado == Decimal("50.75")
+
+
+# ----------------- Teste de coleta da categoria do gasto-------------------------
+
+def test_categoria_gasto_valida(simular_input):
+    # Testa primeiro uma entrada valida
+    simular_input(["Alimentação"])
+
+    resultado = categoria_gasto()
+    assert resultado == "Alimentação"
+
+
+def test_categoria_gasto_numero_invalido(simular_input):
+    # Simula primeiro uma entrada valida
+    simular_input(["123456", "Alimentação"])
+
+    resultado = categoria_gasto()
+    assert resultado == "Alimentação"
+
+
+def test_categoria_gasto_caracter_invalido(simular_input):
+    # Simula primieiro uma entrada de caracteres invalidos, depois uma entrada valida.
+    simular_input(["@#$%¨&*", "Alimentação"])
+
+    resultado = categoria_gasto()
+    assert resultado == "Alimentação"
+
+
+def test_categoria_gasto_tamanho_invalido(simular_input):
+    # Simula primiero uma entrada com tamanho excedido e depois uma entrada com tamanho valido.
+    simular_input(["mingau" * 60, "Alimentação"])
+
+    resultado = categoria_gasto()
+    assert resultado == "Alimentação"
+
+# ----------------- Teste de coleta da descrição do gasto-------------------------------
+
