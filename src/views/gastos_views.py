@@ -7,7 +7,7 @@ from src.models.gastos import Gasto
 TM = 160
 
 # Função refatorada, foi tirado o uso sem necessidade de try
-def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME  
+def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME  | NO CASO DESTA FUÇÃO E NA COLETA DO NOME, A MESMA ACEITA QALQUER CARACTER, POIS ALGUNS ESTABELECIMENTOS USAM NUMEROS NO NOME.
     while True:
         print("-" * TM)
         nome = input('Nome do gasto: ').strip()

@@ -1,6 +1,8 @@
 import pytest
 from src.models.conta import Conta
 
+
+"""Eu acredito que os testes da classe Conta e seus metodos estejam ok e finalizados. """
 def test_deposito_positivo(): # --> Criado para testar depositos de valores na conta. 
     conta = Conta(1000)
     resultado = conta.depositar(500, "Depósito teste")
