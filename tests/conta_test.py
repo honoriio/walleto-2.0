@@ -5,7 +5,11 @@ from src.models.conta import Conta
 """Eu acredito que os testes da classe Conta e seus metodos estejam ok e finalizados. """
 def test_deposito_positivo(): # --> Criado para testar depositos de valores na conta. 
     conta = Conta(1000)
+<<<<<<< HEAD
+    resultado = conta.depositar(500, "Depósito")
+=======
     resultado = conta.depositar(500, "Depósito teste")
+>>>>>>> a6d2ffba17d109842558d6f6e5e21619a943a0da
     
     # Saldo deve aumentar
     assert conta.saldo == 1500
@@ -15,7 +19,11 @@ def test_deposito_positivo(): # --> Criado para testar depositos de valores na c
     assert conta.transacoes[-1] == {
         "tipo": "entrada",
         "valor": 500,
+<<<<<<< HEAD
+        "descricao": "Depósito"
+=======
         "descricao": "Depósito teste"
+>>>>>>> a6d2ffba17d109842558d6f6e5e21619a943a0da
     }
 
 def test_deposito_zero_ou_negativo(): # Testa se a função de deposito trata bem a questão de depositos com valores menores ou igual a zero
@@ -56,4 +64,8 @@ def test_obter_transacoes():
     
     # Modificando a lista retornada não deve alterar self.transacoes
     transacoes.append({"tipo":"saida","valor":100,"descricao":"Saque"})
+<<<<<<< HEAD
     assert conta.transacoes == [{"tipo": "entrada", "valor": 200, "descricao": "Depósito"}]
+=======
+    assert conta.transacoes == [{"tipo": "entrada", "valor": 200, "descricao": "Depósito"}]
+>>>>>>> a6d2ffba17d109842558d6f6e5e21619a943a0da
