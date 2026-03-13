@@ -86,9 +86,4 @@ def test_categoria_gasto_tamanho_invalido(simular_input):
     resultado = categoria_gasto()
     assert resultado == "Alimentação"
 
-<<<<<<< HEAD
 # ----------------- Teste de coleta da descrição do gasto-------------------------------
-=======
-# ----------------- Teste de coleta da descrição do gasto-------------------------------
-
->>>>>>> a6d2ffba17d109842558d6f6e5e21619a943a0da

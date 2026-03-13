@@ -19,17 +19,10 @@ class Conta:  # --> Acho que irei mudar essa classe, somente para aceitar um uni
         
 
 
-<<<<<<< HEAD
     def depositar(self, valor, descricao= "Depósito"):
 
         if valor <= 0:
             raise ValueError("O valor não pode ser igual ou menor que 0.")
-=======
-    def depositar(self, valor, descricao="Depósito"):
-
-        if valor <= 0:
-            raise ValueError("O valor não pode ser menor ou igual a zero")
->>>>>>> a6d2ffba17d109842558d6f6e5e21619a943a0da
 
         self.saldo += valor
 
@@ -56,4 +49,5 @@ class Conta:  # --> Acho que irei mudar essa classe, somente para aceitar um uni
 
     def __str__(self):
         return f"Saldo total: R${self.saldo_total():.2f}"
+    
     
