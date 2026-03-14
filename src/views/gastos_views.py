@@ -67,7 +67,7 @@ def categoria_gasto(): # --> Refatorar essa função e adicionar um menu para es
 def descricao_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
     while True:
         print("-" * TM)
-        descricao = input("Descrição: ").strip().lower()
+        descricao = input("Descrição: ").strip()
         if not descricao: # --> CASO O USUARIO NÃO INFPORME UMA DESCRIÇÃO O PROGRAMA IRA INSERIR UMA DESCRIÇÃO GENERICA
             return "Descrição não informada pelo usuario"
             
