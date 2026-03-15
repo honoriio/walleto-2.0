@@ -90,7 +90,25 @@ def test_categoria_gasto_tamanho_invalido(simular_input):
  
 def test_descricao_gasto_valida(simular_input):
     #Insire um input valido de primeira.
-    simular_input(["Compra de comida no restaurante"])
+    simular_input(["Compra de comida no restaurante", "@#!$"])
 
     resultado = descricao_gasto()
     assert resultado == "Compra de comida no restaurante"
+
+def test_descricao_gasto_limite_caracter(simular_input):
+    # Insiri um input com mais caracteres do que o permitido, depois inserimos um input valido
+    simular_input(["A" * 350, "Compra de comida no restaurante"])
+
+    resultado = descricao_gasto()
+    assert resultado == "Compra de comida no restaurante"
+    
+
+def test_descricao_gasto_descricao_automatica(simular_input):
+    # Não inseri um input, e verifica se o programa adicionol uma descrção automatica
+    simular_input([" "])
+
+    resultado = descricao_gasto()
+    assert resultado == "Descrição não informada pelo usuario"
+
+# ----------------- Teste de coleta da de data do gasto-------------------------------
+
