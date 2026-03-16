@@ -3,7 +3,7 @@ import time
 from src.views.colors import cores
 from decimal import InvalidOperation 
 from src.views.tela import limpar_tela
-from src.views.gastos_views import valor_gasto_filtrar
+from src.views.gastos_views import valor_gasto_filtrar, buscar_gasto_por_id
 import string
 import datetime 
 from src.utils.utils_layer import validar_e_converter_data
@@ -129,15 +129,27 @@ def cabecalho_buscar_por_id():
     print('=' * TM)
 
     while True:
-        # Pede o dado ao usuário usando a mensagem fornecida
+        print("-" * TM)
         entrada_usuario = input("Informe o id do gasto: ")
-        
+
         try:
             numero = int(entrada_usuario)
+
+            if numero <= 0:
+                print("Erro: ID deve ser maior que zero.")
+                continue
+
+            gasto = buscar_gasto_por_id(numero)
+
+            if gasto is None:
+                print(f"Nenhum gasto encontrado com o ID {numero}.")
+                continue
+
             return numero
-        
+
         except ValueError:
             print("Erro: Por favor, digite apenas números inteiros. Tente novamente.")
+
 
 
 def menu_filtrar_categoria():
