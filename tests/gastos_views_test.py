@@ -1,6 +1,6 @@
 from decimal import Decimal
 from src.views.gastos_views import nome_gasto, valor_gasto, categoria_gasto, descricao_gasto, data_gasto, entrada_gastos
-from src.views.gastos_views import id_editar_gasto
+from src.views.gastos_views import id_editar_gasto, nome_editar_gasto
 import datetime
 
 
@@ -226,5 +226,30 @@ class TestColetaEdicaoGasto:
 
 #======================================================================================================================
 #--------------------------------- Teste de coleta de nome para editar gasto ------------------------------------------
+#======================================================================================================================
+
+    def test_nome_editar_gasto_valido(self, simular_input):
+        # Ira inserir uma entrada valida primeiro.
+        simular_input(["Diego"])
+
+        resultado = nome_editar_gasto("Mercado")
+        assert resultado == "Diego"
+
+    def test_nome_editar_gasto_vazio(self, simular_input):
+        # Ira inserir uma entrada vazia a fim de testar a permanencia do nome antigo
+        simular_input([""])
+
+        resultado = nome_editar_gasto("Mercado")
+        assert resultado == "Mercado"
+
+    def test_nome_editar_gasto_nome_muito_longo(self, simular_input):
+        # Sera inserido uma entrada longa de caracteres, e depois uma entrada valida
+        simular_input(["A" * 50, "Mercado"])
+        
+        resultado = nome_editar_gasto("açai")
+        assert resultado == "Mercado"
+
+#======================================================================================================================
+#--------------------------------- Teste de coleta de valor para editar gasto -----------------------------------------
 #======================================================================================================================
 
