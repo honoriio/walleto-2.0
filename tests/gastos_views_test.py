@@ -1,6 +1,6 @@
 from decimal import Decimal
 from src.views.gastos_views import nome_gasto, valor_gasto, categoria_gasto, descricao_gasto, data_gasto, entrada_gastos
-from src.views.gastos_views import id_editar_gasto, nome_editar_gasto
+from src.views.gastos_views import id_editar_gasto, nome_editar_gasto, valor_editar_gasto
 import datetime
 
 
@@ -251,5 +251,39 @@ class TestColetaEdicaoGasto:
 
 #======================================================================================================================
 #--------------------------------- Teste de coleta de valor para editar gasto -----------------------------------------
+#======================================================================================================================
+
+    def test_valor_editar_gasto_valido(self, simular_input):
+        #sera inserida uma entrada valida. 
+        simular_input(["25,00"])
+
+        resultado = valor_editar_gasto("15")
+        assert resultado == Decimal("25.00")
+
+    
+    def test_valor_editar_gasto_string(self, simular_input):
+        # Sera inserido um valor tipo string e depois um valor valido.
+        simular_input(["abc", "25,00"])
+
+        resultado = valor_editar_gasto("15")
+        assert resultado == Decimal("25.00")
+
+    def test_valor_editar_gasto_zero_negativo_invalido(self, simular_input):
+        # Sera inserido um valor negativo, um zero e um valido.
+        simular_input(["-5", "0", "25,00"])
+
+        resultado = valor_editar_gasto("15")
+        assert resultado == Decimal("25.00")
+
+    def test_valor_editar_gasto_valor_antigo(self, simular_input):
+        # não sera inserido nenhum valor, para verificarmos se o mesmo mantem o valor antigo.
+        simular_input([""])
+
+        resultado = valor_editar_gasto("25,00")
+        assert resultado == Decimal("25.00")
+
+
+#======================================================================================================================
+#--------------------------------- Teste de coleta de categoria  para editar gasto ------------------------------------
 #======================================================================================================================
 

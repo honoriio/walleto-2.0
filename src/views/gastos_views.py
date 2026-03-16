@@ -157,32 +157,34 @@ def nome_editar_gasto(nome_atual):
             continue
 
         return nome 
-            
 
 
 def valor_editar_gasto(valor_atual):
     while True:
-        print("-" * TM)
-        entrada = input(f"Novo valor [{valor_atual}]: R$ ").strip()
+        valor = input(f"Novo valor [{valor_atual}]: ").strip()
 
-        if not entrada:
-            return valor_atual
+        if not valor:
+            if isinstance(valor_atual, Decimal):
+                return valor_atual
 
-        try:
-            entrada = entrada.replace(",", ".")
-            valor = Decimal(entrada)
-
-            if valor <= 0:
-                print("O valor deve ser maior que zero.")
+            try:
+                return Decimal(str(valor_atual).replace(",", "."))
+            except InvalidOperation:
+                print("Valor antigo inválido.")
                 continue
 
-            return valor
-
+        try:
+            valor_convertido = Decimal(valor.replace(",", "."))
         except InvalidOperation:
-            print("Informe um valor numérico válido.")
+            print("Valor inválido.")
+            continue
 
+        if valor_convertido <= 0:
+            print("O valor deve ser maior que zero.")
+            continue
 
-import string
+        return valor_convertido
+
 
 def categoria_editar_gasto(categoria_atual):
     while True:
