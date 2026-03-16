@@ -1,5 +1,6 @@
 # área destinada as importações
 from decimal import Decimal, InvalidOperation  
+import re
 import string 
 import datetime
 from src.models.gastos import Gasto
@@ -79,7 +80,7 @@ def descricao_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
 
 
 
-def data_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO
+def data_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO 
     while True:
         try:
             print("-" * TM)
@@ -89,11 +90,11 @@ def data_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO
                 return datetime.date.today().strftime("%d/%m/%Y")
             
             
-            if len(data_str) == 8 and data_str.isdigit(): # --> TRATA DATOS SEM SEPARADORES (DDMMAAAA)
+            if len(data_str) == 8 and data_str.isdigit(): # --> TRATA DATAS SEM SEPARADORES (DDMMAAAA)
                 data_str = f"{data_str[0:2]}/{data_str[2:4]}/{data_str[4:8]}"
 
             # --> TRATA DADOS COM OUTROS SEPARADORES
-            data_limpa = data_str.replace('.', '/').replace('-', '/').replace('_', '/').replace('=', '/')
+            data_limpa = re.sub(r"\D+", "/", data_str) # --> acredito que aqui ira cubrir qualquer erro por parte do usuario em questoes de separadores
 
             data_valida = datetime.datetime.strptime(data_limpa, "%d/%m/%Y").date()
             
