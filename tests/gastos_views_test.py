@@ -187,6 +187,10 @@ class TestColetaCriacaoGasto:
 #--------------------------------- Teste de coleta de dados para edição de gasto --------------------------------------
 #======================================================================================================================
 
+#======================================================================================================================
+#--------------------------------- Teste de coleta de ID para edição de gasto -----------------------------------------
+#======================================================================================================================
+
 class TestColetaEdicaoGasto:
 
     def test_id_gasto_edicao(self, simular_input):
@@ -206,8 +210,21 @@ class TestColetaEdicaoGasto:
 
 
     def test_id_edicao_id_inexistente(self, simular_input):
-
-        simular_input(["25" , "1"])
+        # Ira inserir primeiro um id inexistente e depois um id valido
+        simular_input(["25", "1"])
 
         resultado = id_editar_gasto()
         assert resultado == 1
+
+    def test_id_edicao_negativo_invalido(self, simular_input):
+        # Sera inserido um id negativo e depois um id valido
+        simular_input(["-1", "1"])
+
+        resultado = id_editar_gasto()
+        assert resultado == 1
+
+
+#======================================================================================================================
+#--------------------------------- Teste de coleta de nome para editar gasto ------------------------------------------
+#======================================================================================================================
+
