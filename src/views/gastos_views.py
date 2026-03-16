@@ -144,121 +144,133 @@ def id_editar_gasto():
             print("Erro: Por favor, digite apenas números inteiros. Tente novamente.")
 
 
-def nome_editar_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME PARA EDITAR UM GASTO
+def nome_editar_gasto(nome_atual):
     while True:
         print("-" * TM)
-        nome = input('Nome do gasto: ').strip()
+        nome = input(f"Novo nome [{nome_atual}]: ").strip()
 
         if not nome:
-            print("O nome não pode estar vazio")
-            continue
+            return nome_atual
 
-        if len(nome) >= 41: #-->  VALIDAÇÃO 2, O NOME NÃO PODE TER MAIS DE 40 CARACTERES
+        if len(nome) >= 41:
             print("O nome não pode ter mais que 40 caracteres.")
             continue
-        
-        return nome
+
+        return nome 
             
 
 
-def valor_editar_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
+def valor_editar_gasto(valor_atual):
     while True:
-        try:
-            print("-" * TM)
-            valor = input("Valor R$: ")
-            if valor == "":
-                return valor
-            else:
+        print("-" * TM)
+        entrada = input(f"Novo valor [{valor_atual}]: R$ ").strip()
 
-                valor = valor.replace(',', '.')  # --> Substitui a vírgula por ponto
-                valor = Decimal(valor)
-            
-                return valor
-            
+        if not entrada:
+            return valor_atual
+
+        try:
+            entrada = entrada.replace(",", ".")
+            valor = Decimal(entrada)
+
+            if valor <= 0:
+                print("O valor deve ser maior que zero.")
+                continue
+
+            return valor
+
         except InvalidOperation:
-            print("Por favor, informe um valor numérico válido (ex: 10,50 ou 100).")
-
-        except ValueError:
-            print("O valor não pode ser negativo ou menor que zero.")
+            print("Informe um valor numérico válido.")
 
 
-def categoria_editar_gasto(): # --> COLETA E TRATA A CATEGORIA
+import string
+
+def categoria_editar_gasto(categoria_atual):
     while True:
         try:
             print("-" * TM)
-            categoria = input('Categoria: ').strip().capitalize()
-            
+            categoria = input(f"Nova categoria [{categoria_atual}]: ").strip()
+
+            # mantém categoria antiga
+            if not categoria:
+                return categoria_atual
+
+            categoria = categoria.capitalize()
+
             caracteres_proibidos = string.punctuation + string.digits
-            if any(char in caracteres_proibidos for char in categoria): # --> BARRA O USUARIO DE INSERIR CARACTERES E NUMEROS NA CATEGORIA.
+            if any(char in caracteres_proibidos for char in categoria):
                 raise ValueError("A categoria deve conter apenas letras.")
-            
-            if len(categoria) >= 50: # --> O CAMPO CATEGORIA E LIMITADO A 50  CARACTERES.
+
+            if len(categoria) >= 50:
                 raise ValueError("A categoria não pode ser maior que 50 caracteres.")
-            
+
             return categoria
-            
+
         except ValueError as erro:
             print(f"ERRO: {erro}")
 
 
-def descricao_editar_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
+def descricao_editar_gasto(descricao_atual):
     while True:
         print("-" * TM)
-        descricao = input("Descrição: ").strip().lower()
+        descricao = input(f"Nova descrição [{descricao_atual}]: ").strip()
 
-        if len(descricao) >= 300: # -->  CAMPO DESCRIÇÃO NÃO PODE TER MAIS DE 500 CARACTERES
-            print("Descrção não pode ter mais que 300 caracteres.")
+        # manter descrição antiga
+        if not descricao:
+            return descricao_atual
+
+        descricao = descricao.lower()
+
+        if len(descricao) >= 300:
+            print("Descrição não pode ter mais que 300 caracteres.")
             continue
 
         return descricao
         
 
-def data_editar_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO
+def data_editar_gasto(data_atual):
     while True:
         try:
             print("-" * TM)
-            data_str = input("Data (DD/MM/AAAA): ").strip()
-            
+            data_str = input(f"Nova data [{data_atual}]: ").strip()
+
+            # manter data antiga
             if not data_str:
-                return datetime.date.today().strftime("%d/%m/%Y")
-            
-            
-            if len(data_str) == 8 and data_str.isdigit(): # --> TRATA DATOS SEM SEPARADORES (DDMMAAAA)
+                return data_atual
+
+            # trata datas sem separadores (DDMMAAAA)
+            if len(data_str) == 8 and data_str.isdigit():
                 data_str = f"{data_str[0:2]}/{data_str[2:4]}/{data_str[4:8]}"
 
-            # --> TRATA DADOS COM OUTROS SEPARADORES
-            data_limpa = data_str.replace('.', '/').replace('-', '/').replace('_', '/').replace('=', '/')
+            # normaliza separadores
+            data_limpa = re.sub(r"\D+", "/", data_str)
 
             data_valida = datetime.datetime.strptime(data_limpa, "%d/%m/%Y").date()
-            
-            return data_valida.strftime("%d/%m/%Y") # --> RETORNA A DATA NO FORMATO BRASILEIRO
-        
+
+            return data_valida.strftime("%d/%m/%Y")
+
         except ValueError:
-            print("ERRO: Formato de data inválido ou data não existe. Por favor, use DD/MM/AAAA ou DDMMAAAA.")
+            print("ERRO: Formato de data inválido ou data não existe. Use DD/MM/AAAA ou DDMMAAAA.")
 
 
 
-def coletar_dados_edicao(): # --> essa função coleta e passa os dados para a função de editar gastos la no main
+def coletar_dados_edicao():
     id = id_editar_gasto()
-    nome = nome_editar_gasto()
-    valor = valor_editar_gasto()
-    categoria = categoria_editar_gasto()
-    descricao = descricao_editar_gasto()
-    data = data_editar_gasto()
+    gasto = buscar_gasto_por_id(id)
 
-
-
+    nome = nome_editar_gasto(gasto.nome)
+    valor = valor_editar_gasto(gasto.valor)
+    categoria = categoria_editar_gasto(gasto.categoria)
+    descricao = descricao_editar_gasto(gasto.descricao)
+    data = data_editar_gasto(gasto.data)
 
     return {
         "id": id,
-        "nome": nome if nome else None,
-        "valor": valor if valor else None,
-        "categoria": categoria if categoria else None,
-        "descricao": descricao if descricao else None,
-        "data": data if data else None
-        }
-
-
+        "nome": nome,
+        "valor": valor,
+        "categoria": categoria,
+        "descricao": descricao,
+        "data": data,
+    }
 
 
 def valor_gasto_filtrar(mensagem): # --> FUNÇÃO USADA PARA COLETAR  VALORES PARA BUSCA DE GASTOS COM PERIODO DE VALOR, A MESMA RECEBE UYM STRING PARA A MENSAGEM PARA O USUARIO
