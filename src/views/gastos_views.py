@@ -4,6 +4,7 @@ import re
 import string 
 import datetime
 from src.models.gastos import Gasto
+from src.models.gastos import buscar_gasto_por_id
 
 TM = 160
 
@@ -114,19 +115,31 @@ def entrada_gastos(): # --> REUNE TODAS AS FUNÇÕES DE COLETA DE DADOS NA ORDEM
     return Gasto(nome, valor, categoria, descricao, data)
 
 
-# ------------------- FUNÇÕES PARA COLETAR DADOS PARA EDIÇÃO ----------------------------------
+#======================================================================================================================
+#------------------------------- Funções para coletar dados para edição de gasto --------------------------------------
+#======================================================================================================================
 
 
-def id_editar_gasto(): # --> Função que coleta o ID do gasto para edição
+def id_editar_gasto():
     while True:
-        # Pede o dado ao usuário usando a mensagem fornecida
         print("-" * TM)
         entrada_usuario = input("Informe o id do gasto: ")
-        
+
         try:
             numero = int(entrada_usuario)
+
+            if numero <= 0:
+                print("Erro: ID deve ser maior que zero.")
+                continue
+
+            gasto = buscar_gasto_por_id(numero)
+
+            if gasto is None:
+                print(f"Nenhum gasto encontrado com o ID {numero}.")
+                continue
+
             return numero
-        
+
         except ValueError:
             print("Erro: Por favor, digite apenas números inteiros. Tente novamente.")
 

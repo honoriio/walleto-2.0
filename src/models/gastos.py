@@ -86,32 +86,24 @@ def excluir_gastos(id): # exclui o gasto com base no ID informado pelo usuario
 
 
 def buscar_gasto_por_id(id: int):
-    """Busca um gasto, imprime na tela e retorna o objeto Gasto ou None."""
-    try:
-        with get_connection() as conn:
-            cursor = conn.cursor()
-            cursor.execute("SELECT * FROM gastos WHERE id = ?", (id,))
-            resultado = cursor.fetchone()
+    """Busca um gasto no banco e retorna um objeto Gasto ou None."""
+    
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM gastos WHERE id = ?", (id,))
+        resultado = cursor.fetchone()
 
-            if resultado:
-                # 1. Converte o resultado para um objeto Gasto
-                gasto_obj = Gasto(id=resultado[0], nome=resultado[1], valor=resultado[2], 
-                                  categoria=resultado[3], descricao=resultado[4], data=resultado[5])
-                
-                # 2. Mantém o print de exibição
-                valor_formatado = f"R$ {gasto_obj.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
-                print("-" * TM)
-                print(f"ID: {gasto_obj.id} | Nome Do Gasto: {gasto_obj.nome} | Valor: {valor_formatado} | Categoria: {gasto_obj.categoria} | Descrição: {gasto_obj.descricao} | Data: {gasto_obj.data} ")
-                print('-' * TM)
-                
-                # 3. Retorna o objeto para uso futuro
-                return gasto_obj
-            
-            print(f"Nenhum gasto encontrado com o ID {id}.")
+        if not resultado:
             return None
-    except Exception as e:
-        print(f"Erro ao buscar gasto: {e}")
-        return None
+
+        return Gasto(
+            id=resultado[0],
+            nome=resultado[1],
+            valor=resultado[2],
+            categoria=resultado[3],
+            descricao=resultado[4],
+            data=resultado[5],
+        )
 
 
 

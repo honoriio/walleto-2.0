@@ -4,6 +4,7 @@ import os
 import platform
 import time
 from src.views.colors import cores
+from src.models.gastos import Gasto
 
 
 TM = 160
@@ -46,3 +47,14 @@ def extrato(relatorio, saldo): #--> precisamos passar o saldo da conta na hora d
 
     print("-" * 30)
     print(f"Saldo atual: R${saldo}")
+
+
+def mostrar_gasto(gasto: Gasto):
+    valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+
+    print("-" * TM)
+    print(
+        f"ID: {gasto.id} | Nome Do Gasto: {gasto.nome} | Valor: {valor_formatado} | "
+        f"Categoria: {gasto.categoria} | Descrição: {gasto.descricao} | Data: {gasto.data}"
+    )
+    print("-" * TM)

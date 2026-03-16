@@ -3,7 +3,7 @@ from src.views.gastos_views import entrada_gastos, coletar_dados_edicao, id_edit
 from src.views.usuario_views import nome_usuario, email_usuario, sexo_usuario, data_nascimento_usuario
 from src.models.gastos import criar_tabela, inserir_gasto, listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor, calcular_gastos, Gasto
 from src.views.menus import *
-from src.views.tela import encerrar_programa, exibir_mensagem
+from src.views.tela import encerrar_programa, exibir_mensagem, mostrar_gasto
 from src.views.colors import cores
 import time
 
@@ -71,7 +71,8 @@ def main():
                     
                     case 2: # --> Busca gastos por ID
                         id_busca = cabecalho_buscar_por_id()
-                        buscar_gasto_por_id(id_busca)
+                        gasto = buscar_gasto_por_id(id_busca)
+                        mostrar_gasto(gasto)
                         menu_anterior() # --> Retorna ao menu anterior
 
                     case 3: # --> Busca gastos por categoria

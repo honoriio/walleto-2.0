@@ -1,5 +1,6 @@
 from decimal import Decimal
 from src.views.gastos_views import nome_gasto, valor_gasto, categoria_gasto, descricao_gasto, data_gasto, entrada_gastos
+from src.views.gastos_views import id_editar_gasto
 import datetime
 
 
@@ -186,4 +187,27 @@ class TestColetaCriacaoGasto:
 #--------------------------------- Teste de coleta de dados para edição de gasto --------------------------------------
 #======================================================================================================================
 
-#class TestColetaEdicaoGasto:
+class TestColetaEdicaoGasto:
+
+    def test_id_gasto_edicao(self, simular_input):
+        #Sera inserido uma entrada de ID valido.
+        simular_input(["1"])
+
+        resultado = id_editar_gasto()
+        assert resultado == 1
+
+
+    def test_id_gasto_edicao_invalido(self, simular_input):
+        # Sera inserido primeiro um valor invalido e depois um valor valido.
+        simular_input(["abc", "1"])
+
+        resultado = id_editar_gasto()
+        assert resultado == 1
+
+
+    def test_id_edicao_id_inexistente(self, simular_input):
+
+        simular_input(["25" , "1"])
+
+        resultado = id_editar_gasto()
+        assert resultado == 1
