@@ -87,18 +87,7 @@ def main():
                         id_busca = cabecalho_buscar_por_id()
                         gastos = buscar_gasto_por_id(id_busca)
                         mostrar_gasto(gastos)
-                        opc = menu_filtro_exportação() # --> Retorna ao menu anterior
-
-                        match opc:
-                            case 1:
-                                exportar_gastos_excel(gastos)
-
-                            case 2:
-                                caminho_arquivo = exportar_gastos_excel(gastos)
-                                painel_dashboard_em_execucao(caminho_arquivo)
-
-                            case 0: # --> Volta ao menu anterior
-                                continue
+                        opc = menu_anterior() # --> Retorna ao menu anterior
 
                     case 3: # --> Busca gastos por categoria
                         categoria_busca = menu_filtrar_categoria()
