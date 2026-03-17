@@ -198,7 +198,7 @@ def abrir_dashboard(
     caminho_script: str | Path | None = None,
     porta: int = PORTA_PADRAO,
     abrir_navegador: bool = True,
-) -> tuple[subprocess.Popen, str]:
+) -> tuple[subprocess.Popen | None, str]:
     caminho_arquivo = Path(caminho_arquivo).resolve()
     caminho_script_resolvido = obter_caminho_script_dashboard(caminho_script)
 
@@ -211,8 +211,16 @@ def abrir_dashboard(
         )
 
     url = f"http://localhost:{porta}"
-    caminho_log = obter_arquivo_log_dashboard()
 
+    if porta_esta_ativa(HOST_PADRAO, porta):
+        if abrir_navegador:
+            try:
+                webbrowser.open(url)
+            except Exception:
+                pass
+        return None, url
+
+    caminho_log = obter_arquivo_log_dashboard()
     arquivo_log = open(caminho_log, "a", encoding="utf-8")
 
     processo = subprocess.Popen(
@@ -224,6 +232,8 @@ def abrir_dashboard(
             HOST_PADRAO,
             "--server.port",
             str(porta),
+            "--server.headless",
+            "true",
             "--",
             str(caminho_arquivo),
         ],
@@ -250,7 +260,10 @@ def abrir_dashboard(
     return processo, url
 
 
-def encerrar_processo(processo: subprocess.Popen) -> None:
+def encerrar_processo(processo: subprocess.Popen | None) -> None:
+    if processo is None:
+        return
+
     if processo.poll() is not None:
         return
 
