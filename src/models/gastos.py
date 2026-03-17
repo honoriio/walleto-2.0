@@ -215,12 +215,7 @@ def filtrar_gastos_data(data_inicio, data_final):
     with get_connection() as conn:
         cursor = conn.cursor()
         cursor.execute(
-            """
-            SELECT * FROM gastos
-            WHERE
-                substr(data, 7, 4) || '-' || substr(data, 4, 2) || '-' || substr(data, 1, 2)
-                BETWEEN ? AND ?
-            """,
+            "SELECT * FROM gastos WHERE data BETWEEN ? AND ?",
             (data_inicio, data_final)
         )
         resultados = cursor.fetchall()
@@ -240,8 +235,12 @@ def filtrar_gastos_data(data_inicio, data_final):
 
         for gasto in gastos_objetos:
             valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+
+            #converter de volta pra exibir no formato brasileiro
+            data_formatada = datetime.strptime(gasto.data, "%Y-%m-%d").strftime("%d/%m/%Y")
+
             print("-" * TM)
-            print(f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, Valor: {valor_formatado}, Categoria: {gasto.categoria}, Descrição: {gasto.descricao}, Data: {VERDE}{gasto.data}{RESET}")
+            print(f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, Valor: {valor_formatado}, Categoria: {gasto.categoria}, Descrição: {gasto.descricao}, Data: {VERDE}{data_formatada}{RESET}")
             print("-" * TM)
 
         return gastos_objetos

@@ -83,11 +83,11 @@ def carregar_dados_excel(caminho_arquivo: str | Path) -> pd.DataFrame:
 
     df = df[df["Nome"] != "TOTAL"].copy()
     df["Valor"] = pd.to_numeric(df["Valor"], errors="coerce")
-    df["Data"] = pd.to_datetime(df["Data"], format="%d/%m/%Y", errors="coerce")
+    df["Data"] = pd.to_datetime(df["Data"], format="%Y-%m-%d", errors="coerce")
     df["Categoria"] = df["Categoria"].fillna("Sem categoria")
     df["Descrição"] = df["Descrição"].fillna("")
 
-    df = df.dropna(subset=["Valor"])
+    df = df.dropna(subset=["Valor", "Data"])
     return df
 
 
