@@ -202,25 +202,49 @@ def listar_gastos():
 
 
 
-def filtrar_gastos_data(data_inicio, data_final): # --> Esta retornando datas erradas, no caso, ao filtrar pro data, o mesmo mostra anos anteriores, mesmo colocando uma data especifica.
+from datetime import datetime
+
+def converter_data_para_banco(data_str: str) -> str:
+    return datetime.strptime(data_str, "%d/%m/%Y").strftime("%Y-%m-%d")
+
+
+def filtrar_gastos_data(data_inicio, data_final):
+    data_inicio = converter_data_para_banco(data_inicio)
+    data_final = converter_data_para_banco(data_final)
+
     with get_connection() as conn:
-        cursor  = conn.cursor()
-        cursor.execute("SELECT * FROM gastos WHERE data BETWEEN ? AND ?", (data_inicio, data_final))
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+            SELECT * FROM gastos
+            WHERE
+                substr(data, 7, 4) || '-' || substr(data, 4, 2) || '-' || substr(data, 1, 2)
+                BETWEEN ? AND ?
+            """,
+            (data_inicio, data_final)
+        )
         resultados = cursor.fetchall()
 
         gastos_objetos = []
         for tupla in resultados:
-            gastos_objetos.append(Gasto(id=tupla[0], nome=tupla[1], valor=tupla[2], 
-                                        categoria=tupla[3], descricao=tupla[4], data=tupla[5]))
+            gastos_objetos.append(
+                Gasto(
+                    id=tupla[0],
+                    nome=tupla[1],
+                    valor=tupla[2],
+                    categoria=tupla[3],
+                    descricao=tupla[4],
+                    data=tupla[5]
+                )
+            )
 
         for gasto in gastos_objetos:
             valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
             print("-" * TM)
-            print(f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, Valor: {valor_formatado}, Categoria: {gasto.categoria}, Descrição: {gasto.descricao}, Data: {VERDE}{gasto.data}{RESET} ")
-            print('-' * TM)
-        
-        return gastos_objetos
+            print(f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, Valor: {valor_formatado}, Categoria: {gasto.categoria}, Descrição: {gasto.descricao}, Data: {VERDE}{gasto.data}{RESET}")
+            print("-" * TM)
 
+        return gastos_objetos
 
 
 def filtrar_gasto_valor(valor_min, valor_max):
