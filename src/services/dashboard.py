@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import socket
 import subprocess
-import sys
 import time
 import webbrowser
 from pathlib import Path
@@ -15,20 +14,50 @@ HOST_PADRAO = "127.0.0.1"
 PORTA_PADRAO = 8501
 TIMEOUT_STREAMLIT = 15
 NOME_PLANILHA = "Gastos"
+ARQUIVO_CONTROLE_DASHBOARD = "dashboard_arquivo_atual.txt"
 
 
 def formatar_moeda_brl(valor: float) -> str:
     return f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
 
+def obter_diretorio_base() -> Path:
+    # sobe até a raiz do projeto (ajuste se necessário)
+    return Path(__file__).resolve().parents[2]
+
+
 def obter_pasta_logs() -> Path:
-    pasta_logs = Path("logs")
-    pasta_logs.mkdir(exist_ok=True)
+    pasta_logs = obter_diretorio_base() / "logs"
+    pasta_logs.mkdir(parents=True, exist_ok=True)
     return pasta_logs
 
 
 def obter_arquivo_log_dashboard() -> Path:
     return obter_pasta_logs() / "streamlit_dashboard.log"
+
+
+def obter_arquivo_controle_dashboard() -> Path:
+    return obter_pasta_logs() / ARQUIVO_CONTROLE_DASHBOARD
+
+
+def salvar_caminho_arquivo_dashboard(caminho_arquivo: str | Path) -> Path:
+    caminho = Path(caminho_arquivo).expanduser().resolve()
+    arquivo_controle = obter_arquivo_controle_dashboard()
+    arquivo_controle.write_text(str(caminho), encoding="utf-8")
+    return arquivo_controle
+
+
+def ler_caminho_arquivo_dashboard() -> Path | None:
+    arquivo_controle = obter_arquivo_controle_dashboard()
+
+    if not arquivo_controle.exists():
+        return None
+
+    conteudo = arquivo_controle.read_text(encoding="utf-8").strip()
+    if not conteudo:
+        return None
+
+    return Path(conteudo).expanduser().resolve()
 
 
 def validar_colunas_obrigatorias(df: pd.DataFrame) -> None:
@@ -44,7 +73,7 @@ def validar_colunas_obrigatorias(df: pd.DataFrame) -> None:
 
 
 def carregar_dados_excel(caminho_arquivo: str | Path) -> pd.DataFrame:
-    caminho_arquivo = Path(caminho_arquivo)
+    caminho_arquivo = Path(caminho_arquivo).expanduser().resolve()
 
     if not caminho_arquivo.exists():
         raise FileNotFoundError(f"Arquivo XLSX não encontrado: {caminho_arquivo}")
@@ -66,12 +95,25 @@ def renderizar_dashboard(caminho_arquivo: str | Path | None = None) -> None:
     st.set_page_config(page_title="Walleto Dashboard", layout="wide")
     st.title("Dashboard Financeiro - Walleto")
 
+    arquivo_controle = obter_arquivo_controle_dashboard()
+
+    # DEBUG VISUAL
+    #st.caption(f"Diretório base: {obter_diretorio_base()}")
+    #st.caption(f"Arquivo de controle: {arquivo_controle}")
+    #st.caption(f"Arquivo de controle existe? {arquivo_controle.exists()}")
+
+    if caminho_arquivo is None:
+        caminho_arquivo = ler_caminho_arquivo_dashboard()
+
     if caminho_arquivo is None:
         st.info("Nenhum arquivo XLSX foi informado.")
-        st.info("Abra o dashboard passando um arquivo exportado pelo Walleto.")
+        st.info("Abra o dashboard a partir do Walleto.")
         return
 
-    caminho_arquivo = Path(caminho_arquivo)
+    caminho_arquivo = Path(caminho_arquivo).expanduser().resolve()
+
+    #DEBUG VISUAL
+    #st.caption(f"Arquivo carregado: {caminho_arquivo}")
 
     if not caminho_arquivo.exists():
         st.error(f"Arquivo não encontrado: {caminho_arquivo}")
@@ -117,7 +159,7 @@ def renderizar_dashboard(caminho_arquivo: str | Path | None = None) -> None:
 
     total_gasto = df_filtrado["Valor"].sum()
     quantidade_gastos = len(df_filtrado)
-    ticket_medio = df_filtrado["Valor"].mean() if quantidade_gastos > 0 else 0
+    ticket_medio = df_filtrado["Valor"].mean() if quantidade_gastos > 0 else 0.0
 
     col1, col2, col3 = st.columns(3)
     col1.metric("Total gasto", formatar_moeda_brl(total_gasto))
@@ -160,12 +202,6 @@ def renderizar_dashboard(caminho_arquivo: str | Path | None = None) -> None:
     st.dataframe(df_exibicao, width="stretch")
 
 
-def obter_arquivo_por_argumento() -> str | None:
-    if len(sys.argv) > 1:
-        return sys.argv[-1]
-    return None
-
-
 def porta_esta_ativa(host: str, porta: int) -> bool:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         sock.settimeout(1)
@@ -189,8 +225,13 @@ def esperar_streamlit(
 
 def obter_caminho_script_dashboard(caminho_script: str | Path | None = None) -> Path:
     if caminho_script is None:
-        return Path(__file__).resolve()
-    return Path(caminho_script).resolve()
+        return Path(__file__).expanduser().resolve()
+    return Path(caminho_script).expanduser().resolve()
+
+
+def encerrar_streamlit_existente() -> None:
+    subprocess.run(["pkill", "-f", "streamlit"], capture_output=True, text=True)
+    time.sleep(1.5)
 
 
 def abrir_dashboard(
@@ -198,8 +239,8 @@ def abrir_dashboard(
     caminho_script: str | Path | None = None,
     porta: int = PORTA_PADRAO,
     abrir_navegador: bool = True,
-) -> tuple[subprocess.Popen | None, str]:
-    caminho_arquivo = Path(caminho_arquivo).resolve()
+) -> tuple[subprocess.Popen, str]:
+    caminho_arquivo = Path(caminho_arquivo).expanduser().resolve()
     caminho_script_resolvido = obter_caminho_script_dashboard(caminho_script)
 
     if not caminho_arquivo.exists():
@@ -210,45 +251,46 @@ def abrir_dashboard(
             f"Script do dashboard não encontrado: {caminho_script_resolvido}"
         )
 
-    url = f"http://localhost:{porta}"
+    arquivo_controle = salvar_caminho_arquivo_dashboard(caminho_arquivo)
+    print(f"\nArquivo de controle atualizado: {arquivo_controle}")
+    print(f"Conteúdo salvo no controle: {caminho_arquivo}")
 
     if porta_esta_ativa(HOST_PADRAO, porta):
-        if abrir_navegador:
-            try:
-                webbrowser.open(url)
-            except Exception:
-                pass
-        return None, url
+        print("\nDashboard já estava em execução. Reiniciando com a nova base...")
+        encerrar_streamlit_existente()
 
+    url = f"http://localhost:{porta}"
     caminho_log = obter_arquivo_log_dashboard()
     arquivo_log = open(caminho_log, "a", encoding="utf-8")
 
-    processo = subprocess.Popen(
-        [
-            "streamlit",
-            "run",
-            str(caminho_script_resolvido),
-            "--server.address",
-            HOST_PADRAO,
-            "--server.port",
-            str(porta),
-            "--server.headless",
-            "true",
-            "--",
-            str(caminho_arquivo),
-        ],
-        stdout=arquivo_log,
-        stderr=arquivo_log,
-    )
+    try:
+        processo = subprocess.Popen(
+            [
+                "streamlit",
+                "run",
+                str(caminho_script_resolvido),
+                "--server.address",
+                HOST_PADRAO,
+                "--server.port",
+                str(porta),
+                "--server.headless",
+                "true",
+            ],
+            stdout=arquivo_log,
+            stderr=arquivo_log,
+        )
+    except Exception:
+        arquivo_log.close()
+        raise
 
     pronto = esperar_streamlit(porta=porta)
 
     if not pronto:
         processo.terminate()
+        arquivo_log.close()
         raise RuntimeError(
             "O dashboard não iniciou a tempo. "
-            "Verifique se o Streamlit está instalado, se a porta está livre "
-            f"e consulte o log em: {caminho_log}"
+            f"Consulte o log em: {caminho_log}"
         )
 
     if abrir_navegador:
@@ -291,7 +333,7 @@ def painel_dashboard_em_execucao(
     except Exception as erro:
         print("\nErro ao abrir o dashboard.")
         print(f"Detalhes: {erro}")
-        print(f"Log: {obter_arquivo_log_dashboard()}")
+        print(f"Log: {obter_arquivo_log_dashboard().resolve()}")
         input("\nPressione Enter para voltar...")
         return
 
@@ -299,7 +341,8 @@ def painel_dashboard_em_execucao(
         print("\n" + "=" * 70)
         print("DASHBOARD EM EXECUÇÃO")
         print("=" * 70)
-        print(f"Arquivo base : {Path(caminho_arquivo).resolve()}")
+        print(f"Arquivo base : {Path(caminho_arquivo).expanduser().resolve()}")
+        print(f"Controle     : {obter_arquivo_controle_dashboard().resolve()}")
         print(f"Link         : {url}")
         print(f"Log          : {obter_arquivo_log_dashboard().resolve()}")
         print("\n[1] Abrir dashboard no navegador")
@@ -334,5 +377,4 @@ def painel_dashboard_em_execucao(
 
 
 if __name__ == "__main__":
-    arquivo_xlsx = obter_arquivo_por_argumento()
-    renderizar_dashboard(arquivo_xlsx)
+    renderizar_dashboard()

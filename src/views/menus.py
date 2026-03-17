@@ -246,7 +246,6 @@ def menu_filtrar_valor():
             print("=" * TM)
             return valor_min, valor_max
 
-
 def menu_anterior():
     print("=" * TM)
     print(f"{VERDE}[0]{RESET} - {AMARELO}VOLTAR AO MENU ANTERIOR{RESET}")
@@ -262,6 +261,32 @@ def menu_anterior():
         
         except ValueError:
             print("Por favor, digite ZERO para voltar ao menu anterior.")
+
+
+
+
+def menu_filtro_exportação():
+    print("=" * TM)
+    print(f"{VERDE_CLARO}[1] Exportar para XLSX{RESET}")
+    print(f"{VERDE_CLARO}[2] Abrir dashboard{RESET}")
+    print(f"{VERMELHO_CLARO}[0] Voltar{RESET}")
+    print("=" * TM)
+        
+    while True:
+        try:
+            opc_str = input("Opção: ")
+            if not opc_str:
+                print("Digite uma opção, o campo não pode ficar em branco.")
+                continue
+            
+            opc = int(opc_str)
+            return opc
+
+        except InvalidOperation:
+            print("Por favor, informe um valor numérico válido (ex: 10,50 ou 100).")
+
+        except ValueError:
+            print("Digite um valor númerico.")
 
 
 def menu_adicionar_gastos():

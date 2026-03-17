@@ -66,34 +66,92 @@ def main():
                 match opc:
                     case 1:# --> Lista todos os gastos
                         menu_listar_gastos()
-                        gasto = listar_gastos()
-                        exibir_gastos(gasto)
-                        calcular_gastos(gasto)
-                        menu_anterior() # --> Retorna ao menu anterior
-                    
+                        gastos = listar_gastos()
+                        exibir_gastos(gastos)
+                        calcular_gastos(gastos)
+
+                        opc = menu_filtro_exportação() # --> Retorna ao menu anterior
+
+                        match opc:
+                            case 1:
+                                exportar_gastos_excel(gastos)
+
+                            case 2:
+                                caminho_arquivo = exportar_gastos_excel(gastos)
+                                painel_dashboard_em_execucao(caminho_arquivo)
+
+                            case 0: # --> Volta ao menu anterior
+                                continue
+
                     case 2: # --> Busca gastos por ID
                         id_busca = cabecalho_buscar_por_id()
-                        gasto = buscar_gasto_por_id(id_busca)
-                        mostrar_gasto(gasto)
-                        menu_anterior() # --> Retorna ao menu anterior
+                        gastos = buscar_gasto_por_id(id_busca)
+                        mostrar_gasto(gastos)
+                        opc = menu_filtro_exportação() # --> Retorna ao menu anterior
+
+                        match opc:
+                            case 1:
+                                exportar_gastos_excel(gastos)
+
+                            case 2:
+                                caminho_arquivo = exportar_gastos_excel(gastos)
+                                painel_dashboard_em_execucao(caminho_arquivo)
+
+                            case 0: # --> Volta ao menu anterior
+                                continue
 
                     case 3: # --> Busca gastos por categoria
                         categoria_busca = menu_filtrar_categoria()
-                        gasto = filtrar_gastos_categoria(categoria_busca)
-                        calcular_gastos(gasto)
-                        menu_anterior() # --> Retorna ao menu anterior
+                        gastos = filtrar_gastos_categoria(categoria_busca)
+                        calcular_gastos(gastos)
+                        opc = menu_filtro_exportação() # --> Retorna ao menu anterior
+
+                        match opc:
+                            case 1:
+                                exportar_gastos_excel(gastos)
+
+                            case 2:
+                                caminho_arquivo = exportar_gastos_excel(gastos)
+                                painel_dashboard_em_execucao(caminho_arquivo)
+
+                            case 0: # --> Volta ao menu anterior
+                                continue
 
                     case 4: # --> Busca gastos por datas
                         data_inicio, data_final = menu_filtrar_data()
-                        gasto = filtrar_gastos_data(data_inicio, data_final)
-                        calcular_gastos(gasto)
-                        menu_anterior() # --> Retorna ao menu anterior
+                        gastos = filtrar_gastos_data(data_inicio, data_final)
+                        calcular_gastos(gastos)
+                        opc = menu_filtro_exportação() # --> Retorna ao menu anterior
+
+                        match opc:
+                            case 1:
+                                exportar_gastos_excel(gastos)
+
+                            case 2:
+                                caminho_arquivo = exportar_gastos_excel(gastos)
+                                painel_dashboard_em_execucao(caminho_arquivo)
+
+                            case 0: # --> Volta ao menu anterior
+                                continue
 
                     case 5: # --> Filtra gastos por valores
                         valor_min, valor_max = menu_filtrar_valor()
-                        gasto = filtrar_gasto_valor(valor_min, valor_max)
-                        calcular_gastos(gasto)
-                        menu_anterior() # --> Retorna ao menu anterior
+                        gastos = filtrar_gasto_valor(valor_min, valor_max)
+                        calcular_gastos(gastos)
+                        opc = menu_filtro_exportação() # --> Retorna ao menu anterior
+
+                        match opc:
+                            case 1:
+                                exportar_gastos_excel(gastos)
+
+                            case 2:
+                                caminho_arquivo = exportar_gastos_excel(gastos)
+                                print(caminho_arquivo)
+                                painel_dashboard_em_execucao(caminho_arquivo)
+                                
+
+                            case 0: # --> Volta ao menu anterior
+                                continue
 
                     case 6: #--> Menu de exportação de dados
                         opc = menu_exportacao()
