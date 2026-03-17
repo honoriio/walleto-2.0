@@ -1,6 +1,7 @@
 from openpyxl import Workbook
 from openpyxl.styles import Font
 from datetime import datetime
+from tqdm import tqdm
 import os
 
 
@@ -18,7 +19,12 @@ def exportar_gastos_excel(gastos):
 
     meses = []
 
-    for gasto in gastos:
+    for gasto in tqdm(
+        gastos,
+        desc="Exportando gastos",
+        unit="gasto",
+        ncols=160
+    ):
         # suporte tanto dict quanto objeto
         if isinstance(gasto, dict):
             data = gasto.get("data", "")
@@ -37,7 +43,7 @@ def exportar_gastos_excel(gastos):
         try:
             data_obj = datetime.strptime(data, "%Y-%m-%d")
             meses.append(data_obj.strftime("%B"))
-        except:
+        except ValueError:
             pass
 
         pagina.append([data, nome, descricao, categoria, valor])
@@ -60,7 +66,7 @@ def exportar_gastos_excel(gastos):
     # caminho para Documentos
     pasta_documentos = os.path.expanduser("~/Documentos")
 
-    # cria pasta se não existir (Linux pode não ter)
+    # cria pasta se não existir
     os.makedirs(pasta_documentos, exist_ok=True)
 
     # nome final do arquivo
