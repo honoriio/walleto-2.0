@@ -58,3 +58,23 @@ def mostrar_gasto(gasto: Gasto):
         f"Categoria: {gasto.categoria} | Descrição: {gasto.descricao} | Data: {gasto.data}"
     )
     print("-" * TM)
+
+
+def exibir_gastos(gastos):
+    """Recebe uma lista de gastos e imprime no terminal."""
+    if not gastos:
+        print("Nenhum gasto encontrado.")
+        return
+
+    for gasto in gastos:
+        valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+
+        print(
+            f"ID: {gasto.id} | "
+            f"Nome: {gasto.nome} | "
+            f"Valor: {valor_formatado} | "
+            f"Categoria: {gasto.categoria} | "
+            f"Descrição: {gasto.descricao} | "
+            f"Data: {gasto.data}"
+        )
+        print('-' * TM)

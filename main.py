@@ -3,10 +3,10 @@ from src.views.gastos_views import entrada_gastos, coletar_dados_edicao, id_edit
 from src.views.usuario_views import nome_usuario, email_usuario, sexo_usuario, data_nascimento_usuario
 from src.models.gastos import criar_tabela, inserir_gasto, listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor, calcular_gastos, Gasto
 from src.views.menus import *
-from src.views.tela import encerrar_programa, exibir_mensagem, mostrar_gasto
+from src.views.tela import encerrar_programa, exibir_mensagem, mostrar_gasto, exibir_gastos
 from src.views.colors import cores
 import time
-
+from src.services.exportador_excel import exportar_gastos_excel 
 
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET =  cores()
 
@@ -66,6 +66,7 @@ def main():
                     case 1:# --> Lista todos os gastos
                         menu_listar_gastos()
                         gasto = listar_gastos()
+                        exibir_gastos(gasto)
                         calcular_gastos(gasto)
                         menu_anterior() # --> Retorna ao menu anterior
                     
@@ -92,6 +93,12 @@ def main():
                         gasto = filtrar_gasto_valor(valor_min, valor_max)
                         calcular_gastos(gasto)
                         menu_anterior() # --> Retorna ao menu anterior
+
+                    case 6:
+                        gastos = listar_gastos()
+                        arquivo = exportar_gastos_excel(gastos)
+                        print(f"{VERDE}Exportado para{RESET} {AMARELO}{arquivo}{RESET}")
+                        time.sleep(2)
 
                     case 0: # --> volta ao menu principal
                         continue  # ---> usado para voltar ao menu anterior

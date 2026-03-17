@@ -179,25 +179,25 @@ def editar_gastos(dados):
 
 
 def listar_gastos():
-    """Busca todos os gastos, imprime na tela e retorna uma lista de objetos Gasto."""
+    """Busca todos os gastos e retorna uma lista de objetos Gasto."""
     with get_connection() as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM gastos")
         resultados = cursor.fetchall()
         
-        # 1. Converte todos os resultados para uma lista de objetos Gasto
         gastos_objetos = []
         for tupla in resultados:
-            gastos_objetos.append(Gasto(id=tupla[0], nome=tupla[1], valor=tupla[2], 
-                                        categoria=tupla[3], descricao=tupla[4], data=tupla[5]))
+            gastos_objetos.append(
+                Gasto(
+                    id=tupla[0],
+                    nome=tupla[1],
+                    valor=tupla[2],
+                    categoria=tupla[3],
+                    descricao=tupla[4],
+                    data=tupla[5]
+                )
+            )
 
-
-        for gasto in gastos_objetos:
-            valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
-            print(f"ID: {gasto.id} | Nome Do Gasto: {gasto.nome} | Valor: {valor_formatado} | Categoria: {gasto.categoria} | Descrição: {gasto.descricao} | Data: {gasto.data} ")
-            print('-' * TM)
-
-        # 3. Retorna a lista de objetos para uso futuro
         return gastos_objetos
 
 

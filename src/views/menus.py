@@ -78,6 +78,7 @@ def consultas_e_relatorios():
     print("[3] Filtrar por Categoria")
     print("[4] Filtrar por Data")
     print("[5] Filtrar por Valor")
+    print("[6] Exportar Gastos em XLS")
     print("[0] Voltar ao Menu Principal")
     print('-' * TM)
 
