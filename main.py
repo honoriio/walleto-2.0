@@ -6,7 +6,8 @@ from src.views.menus import *
 from src.views.tela import encerrar_programa, exibir_mensagem, mostrar_gasto, exibir_gastos
 from src.views.colors import cores
 import time
-from src.services.exportador_excel import exportar_gastos_excel 
+from src.services.exportador_excel import exportar_gastos_excel
+from src.services.dashboard import painel_dashboard_em_execucao
 
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET =  cores()
 
@@ -94,11 +95,32 @@ def main():
                         calcular_gastos(gasto)
                         menu_anterior() # --> Retorna ao menu anterior
 
-                    case 6:
-                        gastos = listar_gastos()
-                        arquivo = exportar_gastos_excel(gastos)
-                        print(f"{VERDE}Exportado para{RESET} {AMARELO}{arquivo}{RESET}")
-                        time.sleep(2)
+                    case 6: #--> Menu de exportação de dados
+                        opc = menu_exportacao()
+
+                        match opc:
+                            case 1:
+                                gastos = listar_gastos()
+                                arquivo = exportar_gastos_excel(gastos)
+                                print(f"{VERDE}Exportado para{RESET} {AMARELO}{arquivo}{RESET}")
+                                time.sleep(2)
+                            
+                            case 2:
+                                gastos = listar_gastos()
+                                caminho_arquivo = exportar_gastos_excel(gastos)
+                                painel_dashboard_em_execucao(caminho_arquivo)
+
+                                pass
+
+                            case 3:
+                                pass
+
+                            case 0:
+                                continue  # ---> usado para voltar ao menu anterior
+
+                            case _: # O "_" captura qualquer outra opção
+                                print(f"{VERMELHO}Opção inválida. Por favor, tente novamente.{RESET}")
+                                time.sleep(2)
 
                     case 0: # --> volta ao menu principal
                         continue  # ---> usado para voltar ao menu anterior

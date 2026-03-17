@@ -78,7 +78,7 @@ def consultas_e_relatorios():
     print("[3] Filtrar por Categoria")
     print("[4] Filtrar por Data")
     print("[5] Filtrar por Valor")
-    print("[6] Exportar Gastos em XLS")
+    print("[6] Exportar Gastos")
     print("[0] Voltar ao Menu Principal")
     print('-' * TM)
 
@@ -270,11 +270,40 @@ def menu_adicionar_gastos():
     print(f"{VERDE}ADICIONAR GASTOS{RESET}".center(TM))
     print("=" * TM)
 
+
 def menu_editar_gasto():
     limpar_tela()
     print("=" * TM)
     print(f"{VERDE}EDITAR GASTOS{RESET}".center(TM))
     print("=" * TM)
+
+
+def menu_exportacao():
+    limpar_tela()
+    print("=" * TM)
+    print(f"{VERDE}EXPORTAÇÃO DE GASTOS{RESET}".center(TM))
+    print("=" * TM)
+
+    print("[1] Exportar para XLSX")
+    print("[2] Abrir Dashboard")
+    print("[3] Exportar para PDF")
+    print("[0] Voltar ao menu anterior")
+    print("-" * TM)
+
+    while True:
+        try:
+            opc_str = input("Opção: ")
+            if not opc_str:
+                print("Digite uma opção, o campo não pode ficar em branco.")
+                continue
+            opc = int(opc_str)
+            return opc
+
+        except InvalidOperation:
+            print("Por favor, informe um valor numérico válido (ex: 1, 2, 3, 4).")
+
+        except ValueError:
+            print("Digite um valor númerico.")
 
 
 """def menu_categorias(): # --> Ainda irei decidir se devo ou não mudar a forma como adicionam as categorias.
