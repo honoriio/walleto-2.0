@@ -62,8 +62,8 @@ def mostrar_gasto(gasto: Gasto):
 
     print("-" * TM)
     print(
-        f"ID: {gasto.id} | Nome Do Gasto: {gasto.nome} | Valor: {valor_formatado} | "
-        f"Categoria: {gasto.categoria} | Descrição: {gasto.descricao} | Data: {data_formatada}"
+        f"{VERDE_CLARO}ID: {gasto.id} | Nome Do Gasto: {gasto.nome} | Valor: {valor_formatado} | "
+        f"Categoria: {gasto.categoria} | Descrição: {gasto.descricao} | Data: {data_formatada}{RESET}"
     )
     print("-" * TM)
 
