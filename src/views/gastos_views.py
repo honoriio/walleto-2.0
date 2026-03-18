@@ -5,6 +5,9 @@ import string
 import datetime
 from src.models.gastos import Gasto
 from src.models.gastos import buscar_gasto_por_id
+from src.views.colors import cores
+
+PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET =  cores()
 
 TM = 160
 
@@ -34,7 +37,7 @@ def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO IN
             valor = Decimal(valor)
             if valor <= 0: # --> VALIDAÇÃO 1, O VALOR NÃO PODE SER MENOR OU IGUAL A ZERO. ,,,
                 raise ValueError
-            
+
             return valor
             
         except InvalidOperation:
@@ -81,28 +84,28 @@ def descricao_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
 
 
 
-def data_gasto(): # --> COLETA E TRATA A DATA INFORMADA PELO USUARIO 
+def data_gasto():
     while True:
         try:
             print("-" * TM)
             data_str = input("Data (DD/MM/AAAA): ").strip()
             
             if not data_str:
-                return datetime.date.today().strftime("%d/%m/%Y")
-            
-            
-            if len(data_str) == 8 and data_str.isdigit(): # --> TRATA DATAS SEM SEPARADORES (DDMMAAAA)
+                return datetime.date.today().strftime("%Y-%m-%d")  #banco
+
+            if len(data_str) == 8 and data_str.isdigit():
                 data_str = f"{data_str[0:2]}/{data_str[2:4]}/{data_str[4:8]}"
 
-            # --> TRATA DADOS COM OUTROS SEPARADORES
-            data_limpa = re.sub(r"\D+", "/", data_str) # --> acredito que aqui ira cubrir qualquer erro por parte do usuario em questoes de separadores
+            data_limpa = re.sub(r"\D+", "/", data_str)
 
             data_valida = datetime.datetime.strptime(data_limpa, "%d/%m/%Y").date()
             
-            return data_valida.strftime("%d/%m/%Y") # --> RETORNA A DATA NO FORMATO BRASILEIRO
-        
+            # 🔥 AQUI É A MUDANÇA IMPORTANTE
+            return data_valida.strftime("%Y-%m-%d")
+
         except ValueError:
-            print("ERRO: Formato de data inválido ou data não existe. Por favor, use DD/MM/AAAA ou DDMMAAAA.")
+            print("ERRO: Formato de data inválido ou data não existe. Use DD/MM/AAAA.")
+            
 
 
 def entrada_gastos(): # --> REUNE TODAS AS FUNÇÕES DE COLETA DE DADOS NA ORDEM CORRETA
@@ -124,6 +127,10 @@ def id_editar_gasto():
     while True:
         print("-" * TM)
         entrada_usuario = input("Informe o id do gasto: ")
+        if not entrada_usuario :
+            pass
+        else:
+            print(f"{VERDE_CLARO}pressione Enter para manter o valor atual.{RESET   }")
 
         try:
             numero = int(entrada_usuario)
@@ -147,7 +154,9 @@ def id_editar_gasto():
 def nome_editar_gasto(nome_atual):
     while True:
         print("-" * TM)
-        nome = input(f"Novo nome [{nome_atual}]: ").strip()
+        print()
+        print(f"{VERDE_CLARO}Nome Atual:{RESET} {AMARELO_CLARO}{nome_atual}{RESET}")
+        nome = input(f"Novo nome: ").strip()
 
         if not nome:
             return nome_atual
@@ -161,7 +170,9 @@ def nome_editar_gasto(nome_atual):
 
 def valor_editar_gasto(valor_atual):
     while True:
-        valor = input(f"Novo valor [{valor_atual}]: ").strip()
+        print()
+        print(f"{VERDE_CLARO}Valor Atual: R${RESET}{AMARELO_CLARO}{valor_atual:,.2f}{RESET}")
+        valor = input(f"Novo valor R$: ").strip()
 
         if not valor:
             if isinstance(valor_atual, Decimal):
@@ -189,8 +200,9 @@ def valor_editar_gasto(valor_atual):
 def categoria_editar_gasto(categoria_atual):
     while True:
         try:
-            print("-" * TM)
-            categoria = input(f"Nova categoria [{categoria_atual}]: ").strip()
+            print()
+            print(f"{VERDE_CLARO}Categoria Atual:{RESET} {AMARELO_CLARO}{categoria_atual}{RESET}")
+            categoria = input(f"Nova categoria: ").strip()
 
             # mantém categoria antiga
             if not categoria:
@@ -213,8 +225,9 @@ def categoria_editar_gasto(categoria_atual):
 
 def descricao_editar_gasto(descricao_atual):
     while True:
-        print("-" * TM)
-        descricao = input(f"Nova descrição [{descricao_atual}]: ").strip()
+        print()
+        print(f"{VERDE_CLARO}Descrição Atual:{RESET} {AMARELO_CLARO}{descricao_atual}{RESET}")
+        descricao = input(f"Nova descrição: ").strip()
 
         # manter descrição antiga
         if not descricao:
@@ -232,8 +245,9 @@ def descricao_editar_gasto(descricao_atual):
 def data_editar_gasto(data_atual):
     while True:
         try:
-            print("-" * TM)
-            data_str = input(f"Nova data [{data_atual}]: ").strip()
+            print()
+            print(f"{VERDE_CLARO}Data Atual:{RESET} {AMARELO_CLARO}{data_atual}{RESET}")
+            data_str = input(f"Nova data: ").strip()
 
             # manter data antiga
             if not data_str:

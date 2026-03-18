@@ -274,20 +274,23 @@ def menu_filtro_exportação():
         
     while True:
         try:
-            opc_str = input("Opção: ")
+            opc_str = input("Opção: ").strip()
+
             if not opc_str:
                 print("Digite uma opção, o campo não pode ficar em branco.")
                 continue
             
             opc = int(opc_str)
+
+            # VALIDAÇÃO DO MENU
+            if opc not in (0, 1, 2):
+                print("Opção inválida. Escolha 0, 1 ou 2.")
+                continue
+
             return opc
 
-        except InvalidOperation:
-            print("Por favor, informe um valor numérico válido (ex: 10,50 ou 100).")
-
         except ValueError:
-            print("Digite um valor númerico.")
-
+            print("Digite um valor numérico válido.")
 
 def menu_adicionar_gastos():
     limpar_tela()
@@ -315,20 +318,57 @@ def menu_exportacao():
     print("[0] Voltar ao menu anterior")
     print("-" * TM)
 
+    OPCOES_VALIDAS = {0, 1, 2, 3}
+
     while True:
         try:
-            opc_str = input("Opção: ")
+            opc_str = input("Opção: ").strip()
+
             if not opc_str:
                 print("Digite uma opção, o campo não pode ficar em branco.")
                 continue
+
             opc = int(opc_str)
+
+            # VALIDAÇÃO DAS OPÇÕES
+            if opc not in OPCOES_VALIDAS:
+                print("Opção inválida. Escolha 0, 1, 2 ou 3.")
+                continue
+
             return opc
 
-        except InvalidOperation:
-            print("Por favor, informe um valor numérico válido (ex: 1, 2, 3, 4).")
+        except ValueError:
+            print("Digite um valor numérico válido.")
+
+
+def confirmar_exclusao():
+    print("Deseja realmente excluir o gasto?")
+    print()
+    print("[1] SIM")
+    print("[2] NÃO")
+    print("-" * TM)
+
+    OPCOES_VALIDAS = {1, 2}
+
+    while True:
+        try:
+            opc_str = input("Opção: ").strip()
+
+            if not opc_str:
+                print("Digite uma opção, o campo não pode ficar em branco.")
+                continue
+
+            opc = int(opc_str)
+
+            # VALIDAÇÃO DAS OPÇÕES
+            if opc not in OPCOES_VALIDAS:
+                print("Opção inválida. Escolha 1 (SIM) ou 2 (NÃO).")
+                continue
+
+            return opc
 
         except ValueError:
-            print("Digite um valor númerico.")
+            print("Digite um valor numérico válido.")
 
 
 """def menu_categorias(): # --> Ainda irei decidir se devo ou não mudar a forma como adicionam as categorias.

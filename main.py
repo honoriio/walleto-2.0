@@ -45,13 +45,27 @@ def main():
 
                     case 3:# --> Exclui um gasto Ja criado
                         id_gasto = cabecalho_excluir_gasto()
-                        resultado = excluir_gastos(id_gasto)
+                        gasto = buscar_gasto_por_id(id_gasto)
 
-                        if resultado["status"] == "sucesso":
-                            exibir_mensagem(resultado["mensagem"], VERDE)
-                        else:
-                            exibir_mensagem(resultado["mensagem"], VERMELHO)
-                            menu_anterior() # --> Retorna ao menu anterior
+                        if gasto is None:
+                            exibir_mensagem("Gasto não encontrado.", VERMELHO)
+                            continue
+                        
+                        mostrar_gasto(gasto)
+
+                        opc = confirmar_exclusao()
+
+                        match opc:
+                            case 1: 
+                                resultado = excluir_gastos(id_gasto)
+
+                                if resultado["status"] == "sucesso":
+                                    exibir_mensagem(resultado["mensagem"], VERDE)
+                                else:
+                                    exibir_mensagem(resultado["mensagem"], VERMELHO)
+                            case 2:
+                                exibir_mensagem("Exclusão cancelada.", AMARELO)
+                                continue
                     
                     case 0: # --> Volta para o menu anterior
                         continue # ---> usado para voltar ao menu anterior

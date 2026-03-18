@@ -78,3 +78,5 @@ def exibir_gastos(gastos):
             f"Data: {gasto.data}"
         )
         print('-' * TM)
+
+

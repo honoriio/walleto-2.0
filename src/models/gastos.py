@@ -1,8 +1,9 @@
 # área destinada as importaçoes
 from src.database.connection import get_connection
-from decimal import Decimal
+from decimal import Decimal, ROUND_HALF_UP
 from src.views.colors import cores
 import uuid
+from datetime import datetime
 
 PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET = cores()
 
@@ -94,7 +95,7 @@ def buscar_gasto_por_id(id: int):
         resultado = cursor.fetchone()
 
         if not resultado:
-            return []
+            return None
 
         return Gasto(
             id=resultado[0],
@@ -202,8 +203,6 @@ def listar_gastos():
 
 
 
-from datetime import datetime
-
 def converter_data_para_banco(data_str: str) -> str:
     return datetime.strptime(data_str, "%d/%m/%Y").strftime("%Y-%m-%d")
 
@@ -226,7 +225,7 @@ def filtrar_gastos_data(data_inicio, data_final):
                 Gasto(
                     id=tupla[0],
                     nome=tupla[1],
-                    valor=tupla[2],
+                    valor=Decimal(str(tupla[2])),
                     categoria=tupla[3],
                     descricao=tupla[4],
                     data=tupla[5]
@@ -234,13 +233,16 @@ def filtrar_gastos_data(data_inicio, data_final):
             )
 
         for gasto in gastos_objetos:
-            valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+            valor_formatado = f"R$ {gasto.valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
 
-            #converter de volta pra exibir no formato brasileiro
             data_formatada = datetime.strptime(gasto.data, "%Y-%m-%d").strftime("%d/%m/%Y")
 
             print("-" * TM)
-            print(f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, Valor: {valor_formatado}, Categoria: {gasto.categoria}, Descrição: {gasto.descricao}, Data: {VERDE}{data_formatada}{RESET}")
+            print(
+                f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, "
+                f"Valor: {valor_formatado}, Categoria: {gasto.categoria}, "
+                f"Descrição: {gasto.descricao}, Data: {VERDE}{data_formatada}{RESET}"
+            )
             print("-" * TM)
 
         return gastos_objetos
@@ -323,12 +325,16 @@ def filtrar_gastos_nome(nome):
 
 
 def calcular_gastos(lista_de_gastos: list[Gasto]):
-    """Recebe uma LISTA DE OBJETOS Gasto e calcula o total."""
+    """Recebe uma lista de objetos Gasto e calcula o total."""
     if not lista_de_gastos:
-        return Decimal('0.00')
-    total = sum(gasto.valor for gasto in lista_de_gastos)
+        total = Decimal("0.00")
+    else:
+        total = sum(
+            Decimal(str(gasto.valor)).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+            for gasto in lista_de_gastos
+        )
 
-    valor_formatado = f"R$ {total:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+    valor_formatado = f"R$ {total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
     print("=" * TM)
     print(f"Valor Total Gasto: {VERDE}{valor_formatado}{RESET}")
     return total
