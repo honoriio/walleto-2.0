@@ -2,7 +2,7 @@
 from decimal import Decimal, InvalidOperation  
 import re
 import string 
-from datetime import datetime
+import datetime
 from src.models.gastos import Gasto
 from src.models.gastos import buscar_gasto_por_id
 from src.views.colors import cores
@@ -245,7 +245,7 @@ def descricao_editar_gasto(descricao_atual):
 def data_editar_gasto(data_atual):
     while True:
         try:
-            data_formatada = datetime.strptime(data_atual, "%Y-%m-%d").strftime("%d/%m/%Y")
+            data_formatada = datetime.datetime.strptime(data_atual, "%Y-%m-%d").strftime("%d/%m/%Y")
             print()
             print(f"{VERDE_CLARO}Data Atual:{RESET} {AMARELO_CLARO}{data_formatada}{RESET}")
             data_str = input(f"Nova data: ").strip()
