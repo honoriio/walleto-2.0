@@ -5,6 +5,7 @@ import platform
 import time
 from src.views.colors import cores
 from src.models.gastos import Gasto
+from datetime import datetime
 
 
 TM = 160
@@ -49,13 +50,20 @@ def extrato(relatorio, saldo): #--> precisamos passar o saldo da conta na hora d
     print(f"Saldo atual: R${saldo}")
 
 
+
 def mostrar_gasto(gasto: Gasto):
     valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
+
+    #CONVERSÃO DA DATA (ISO → BR)
+    try:
+        data_formatada = datetime.strptime(gasto.data, "%Y-%m-%d").strftime("%d/%m/%Y")
+    except Exception:
+        data_formatada = gasto.data  # fallback caso venha errado
 
     print("-" * TM)
     print(
         f"ID: {gasto.id} | Nome Do Gasto: {gasto.nome} | Valor: {valor_formatado} | "
-        f"Categoria: {gasto.categoria} | Descrição: {gasto.descricao} | Data: {gasto.data}"
+        f"Categoria: {gasto.categoria} | Descrição: {gasto.descricao} | Data: {data_formatada}"
     )
     print("-" * TM)
 
@@ -69,13 +77,19 @@ def exibir_gastos(gastos):
     for gasto in gastos:
         valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
 
+        # 🔥 CONVERSÃO ISO → BR
+        try:
+            data_formatada = datetime.strptime(gasto.data, "%Y-%m-%d").strftime("%d/%m/%Y")
+        except Exception:
+            data_formatada = gasto.data
+
         print(
             f"ID: {gasto.id} | "
             f"Nome: {gasto.nome} | "
             f"Valor: {valor_formatado} | "
             f"Categoria: {gasto.categoria} | "
             f"Descrição: {gasto.descricao} | "
-            f"Data: {gasto.data}"
+            f"Data: {data_formatada}"
         )
         print('-' * TM)
 

@@ -222,7 +222,7 @@ def menu_filtrar_data():
             continue # Reinicia o processo de solicitação de datas
 
         
-        return data_inicio_obj.strftime("%d/%m/%Y"), data_final_obj.strftime("%d/%m/%Y")
+        return data_inicio_obj, data_final_obj
     
 # --> Essa função foi refatorada para verificar se o valor maximo e maior que o valor minimo inserido pelo usuario para ser usada para filtrar gasto por valor.
 def menu_filtrar_valor(): 
