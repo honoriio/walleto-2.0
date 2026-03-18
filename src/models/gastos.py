@@ -94,7 +94,7 @@ def buscar_gasto_por_id(id: int):
         resultado = cursor.fetchone()
 
         if not resultado:
-            return None
+            return []
 
         return Gasto(
             id=resultado[0],
@@ -278,7 +278,7 @@ def filtrar_gastos_categoria(categoria):
 
             if not resultados:  # Verifica se a consulta retornou algo
                 print(f"Nenhum gasto encontrado na categoria: {categoria}.")
-                return None
+                return []
 
             gastos_objetos = []
             for tupla in resultados:
