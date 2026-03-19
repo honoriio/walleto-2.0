@@ -8,12 +8,10 @@ from src.models.gastos import buscar_gasto_por_id
 from src.core.constants import *
 
 
-TM = 160
-
 # Função refatorada, foi tirado o uso sem necessidade de try
 def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME  | NO CASO DESTA FUÇÃO E NA COLETA DO NOME, A MESMA ACEITA QALQUER CARACTER, POIS ALGUNS ESTABELECIMENTOS USAM NUMEROS NO NOME.
     while True:
-        print("-" * TM)
+        print(linha("-"))
         nome = input('Nome do gasto: ').strip()
             
         if not nome: # --> VALIDAÇÃO 1, VERIFICA SE A STRING ESTA VAZIA
@@ -30,7 +28,7 @@ def nome_gasto(): # --> FUNÇÃO CRIADA PARA COLETAR E VALIDAR NOME  | NO CASO D
 def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO INFORMADO PELO USUARIO
     while True:
         try:
-            print("-" * TM)
+            print(linha("-"))
             valor = input('Valor: R$ ')
             valor = valor.replace(',', '.')  # --> Substitui a vírgula por ponto
             valor = Decimal(valor)
@@ -50,7 +48,7 @@ def valor_gasto(): # --> FUNÇÃO QUE COLETA, TRATA E VALIDA O VALOR DO GASTO IN
 def categoria_gasto(): # --> Refatorar essa função e adicionar um menu para escolhas de categorias. 
     while True:
         try:
-            print('-' * TM)
+            print(linha("-"))
             categoria = input('Categoria: ').strip().capitalize()
             if not categoria: # --> CASO O USUARIO NÃO INFORME A CATEGORIA DO GASTO, O PROGRAMA INSERE UMA MENSAGEM GENERICA NA CATEORIA
                 categoria = "Categoria não informada"
@@ -70,7 +68,7 @@ def categoria_gasto(): # --> Refatorar essa função e adicionar um menu para es
 
 def descricao_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
     while True:
-        print("-" * TM)
+        print(linha("-"))
         descricao = input("Descrição: ").strip()
         if not descricao: # --> CASO O USUARIO NÃO INFPORME UMA DESCRIÇÃO O PROGRAMA IRA INSERIR UMA DESCRIÇÃO GENERICA
             return "Descrição não informada pelo usuario"
@@ -86,7 +84,7 @@ def descricao_gasto(): # --> COLETA E TRATA O CAMPO DESCRIÇÃO
 def data_gasto():
     while True:
         try:
-            print("-" * TM)
+            print(linha("-"))
             data_str = input("Data (DD/MM/AAAA): ").strip()
             
             if not data_str:
@@ -124,7 +122,7 @@ def entrada_gastos(): # --> REUNE TODAS AS FUNÇÕES DE COLETA DE DADOS NA ORDEM
 
 def id_editar_gasto():
     while True:
-        print("-" * TM)
+        print(linha("-"))
         entrada_usuario = input("Informe o id do gasto: ")
         if not entrada_usuario :
             pass
@@ -152,7 +150,7 @@ def id_editar_gasto():
 
 def nome_editar_gasto(nome_atual):
     while True:
-        print("-" * TM)
+        print(linha("-"))
         print()
         print(f"{VERDE_CLARO}Nome Atual:{RESET} {AMARELO_CLARO}{nome_atual}{RESET}")
         nome = input(f"Novo nome: ").strip()
@@ -292,7 +290,7 @@ def coletar_dados_edicao():
 def valor_gasto_filtrar(mensagem): # --> FUNÇÃO USADA PARA COLETAR  VALORES PARA BUSCA DE GASTOS COM PERIODO DE VALOR, A MESMA RECEBE UYM STRING PARA A MENSAGEM PARA O USUARIO
     while True:
         try:
-            print("-" * TM)
+            print(linha("-"))
             valor = input(f"{mensagem}")
             valor = valor.replace(',', '.')  # --> Substitui a vírgula por ponto
             valor = Decimal(valor)
