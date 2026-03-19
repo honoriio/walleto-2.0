@@ -4,12 +4,10 @@ from src.views.usuario_views import nome_usuario, email_usuario, sexo_usuario, d
 from src.models.gastos import criar_tabela, inserir_gasto, listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor, calcular_gastos, Gasto
 from src.views.menus import *
 from src.views.tela import encerrar_programa, exibir_mensagem, mostrar_gasto, exibir_gastos
-from src.views.colors import cores
+from src.core.constants import *
 import time
 from src.services.exportador_excel import exportar_gastos_excel
 from src.services.dashboard import painel_dashboard_em_execucao
-
-PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET =  cores()
 
 
 def main():
@@ -28,9 +26,9 @@ def main():
                         novo_gasto  = entrada_gastos()
                         resultado = inserir_gasto(novo_gasto)
                         if resultado["status"] == "sucesso":
-                            exibir_mensagem(resultado["mensagem"], VERDE)
+                            exibir_mensagem(resultado["mensagem"],VERDE_CLARO)
                         else:
-                            exibir_mensagem(resultado["mensagem"], VERMELHO)
+                            exibir_mensagem(resultado["mensagem"], VERMELHO_CLARO)
 
                     case 2: # --> EDITAR GASTOS JA CRIADOS.
                         menu_editar_gasto()
@@ -38,9 +36,9 @@ def main():
                         resultado = editar_gastos(dados)
 
                         if resultado["status"] == "sucesso":
-                            exibir_mensagem(resultado["mensagem"], VERDE)
+                            exibir_mensagem(resultado["mensagem"], VERDE_CLARO)
                         else:
-                            exibir_mensagem(resultado["mensagem"], VERMELHO)
+                            exibir_mensagem(resultado["mensagem"], VERMELHO_CLARO)
                             menu_anterior() # --> Retorna ao menu anterior
 
                     case 3:# --> Exclui um gasto Ja criado
@@ -48,7 +46,7 @@ def main():
                         gasto = buscar_gasto_por_id(id_gasto)
 
                         if gasto is None:
-                            exibir_mensagem("Gasto não encontrado.", VERMELHO)
+                            exibir_mensagem("Gasto não encontrado.", VERMELHO_CLARO)
                             continue
                         
                         mostrar_gasto(gasto)
@@ -60,18 +58,18 @@ def main():
                                 resultado = excluir_gastos(id_gasto)
 
                                 if resultado["status"] == "sucesso":
-                                    exibir_mensagem(resultado["mensagem"], VERDE)
+                                    exibir_mensagem(resultado["mensagem"], VERDE_CLARO)
                                 else:
-                                    exibir_mensagem(resultado["mensagem"], VERMELHO)
+                                    exibir_mensagem(resultado["mensagem"], VERMELHO_CLARO)
                             case 2:
-                                exibir_mensagem("Exclusão cancelada.", AMARELO)
+                                exibir_mensagem("Exclusão cancelada.", AMARELO_CLARO)
                                 continue
                     
                     case 0: # --> Volta para o menu anterior
                         continue # ---> usado para voltar ao menu anterior
                     
                     case _: # O "_" captura qualquer outra opção
-                        print(f"{VERMELHO}Opção inválida. Por favor, tente novamente.{RESET}")
+                        print(f"{VERMELHO_CLARO}Opção inválida. Por favor, tente novamente.{RESET}")
                         time.sleep(2)
 
             case 2: # --> Menu de consultas e relatorios.
@@ -163,7 +161,7 @@ def main():
                             case 1:
                                 gastos = listar_gastos()
                                 arquivo = exportar_gastos_excel(gastos)
-                                print(f"{VERDE}Exportado para{RESET} {AMARELO}{arquivo}{RESET}")
+                                print(f"{VERDE_CLARO}Exportado para{RESET} {AMARELO_CLARO}{arquivo}{RESET}")
                                 time.sleep(2)
                             
                             case 2:
@@ -180,21 +178,21 @@ def main():
                                 continue  # ---> usado para voltar ao menu anterior
 
                             case _: # O "_" captura qualquer outra opção
-                                print(f"{VERMELHO}Opção inválida. Por favor, tente novamente.{RESET}")
+                                print(f"{VERMELHO_CLARO}Opção inválida. Por favor, tente novamente.{RESET}")
                                 time.sleep(2)
 
                     case 0: # --> volta ao menu principal
                         continue  # ---> usado para voltar ao menu anterior
 
                     case _: # O "_" captura qualquer outra opção
-                        print(f"{VERMELHO}Opção inválida. Por favor, tente novamente.{RESET}")
+                        print(f"{VERMELHO_CLARO}Opção inválida. Por favor, tente novamente.{RESET}")
                         time.sleep(2)
 
             case 0: # --> Encerra o Programa.
                 encerrar_programa()
 
             case _: # O "_" captura qualquer outra opção
-                print(f"{VERMELHO}Opção inválida. Por favor, tente novamente.{RESET}")
+                print(f"{VERMELHO_CLARO}Opção inválida. Por favor, tente novamente.{RESET}")
                 time.sleep(2)
 
 if __name__ == "__main__":   

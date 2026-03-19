@@ -5,9 +5,8 @@ import string
 import datetime
 from src.models.gastos import Gasto
 from src.models.gastos import buscar_gasto_por_id
-from src.views.colors import cores
+from src.core.constants import *
 
-PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET =  cores()
 
 TM = 160
 

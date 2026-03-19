@@ -1,11 +1,10 @@
 # área destinada as importaçoes
 from src.database.connection import get_connection
 from decimal import Decimal, ROUND_HALF_UP
-from src.views.colors import cores
+from src.core.constants import*
 import uuid
 from datetime import datetime
 
-PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET = cores()
 
 TM = 160
 

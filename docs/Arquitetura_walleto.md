@@ -12,13 +12,13 @@ Esta é a estrutura base do projeto **Walleto**, pensada para manter organizaç�
 ```
 
 src/
-├── core/
-├── models/v           ok
+├── core/               OK
+├── models/v            OK
 ├── repositories/
-├── services/          ok
+├── services/           OK
 ├── controllers/        
-├── views/              ok
-└── utils/              ok
+├── views/              OK
+└── utils/              OK
 
 ````
 

@@ -1,6 +1,6 @@
 # Área destinada as importações
 import time
-from src.views.colors import cores
+from src.core.constants import *
 from decimal import InvalidOperation 
 from src.views.tela import limpar_tela
 from src.views.gastos_views import valor_gasto_filtrar, buscar_gasto_por_id
@@ -8,7 +8,6 @@ import string
 import datetime 
 from src.utils.utils_layer import validar_e_converter_data
 
-PRETO, VERMELHO, VERDE, AMARELO, AZUL, MAGENTA, CIANO, BRANCO, PRETO_CLARO, VERMELHO_CLARO, VERDE_CLARO, AMARELO_CLARO, AZUL_CLARO, MAGENTA_CLARO, CIANO_CLARO, BRANCO_CLARO, RESET = cores()
 
 TM = 160
 metade = TM // 2
