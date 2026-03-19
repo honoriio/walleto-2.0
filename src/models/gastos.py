@@ -28,25 +28,6 @@ class Gasto:
 
 
 
-# --- Funções do Banco de Dados Refatoradas ---
-
-def criar_tabela(): # Cria a tabela gastos para armazenar os dados.
-    with get_connection() as conn:
-        cursor = conn.cursor()
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS gastos (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                nome TEXT,
-                valor NUMERIC NOT NULL,
-                categoria TEXT,
-                descricao TEXT,
-                data TEXT
-            )
-        """)
-        conn.commit()
-
-
-
 def inserir_gasto(gasto): # insere os valores informados pelo usuario a tabela gastos 
     try:
         with get_connection() as conn:
