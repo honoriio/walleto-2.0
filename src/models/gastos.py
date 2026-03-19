@@ -204,7 +204,7 @@ def listar_gastos():
 
 
 def converter_data_para_banco(data_str: str) -> str:
-    return datetime.strptime(data_str, "%d/%m/%Y").strftime("%Y-%m-%d")
+    return data_str.strftime("%Y-%m-%d")
 
 
 def filtrar_gastos_data(data_inicio, data_final):
