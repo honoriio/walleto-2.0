@@ -5,16 +5,25 @@ import subprocess
 import time
 import webbrowser
 from pathlib import Path
+import sys
+
+RAIZ_PROJETO = Path(__file__).resolve().parents[2]
+
+if str(RAIZ_PROJETO) not in sys.path:
+    sys.path.insert(0, str(RAIZ_PROJETO))
+
+from src.core.config import (
+    HOST_PADRAO,
+    PORTA_PADRAO,
+    TIMEOUT_STREAMLIT,
+    NOME_PLANILHA,
+    ARQUIVO_CONTROLE_DASHBOARD,
+)
+
 
 import pandas as pd
 import streamlit as st
 
-
-HOST_PADRAO = "127.0.0.1"
-PORTA_PADRAO = 8501
-TIMEOUT_STREAMLIT = 15
-NOME_PLANILHA = "Gastos"
-ARQUIVO_CONTROLE_DASHBOARD = "dashboard_arquivo_atual.txt"
 
 
 def formatar_moeda_brl(valor: float) -> str:

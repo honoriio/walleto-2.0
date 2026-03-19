@@ -1,5 +1,5 @@
 from datetime import datetime
-from pathlib import Path
+from src.core.config import PASTA_DOCUMENTOS
 
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
@@ -248,11 +248,11 @@ def exportar_gastos_excel(gastos):
 
     mes_nome = meses[0] if meses else "sem_mes"
 
-    pasta_documentos = Path.home() / "Documentos"
-    pasta_documentos.mkdir(parents=True, exist_ok=True)
+    
+    PASTA_DOCUMENTOS.mkdir(parents=True, exist_ok=True)
 
     nome_arquivo = f"despesas_{mes_nome}.xlsx"
-    caminho_completo = pasta_documentos / nome_arquivo
+    caminho_completo = PASTA_DOCUMENTOS / nome_arquivo
 
     workbook.save(caminho_completo)
 
