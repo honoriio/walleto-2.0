@@ -9,18 +9,15 @@ import datetime
 from src.utils.utils_layer import validar_e_converter_data
 
 
-TM = 160
-metade = TM // 2
-
 def menu_principal():
     limpar_tela()
-    print('=' * TM)
-    print(f"{VERDE}WALLETO - MENU PRINCIPAL{RESET}".center(TM))
-    print('=' * TM)
+    print(linha("="))
+    print(f"{VERDE}WALLETO - MENU PRINCIPAL{RESET}".center(CENTRALIZAR))
+    print(linha("="))
     print("[1] - Gerenciar Gastos")
     print("[2] - Consultar Gastos e Relatorios")
     print("[0] - Sair")
-    print('-' * TM)
+    print(linha("-"))
         
     while True:
         try:
@@ -41,14 +38,14 @@ def menu_principal():
 
 def menu_gerenciar_gastos():
     limpar_tela()
-    print('=' * TM)
-    print(f"{VERDE}GERENCIAR GASTOS{RESET}".center(TM))
-    print('=' * TM)
+    print(linha("="))
+    print(f"{VERDE}GERENCIAR GASTOS{RESET}".center(CENTRALIZAR))
+    print(linha("="))
     print("[1] - Adicionar Novo Gasto")
     print("[2] - Editar Gasto")
     print("[3] - Excluir Gasto")
     print("[0] - Voltar ao Menu Principal")
-    print('-' * TM)
+    print(linha("-"))
 
     while True:
         try:
@@ -69,9 +66,9 @@ def menu_gerenciar_gastos():
 
 def consultas_e_relatorios():
     limpar_tela()
-    print('=' * TM)
-    print(f"{VERDE}CONSULTAS E RELATORIOS{RESET}".center(TM))
-    print('=' * TM)
+    print(linha("="))
+    print(f"{VERDE}CONSULTAS E RELATORIOS{RESET}".center(CENTRALIZAR))
+    print(linha("="))
     print("[1] Listar Todos os Gastos")
     print("[2] Buscar Gasto por ID")
     print("[3] Filtrar por Categoria")
@@ -79,7 +76,7 @@ def consultas_e_relatorios():
     print("[5] Filtrar por Valor")
     print("[6] Exportar Gastos")
     print("[0] Voltar ao Menu Principal")
-    print('-' * TM)
+    print(linha("-"))
 
     while True:
         try:
@@ -100,15 +97,15 @@ def consultas_e_relatorios():
 
 def menu_listar_gastos():
     limpar_tela()
-    print("=" * TM)
-    print(f"{VERDE}LISTA DE GASTOS{RESET}".center(TM))
-    print("=" * TM)
+    print(linha("="))
+    print(f"{VERDE}LISTA DE GASTOS{RESET}".center(CENTRALIZAR))
+    print(linha("="))
 
 def cabecalho_excluir_gasto():
     limpar_tela() 
-    print('=' * TM)
-    print(f'{VERMELHO}EXCLUIR GASTOS{RESET}'.center(TM))
-    print('=' * TM)
+    print(linha("="))
+    print(f'{VERMELHO}EXCLUIR GASTOS{RESET}'.center(CENTRALIZAR))
+    print(linha("="))
 
     while True:
         # Pede o dado ao usuário usando a mensagem fornecida
@@ -124,12 +121,12 @@ def cabecalho_excluir_gasto():
 
 def cabecalho_buscar_por_id():
     limpar_tela() 
-    print('=' * TM)
-    print(f'{AZUL}BUSCA POR ID{RESET}'.center(TM))
-    print('=' * TM)
+    print(linha("="))
+    print(f'{AZUL}BUSCA POR ID{RESET}'.center(CENTRALIZAR))
+    print(linha("="))
 
     while True:
-        print("-" * TM)
+        print(linha("-"))
         entrada_usuario = input("Informe o id do gasto: ")
 
         try:
@@ -154,13 +151,13 @@ def cabecalho_buscar_por_id():
 
 def menu_filtrar_categoria():
     limpar_tela() 
-    print('=' * TM)
-    print(f'{AMARELO}BUSCAR POR CATEGORIA{RESET}'.center(TM))
-    print('=' * TM)
+    print(linha("="))
+    print(f'{AMARELO}BUSCAR POR CATEGORIA{RESET}'.center(CENTRALIZAR))
+    print(linha("="))
 
     while True:
         try:
-            print("-" * TM)
+            print(linha("-"))
             categoria = input('Categoria: ').strip().capitalize()
             if not categoria: # --> CASO O USUARIO NÃO INFORME A CATEGORIA DO GASTO, O PROGRAMA INSERE UMA MENSAGEM GENERICA NA CATEORIA
                 categoria = "Categoria não informada"
@@ -180,14 +177,14 @@ def menu_filtrar_categoria():
 
 def menu_filtrar_data():
     limpar_tela()
-    print('=' * TM)
-    print(f'{VERDE}BUSCA POR DATA{RESET}'.center(TM))
-    print('=' * TM)
+    print(linha("="))
+    print(f'{VERDE}BUSCA POR DATA{RESET}'.center(CENTRALIZAR))
+    print(linha("="))
 
     while True:
         # --- Obter Data Inicial ---
         try:
-            print("-" * TM)
+            print(linha("-"))
             data_inicio_str = input("Data início (DD/MM/AAAA) [Obrigatório]: ").strip()
             if not data_inicio_str:
                 print("ERRO: A data inicial não pode estar em branco. Tente novamente.")
@@ -201,7 +198,7 @@ def menu_filtrar_data():
 
         # --- Obter Data Final ---
         try:
-            print("-" * TM)
+            print(linha("-"))
             data_final_str = input("Data final (DD/MM/AAAA) [Pressione ENTER para hoje]: ").strip()
             
             if not data_final_str:
@@ -217,7 +214,7 @@ def menu_filtrar_data():
         # --- Validação de Intervalo ---
         if data_final_obj < data_inicio_obj:
             print(f"ERRO: A data final ({data_final_obj.strftime('%d/%m/%Y')}) não pode ser anterior à data inicial ({data_inicio_obj.strftime('%d/%m/%Y')}).")
-            print("-" * TM)
+            print(linha("-"))
             continue # Reinicia o processo de solicitação de datas
 
         
@@ -226,9 +223,9 @@ def menu_filtrar_data():
 # --> Essa função foi refatorada para verificar se o valor maximo e maior que o valor minimo inserido pelo usuario para ser usada para filtrar gasto por valor.
 def menu_filtrar_valor(): 
     limpar_tela()
-    print('=' * TM)
-    print(f'{VERDE}BUSCA POR VALOR{RESET}'.center(TM))
-    print('=' * TM)
+    print(linha("="))
+    print(f'{VERDE}BUSCA POR VALOR{RESET}'.center(CENTRALIZAR))
+    print(linha("="))
 
     valor_a = "Valor Inicial: R$ "
     valor_b = "Valor Final: R$ "
@@ -242,13 +239,13 @@ def menu_filtrar_valor():
             print(f"O valor máximo deve ser maior que R$ {valor_min}.")
             time.sleep(2)
         else:
-            print("=" * TM)
+            print(linha("="))
             return valor_min, valor_max
 
 def menu_anterior():
-    print("=" * TM)
+    print(linha("="))
     print(f"{VERDE}[0]{RESET} - {AMARELO}VOLTAR AO MENU ANTERIOR{RESET}")
-    print("=" * TM)
+    print(linha("="))
     while True:
         try:    
             opc = int(input("Opção: "))
@@ -265,11 +262,11 @@ def menu_anterior():
 
 
 def menu_filtro_exportação():
-    print("=" * TM)
+    print(linha("="))
     print(f"{VERDE_CLARO}[1] Exportar para XLSX{RESET}")
     print(f"{VERDE_CLARO}[2] Abrir dashboard{RESET}")
     print(f"{VERMELHO_CLARO}[0] Voltar{RESET}")
-    print("=" * TM)
+    print(linha("="))
         
     while True:
         try:
@@ -293,29 +290,29 @@ def menu_filtro_exportação():
 
 def menu_adicionar_gastos():
     limpar_tela()
-    print("=" * TM)
-    print(f"{VERDE}ADICIONAR GASTOS{RESET}".center(TM))
-    print("=" * TM)
+    print(linha("="))
+    print(f"{VERDE}ADICIONAR GASTOS{RESET}".center(CENTRALIZAR))
+    print(linha("="))
 
 
 def menu_editar_gasto():
     limpar_tela()
-    print("=" * TM)
-    print(f"{VERDE}EDITAR GASTOS{RESET}".center(TM))
-    print("=" * TM)
+    print(linha("="))
+    print(f"{VERDE}EDITAR GASTOS{RESET}".center(CENTRALIZAR))
+    print(linha("="))
 
 
 def menu_exportacao():
     limpar_tela()
-    print("=" * TM)
-    print(f"{VERDE}EXPORTAÇÃO DE GASTOS{RESET}".center(TM))
-    print("=" * TM)
+    print(linha("="))
+    print(f"{VERDE}EXPORTAÇÃO DE GASTOS{RESET}".center(CENTRALIZAR))
+    print(linha("="))
 
     print("[1] Exportar para XLSX")
     print("[2] Abrir Dashboard")
     print("[3] Exportar para PDF")
     print("[0] Voltar ao menu anterior")
-    print("-" * TM)
+    print(linha("-"))
 
     OPCOES_VALIDAS = {0, 1, 2, 3}
 
@@ -345,7 +342,7 @@ def confirmar_exclusao():
     print()
     print("[1] SIM")
     print("[2] NÃO")
-    print("-" * TM)
+    print(linha("-"))
 
     OPCOES_VALIDAS = {1, 2}
 

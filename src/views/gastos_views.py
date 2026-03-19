@@ -97,7 +97,7 @@ def data_gasto():
 
             data_valida = datetime.datetime.strptime(data_limpa, "%d/%m/%Y").date()
             
-            # 🔥 AQUI É A MUDANÇA IMPORTANTE
+            #AQUI É A MUDANÇA IMPORTANTE
             return data_valida.strftime("%Y-%m-%d")
 
         except ValueError:

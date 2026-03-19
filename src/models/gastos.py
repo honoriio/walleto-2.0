@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime
 
 
-TM = 160
+
 
 
 # --- Definição da Classe Gasto ---
@@ -236,13 +236,13 @@ def filtrar_gastos_data(data_inicio, data_final):
 
             data_formatada = datetime.strptime(gasto.data, "%Y-%m-%d").strftime("%d/%m/%Y")
 
-            print("-" * TM)
+            print(linha("-"))
             print(
                 f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, "
                 f"Valor: {valor_formatado}, Categoria: {gasto.categoria}, "
                 f"Descrição: {gasto.descricao}, Data: {VERDE}{data_formatada}{RESET}"
             )
-            print("-" * TM)
+            print(linha("-"))
 
         return gastos_objetos
 
@@ -264,7 +264,7 @@ def filtrar_gasto_valor(valor_min, valor_max):
         for gasto in gastos_objetos:
             valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
             print(f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, Valor: {VERDE}{valor_formatado}{RESET}, Categoria: {gasto.categoria}, Descrição: {gasto.descricao}, Data: {gasto.data} ")
-            print('-' * TM)
+            print(linha("-"))
         
         return gastos_objetos
 
@@ -290,9 +290,9 @@ def filtrar_gastos_categoria(categoria):
             for gasto in gastos_objetos:
                 valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
 
-                print(f'{VERDE}-{RESET}' * TM)
+                print(linha(f"{FUNDO_VERDE_CLARO}-{RESET}"))
                 print(f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, Valor: {valor_formatado}, Categoria: {VERDE}{gasto.categoria}{RESET}, Descrição: {gasto.descricao}, Data: {gasto.data} ")
-                print(f'{VERDE}-{RESET}' * TM)
+                print(linha(f"{FUNDO_VERDE_CLARO}-{RESET}"))
         
             # O return foi movido para fora do loop.
             # Ele só será executado DEPOIS que o loop de print terminar.
@@ -317,7 +317,7 @@ def filtrar_gastos_nome(nome):
         for gasto in gastos_objetos:
             valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
             print(f"ID: {gasto.id} Nome Do Gasto: {VERDE}{gasto.nome}{RESET}, Valor: {valor_formatado}, Categoria: {gasto.categoria}, Descrição: {gasto.descricao}, Data: {gasto.data} ")
-            print('-' * TM)
+            print(linha("-"))
 
         return gastos_objetos
 
@@ -334,6 +334,6 @@ def calcular_gastos(lista_de_gastos: list[Gasto]):
         )
 
     valor_formatado = f"R$ {total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-    print("=" * TM)
+    print(linha("="))
     print(f"Valor Total Gasto: {VERDE}{valor_formatado}{RESET}")
     return total

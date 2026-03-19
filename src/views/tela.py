@@ -8,7 +8,7 @@ from src.models.gastos import Gasto
 from datetime import datetime
 
 
-TM = 160
+
 
 def limpar_tela():
     # Verifica o sistema operacional
@@ -20,7 +20,7 @@ def limpar_tela():
 
 
 def exibir_mensagem(mensagem, cor):
-    print("-" * TM)
+    print(linha("-"))
     print(f'{cor}{mensagem}{RESET}')
     time.sleep(2)
 
@@ -28,9 +28,9 @@ def exibir_mensagem(mensagem, cor):
 
 def encerrar_programa():
     limpar_tela()
-    print('=' * TM) 
-    print(f'{VERMELHO}PROGRAMA ENCERRADO...{RESET}'.center(TM))
-    print('=' * TM)
+    print(linha("="))
+    print(f'{VERMELHO}PROGRAMA ENCERRADO...{RESET}'.center(CENTRALIZAR))
+    print(linha("="))
     time.sleep(2)
     limpar_tela()
     sys.exit()
@@ -39,12 +39,12 @@ def encerrar_programa():
 def extrato(relatorio, saldo): #--> precisamos passar o saldo da conta na hora de chamarmos a função e a lista de transação que e retornada da função obter transações
 
     print("\nEXTRATO DA CONTA")
-    print("-" * 30)
+    print(linha("-"))
 
     for t in relatorio:
         print(f"{t['tipo']} | R${t['valor']} | {t['descricao']}")
 
-    print("-" * 30)
+    print(linha("-"))
     print(f"Saldo atual: R${saldo}")
 
 
@@ -58,12 +58,12 @@ def mostrar_gasto(gasto: Gasto):
     except Exception:
         data_formatada = gasto.data  # fallback caso venha errado
 
-    print("-" * TM)
+    print(linha("-"))
     print(
         f"{VERDE_CLARO}ID: {gasto.id} | Nome Do Gasto: {gasto.nome} | Valor: {valor_formatado} | "
         f"Categoria: {gasto.categoria} | Descrição: {gasto.descricao} | Data: {data_formatada}{RESET}"
     )
-    print("-" * TM)
+    print(linha("-"))
 
 
 def exibir_gastos(gastos):
@@ -75,7 +75,7 @@ def exibir_gastos(gastos):
     for gasto in gastos:
         valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
 
-        # 🔥 CONVERSÃO ISO → BR
+        #CONVERSÃO ISO → BR
         try:
             data_formatada = datetime.strptime(gasto.data, "%Y-%m-%d").strftime("%d/%m/%Y")
         except Exception:
@@ -89,6 +89,5 @@ def exibir_gastos(gastos):
             f"Descrição: {gasto.descricao} | "
             f"Data: {data_formatada}"
         )
-        print('-' * TM)
-
+        print(linha("-"))
 
