@@ -2,15 +2,10 @@ from __future__ import annotations
 
 import socket
 import subprocess
+import sys
 import time
 import webbrowser
 from pathlib import Path
-import sys
-
-RAIZ_PROJETO = Path(__file__).resolve().parents[2]
-
-if str(RAIZ_PROJETO) not in sys.path:
-    sys.path.insert(0, str(RAIZ_PROJETO))
 
 from src.core.config import (
     HOST_PADRAO,
@@ -18,12 +13,11 @@ from src.core.config import (
     TIMEOUT_STREAMLIT,
     NOME_PLANILHA,
     ARQUIVO_CONTROLE_DASHBOARD,
+    BASE_DIR,
 )
-
 
 import pandas as pd
 import streamlit as st
-
 
 
 def formatar_moeda_brl(valor: float) -> str:
@@ -31,8 +25,7 @@ def formatar_moeda_brl(valor: float) -> str:
 
 
 def obter_diretorio_base() -> Path:
-    # sobe até a raiz do projeto (ajuste se necessário)
-    return Path(__file__).resolve().parents[2]
+    return BASE_DIR
 
 
 def obter_pasta_logs() -> Path:
@@ -104,13 +97,6 @@ def renderizar_dashboard(caminho_arquivo: str | Path | None = None) -> None:
     st.set_page_config(page_title="Walleto Dashboard", layout="wide")
     st.title("Dashboard Financeiro - Walleto")
 
-    arquivo_controle = obter_arquivo_controle_dashboard()
-
-    # DEBUG VISUAL
-    #st.caption(f"Diretório base: {obter_diretorio_base()}")
-    #st.caption(f"Arquivo de controle: {arquivo_controle}")
-    #st.caption(f"Arquivo de controle existe? {arquivo_controle.exists()}")
-
     if caminho_arquivo is None:
         caminho_arquivo = ler_caminho_arquivo_dashboard()
 
@@ -120,9 +106,6 @@ def renderizar_dashboard(caminho_arquivo: str | Path | None = None) -> None:
         return
 
     caminho_arquivo = Path(caminho_arquivo).expanduser().resolve()
-
-    #DEBUG VISUAL
-    #st.caption(f"Arquivo carregado: {caminho_arquivo}")
 
     if not caminho_arquivo.exists():
         st.error(f"Arquivo não encontrado: {caminho_arquivo}")
@@ -162,8 +145,8 @@ def renderizar_dashboard(caminho_arquivo: str | Path | None = None) -> None:
         data_fim = pd.to_datetime(intervalo_datas[1])
 
         df_filtrado = df_filtrado[
-            (df_filtrado["Data"] >= data_inicio) &
-            (df_filtrado["Data"] <= data_fim)
+            (df_filtrado["Data"] >= data_inicio)
+            & (df_filtrado["Data"] <= data_fim)
         ]
 
     total_gasto = df_filtrado["Valor"].sum()
@@ -275,6 +258,8 @@ def abrir_dashboard(
     try:
         processo = subprocess.Popen(
             [
+                sys.executable,
+                "-m",
                 "streamlit",
                 "run",
                 str(caminho_script_resolvido),
@@ -287,6 +272,7 @@ def abrir_dashboard(
             ],
             stdout=arquivo_log,
             stderr=arquivo_log,
+            cwd=str(BASE_DIR),
         )
     except Exception:
         arquivo_log.close()
