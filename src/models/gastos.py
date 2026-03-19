@@ -1,5 +1,5 @@
 # área destinada as importaçoes
-from src.database.connection import get_connection
+from src.core.database import get_connection
 from decimal import Decimal, ROUND_HALF_UP
 from src.core.constants import*
 import uuid
