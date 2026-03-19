@@ -4,7 +4,7 @@ import re
 import string 
 import datetime
 from src.models.gastos import Gasto
-from src.models.gastos import buscar_gasto_por_id
+from src.repositories.gasto_repository import buscar_gasto_por_id
 from src.core.constants import *
 
 

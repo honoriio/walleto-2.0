@@ -1,7 +1,6 @@
 # Área destinada as importações
 from src.views.gastos_views import entrada_gastos, coletar_dados_edicao, id_editar_gasto
-from src.views.usuario_views import nome_usuario, email_usuario, sexo_usuario, data_nascimento_usuario
-from src.models.gastos import inserir_gasto, listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor, calcular_gastos, Gasto
+from src.repositories.gasto_repository import inserir_gasto, listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor, calcular_gastos
 from src.views.menus import *
 from src.views.tela import encerrar_programa, exibir_mensagem, mostrar_gasto, exibir_gastos
 from src.core.constants import *
