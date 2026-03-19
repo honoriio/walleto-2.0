@@ -28,18 +28,89 @@ Em resumo:
 
 
 walleto/
+│
 ├── main.py
-├── src/
-│ ├── views/
-│ ├── services/
-│ ├── repositories/
-│ ├── models/
-│ ├── utils/
-│ └── config/
+├── requirements.txt
+├── requirements-dev.txt
+├── README.md
+├── .gitignore
+│
 ├── data/
+│   └── walleto.db
+│
+├── docs/
+│   ├── arquitetura.md
+│   ├── regras-negocio.md
+│   └── fluxos.md
+│
 ├── logs/
-└── tests/
-
+│
+├── tests/
+│   ├── unit/
+│   ├── integration/
+│   └── conftest.py
+│
+└── src/
+    ├── __init__.py
+    │
+    ├── core/
+    │   ├── config.py
+    │   ├── constants.py
+    │   ├── exceptions.py
+    │   └── database.py
+    │
+    ├── domain/
+    │   ├── __init__.py
+    │   ├── entities/
+    │   │   └── gasto.py
+    │   ├── value_objects/
+    │   │   └── dinheiro.py
+    │   └── interfaces/
+    │       └── gasto_repository.py
+    │
+    ├── application/
+    │   ├── __init__.py
+    │   ├── dto/
+    │   │   ├── gasto_input.py
+    │   │   └── gasto_output.py
+    │   └── use_cases/
+    │       ├── criar_gasto.py
+    │       ├── listar_gastos.py
+    │       ├── editar_gasto.py
+    │       ├── remover_gasto.py
+    │       ├── filtrar_gastos.py
+    │       ├── gerar_relatorio.py
+    │       └── exportar_gastos.py
+    │
+    ├── infrastructure/
+    │   ├── __init__.py
+    │   ├── repositories/
+    │   │   └── sqlite_gasto_repository.py
+    │   ├── exporters/
+    │   │   └── excel_exporter.py
+    │   └── dashboard/
+    │       └── streamlit_dashboard.py
+    │
+    ├── presentation/
+    │   ├── __init__.py
+    │   ├── cli/
+    │   │   ├── menu.py
+    │   │   ├── controllers/
+    │   │   │   └── gasto_controller.py
+    │   │   ├── views/
+    │   │   │   ├── gasto_view.py
+    │   │   │   ├── relatorio_view.py
+    │   │   │   └── dashboard_view.py
+    │   │   └── formatters/
+    │   │       └── moeda.py
+    │   └── api/
+    │       └── ...
+    │
+    └── shared/
+        ├── __init__.py
+        ├── validators.py
+        ├── formatters.py
+        └── helpers.py
 
 ---
 
