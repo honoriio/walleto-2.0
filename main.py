@@ -1,16 +1,14 @@
 # Área destinada as importações
-from src.views.gastos_views import entrada_gastos, coletar_dados_edicao, id_editar_gasto
-from src.repositories.gasto_repository import  listar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor
+from src.repositories.gasto_repository import  listar_gastos, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor
 from src.services.relatorio_service import calcular_gastos
-from src.controllers.gasto_controller import adicionar_gastos_controller
 from src.views.menus import *
-from src.views.tela import encerrar_programa, exibir_mensagem, mostrar_gasto, exibir_gastos
+from src.views.tela import encerrar_programa,mostrar_gasto, exibir_gastos
 from src.core.constants import *
 from src.core.database import inicializar_banco
 import time
 from src.infrastructure.exporters.excel_exporter import exportar_gastos_excel
 from src.infrastructure.dashboard.streamlit_dashboard import painel_dashboard_em_execucao
-from src.views.fluxo_gastos_view import fluxo_adicionar_gasto, fluxo_editar_gasto
+from src.views.fluxo_gastos_view import fluxo_adicionar_gasto, fluxo_editar_gasto, fluxo_excluir_gasto
 
 
 
@@ -32,35 +30,7 @@ def main():
                         fluxo_editar_gasto()
                         
                     case 3:# --> Exclui um gasto Ja criado
-                        id_gasto = cabecalho_excluir_gasto()
-                        gasto = buscar_gasto_por_id(id_gasto)
-
-                        if gasto is None:
-                            exibir_mensagem("Gasto não encontrado.", VERMELHO_CLARO)
-                            continue
-                        
-                        mostrar_gasto(gasto)
-
-                        opc = confirmar_exclusao()
-
-                        match opc:
-                            case 1: 
-                                resultado = excluir_gastos(id_gasto)
-
-                                if resultado["status"] == "sucesso":
-                                    exibir_mensagem(resultado["mensagem"], VERDE_CLARO)
-                                else:
-                                    exibir_mensagem(resultado["mensagem"], VERMELHO_CLARO)
-                            case 2:
-                                exibir_mensagem("Exclusão cancelada.", AMARELO_CLARO)
-                                continue
-                    
-                    case 0: # --> Volta para o menu anterior
-                        continue # ---> usado para voltar ao menu anterior
-                    
-                    case _: # O "_" captura qualquer outra opção
-                        print(f"{VERMELHO_CLARO}Opção inválida. Por favor, tente novamente.{RESET}")
-                        time.sleep(2)
+                        fluxo_excluir_gasto()
 
             case 2: # --> Menu de consultas e relatorios.
                 opc = consultas_e_relatorios()

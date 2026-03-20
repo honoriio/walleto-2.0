@@ -24,7 +24,7 @@ def inserir_gasto_repository(gasto): # insere os valores informados pelo usuario
 
 
 
-def excluir_gastos(id): # exclui o gasto com base no ID informado pelo usuario
+def excluir_gastos_repository(id): # exclui o gasto com base no ID informado pelo usuario
      try: 
          with get_connection() as conn: 
              cursor = conn.cursor()
@@ -43,7 +43,7 @@ def excluir_gastos(id): # exclui o gasto com base no ID informado pelo usuario
 
 
 
-def buscar_gasto_por_id(id: int):
+def buscar_gasto_por_id_repository(id: int):
     """Busca um gasto no banco e retorna um objeto Gasto ou None."""
     
     with get_connection() as conn:
