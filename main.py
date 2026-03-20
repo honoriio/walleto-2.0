@@ -1,6 +1,6 @@
 # Área destinada as importações
 from src.views.gastos_views import entrada_gastos, coletar_dados_edicao, id_editar_gasto
-from src.repositories.gasto_repository import  listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor
+from src.repositories.gasto_repository import  listar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor
 from src.services.relatorio_service import calcular_gastos
 from src.controllers.gasto_controller import adicionar_gastos_controller
 from src.views.menus import *
@@ -10,7 +10,7 @@ from src.core.database import inicializar_banco
 import time
 from src.infrastructure.exporters.excel_exporter import exportar_gastos_excel
 from src.infrastructure.dashboard.streamlit_dashboard import painel_dashboard_em_execucao
-from src.views.fluxo_gastos_view import fluxo_adicionar_gasto
+from src.views.fluxo_gastos_view import fluxo_adicionar_gasto, fluxo_editar_gasto
 
 
 
@@ -29,16 +29,8 @@ def main():
                         fluxo_adicionar_gasto()
 
                     case 2: # --> EDITAR GASTOS JA CRIADOS.
-                        menu_editar_gasto()
-                        dados = coletar_dados_edicao()
-                        resultado = editar_gastos(dados)
-
-                        if resultado["status"] == "sucesso":
-                            exibir_mensagem(resultado["mensagem"], VERDE_CLARO)
-                        else:
-                            exibir_mensagem(resultado["mensagem"], VERMELHO_CLARO)
-                            menu_anterior() # --> Retorna ao menu anterior
-
+                        fluxo_editar_gasto()
+                        
                     case 3:# --> Exclui um gasto Ja criado
                         id_gasto = cabecalho_excluir_gasto()
                         gasto = buscar_gasto_por_id(id_gasto)

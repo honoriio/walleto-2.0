@@ -5,7 +5,7 @@ from src.models.gastos import Gasto
 from datetime import datetime
 
 
-def inserir_gasto(gasto): # insere os valores informados pelo usuario a tabela gastos 
+def inserir_gasto_repository(gasto): # insere os valores informados pelo usuario a tabela gastos 
     try:
         with get_connection() as conn:
             cursor = conn.cursor()
@@ -65,7 +65,7 @@ def buscar_gasto_por_id(id: int):
 
 
 
-def editar_gastos(dados): 
+def editar_gastos_repository(dados): 
    
     try:  
          # Validação inicial do ID. O ID não pode estar vazio.
