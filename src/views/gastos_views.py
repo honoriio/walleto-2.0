@@ -120,14 +120,10 @@ def entrada_gastos(): # --> REUNE TODAS AS FUNÇÕES DE COLETA DE DADOS NA ORDEM
 #======================================================================================================================
 
 
-def id_editar_gasto():
+def solicitar_id_gasto():
     while True:
         print(linha("-"))
-        entrada_usuario = input("Informe o id do gasto: ")
-        if not entrada_usuario :
-            pass
-        else:
-            print(f"{VERDE_CLARO}pressione Enter para manter o valor atual.{RESET   }")
+        entrada_usuario = input("Informe o id do gasto: ").strip()
 
         try:
             numero = int(entrada_usuario)
@@ -136,17 +132,10 @@ def id_editar_gasto():
                 print("Erro: ID deve ser maior que zero.")
                 continue
 
-            gasto = buscar_gasto_por_id_repository(numero)
-
-            if gasto is None:
-                print(f"Nenhum gasto encontrado com o ID {numero}.")
-                continue
-
             return numero
 
         except ValueError:
             print("Erro: Por favor, digite apenas números inteiros. Tente novamente.")
-
 
 def nome_editar_gasto(nome_atual):
     while True:
@@ -267,10 +256,7 @@ def data_editar_gasto(data_atual):
 
 
 
-def coletar_dados_edicao():
-    id = id_editar_gasto()
-    gasto = buscar_gasto_por_id_repository(id)
-
+def coletar_dados_edicao(gasto):
     nome = nome_editar_gasto(gasto.nome)
     valor = valor_editar_gasto(gasto.valor)
     categoria = categoria_editar_gasto(gasto.categoria)
@@ -278,7 +264,7 @@ def coletar_dados_edicao():
     data = data_editar_gasto(gasto.data)
 
     return {
-        "id": id,
+        "id": gasto.id,
         "nome": nome,
         "valor": valor,
         "categoria": categoria,

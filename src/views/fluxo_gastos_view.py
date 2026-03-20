@@ -1,5 +1,5 @@
-from src.controllers.gasto_controller import adicionar_gastos_controller, editar_gastos_controller, buscar_gasto_para_exclusao_controller, excluir_gasto_controller, listar_gastos_controller, exportar_gastos_controller, abrir_dashboard_controller, filtrar_gasto_por_id_controller, filtrar_gastos_por_categoria_controller, filtrar_gastos_por_data_controller, filtrar_gastos_por_valor_controller, exportar_todos_gastos_controller, abrir_dashboard_completo_controller
-from src.views.gastos_views import coletar_dados_edicao, entrada_gastos
+from src.controllers.gasto_controller import adicionar_gastos_controller, buscar_gasto_para_edicao_controller, editar_gastos_controller, buscar_gasto_para_exclusao_controller, excluir_gasto_controller, listar_gastos_controller, exportar_gastos_controller, abrir_dashboard_controller, filtrar_gasto_por_id_controller, filtrar_gastos_por_categoria_controller, filtrar_gastos_por_data_controller, filtrar_gastos_por_valor_controller, exportar_todos_gastos_controller, abrir_dashboard_completo_controller
+from src.views.gastos_views import coletar_dados_edicao, entrada_gastos, solicitar_id_gasto
 from src.views.menus import menu_adicionar_gastos, menu_editar_gasto, menu_anterior, cabecalho_excluir_gasto, confirmar_exclusao, menu_listar_gastos, menu_filtro_exportação, cabecalho_buscar_por_id, menu_filtrar_gasto_categoria, menu_filtrar_data, menu_filtrar_valor, menu_exportacao
 from src.views.tela import exibir_mensagem, mostrar_gasto, exibir_gastos, exibir_total
 import time
@@ -20,13 +20,23 @@ def fluxo_adicionar_gasto():
 
 def fluxo_editar_gasto():
     menu_editar_gasto()
-    dados = coletar_dados_edicao()
-    resultado = editar_gastos_controller(dados)
-    if resultado["status"] == "sucesso":
-        exibir_mensagem(resultado["mensagem"], VERDE_CLARO)
-    else:
+
+    id_gasto = solicitar_id_gasto()
+    resultado = buscar_gasto_para_edicao_controller(id_gasto)
+
+    if resultado["status"] == "erro":
         exibir_mensagem(resultado["mensagem"], VERMELHO_CLARO)
-        menu_anterior() # --> Retorna ao menu anterior
+        return
+
+    gasto = resultado["gasto"]
+    dados = coletar_dados_edicao(gasto)
+
+    resultado_edicao = editar_gastos_controller(dados)
+
+    if resultado_edicao["status"] == "sucesso":
+        exibir_mensagem(resultado_edicao["mensagem"], VERDE_CLARO)
+    else:
+        exibir_mensagem(resultado_edicao["mensagem"], VERMELHO_CLARO)
 
 
 def fluxo_excluir_gasto():

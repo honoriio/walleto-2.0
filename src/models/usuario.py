@@ -9,3 +9,6 @@ class Usuario:
         self.idade = idade
         self.id = id
         self.senha_hash = None
+
+
+        

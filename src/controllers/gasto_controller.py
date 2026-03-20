@@ -128,3 +128,19 @@ def abrir_dashboard_completo_controller():
     painel_dashboard_em_execucao(caminho_arquivo)
 
     return caminho_arquivo
+
+
+def buscar_gasto_para_edicao_controller(id_gasto: int):
+    gasto = buscar_gasto_por_id_repository(id_gasto)
+
+    if gasto is None:
+        return {
+            "status": "erro",
+            "mensagem": f"Nenhum gasto encontrado com o ID {id_gasto}.",
+            "gasto": None,
+        }
+
+    return {
+        "status": "sucesso",
+        "gasto": gasto,
+    }
