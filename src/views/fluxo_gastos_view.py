@@ -2,7 +2,7 @@ from src.controllers.gasto_controller import adicionar_gastos_controller, editar
 from src.views.gastos_views import coletar_dados_edicao, entrada_gastos
 from src.views.menus import menu_adicionar_gastos, menu_editar_gasto, menu_anterior, cabecalho_excluir_gasto, confirmar_exclusao, menu_listar_gastos, menu_filtro_exportação, cabecalho_buscar_por_id, menu_filtrar_gasto_categoria, menu_filtrar_data, menu_filtrar_valor, menu_exportacao
 from src.views.tela import exibir_mensagem, mostrar_gasto, exibir_gastos, exibir_total
-from datetime import time
+import time
 from src.core.constants import VERDE_CLARO, VERMELHO_CLARO, AMARELO_CLARO
 
 
