@@ -1,12 +1,8 @@
 from src.core.database import get_connection
-from decimal import Decimal, ROUND_HALF_UP
+from decimal import Decimal
 from src.core.constants import*
 from src.models.gastos import Gasto
 from datetime import datetime
-
-
-
-
 
 
 def inserir_gasto(gasto): # insere os valores informados pelo usuario a tabela gastos 
@@ -283,19 +279,3 @@ def filtrar_gastos_nome(nome):
 
         return gastos_objetos
 
-
-
-def calcular_gastos(lista_de_gastos: list[Gasto]):
-    """Recebe uma lista de objetos Gasto e calcula o total."""
-    if not lista_de_gastos:
-        total = Decimal("0.00")
-    else:
-        total = sum(
-            Decimal(str(gasto.valor)).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
-            for gasto in lista_de_gastos
-        )
-
-    valor_formatado = f"R$ {total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-    print(linha("="))
-    print(f"Valor Total Gasto: {VERDE}{valor_formatado}{RESET}")
-    return total
