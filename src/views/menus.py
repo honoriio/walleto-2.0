@@ -2,6 +2,7 @@
 import time
 from src.core.constants import *
 from decimal import InvalidOperation 
+from src.repositories.gasto_repository import buscar_gasto_por_id_repository
 from src.views.tela import limpar_tela
 from src.views.gastos_views import valor_gasto_filtrar
 import string
@@ -136,7 +137,7 @@ def cabecalho_buscar_por_id():
                 print("Erro: ID deve ser maior que zero.")
                 continue
 
-            gasto = buscar_gasto_por_id(numero)
+            gasto = buscar_gasto_por_id_repository(numero)
 
             if gasto is None:
                 print(f"Nenhum gasto encontrado com o ID {numero}.")

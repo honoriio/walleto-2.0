@@ -7,7 +7,7 @@ from src.core.database import inicializar_banco
 import time
 from src.infrastructure.exporters.excel_exporter import exportar_gastos_excel
 from src.infrastructure.dashboard.streamlit_dashboard import painel_dashboard_em_execucao
-from src.views.fluxo_gastos_view import fluxo_adicionar_gasto, fluxo_editar_gasto, fluxo_excluir_gasto, fluxo_listar_gastos
+from src.views.fluxo_gastos_view import fluxo_adicionar_gasto, fluxo_editar_gasto, fluxo_excluir_gasto, fluxo_listar_gastos, fluxo_buscar_gasto_por_id
 
 
 
@@ -42,10 +42,7 @@ def main():
                         continue
 
                     case 2: # --> Busca gastos por ID
-                        id_busca = cabecalho_buscar_por_id()
-                        gastos = buscar_gasto_por_id(id_busca)
-                        mostrar_gasto(gastos)
-                        opc = menu_anterior() # --> Retorna ao menu anterior
+                        fluxo_buscar_gasto_por_id()
 
                     case 3: # --> Busca gastos por categoria
                         categoria_busca = menu_filtrar_categoria()

@@ -1,6 +1,6 @@
-from src.controllers.gasto_controller import adicionar_gastos_controller, editar_gastos_controller, buscar_gasto_para_exclusao_controller, excluir_gasto_controller, listar_gastos_controller, exportar_gastos_controller, abrir_dashboard_controller
+from src.controllers.gasto_controller import adicionar_gastos_controller, editar_gastos_controller, buscar_gasto_para_exclusao_controller, excluir_gasto_controller, listar_gastos_controller, exportar_gastos_controller, abrir_dashboard_controller, buscar_gasto_por_id_controller
 from src.views.gastos_views import coletar_dados_edicao, entrada_gastos
-from src.views.menus import menu_adicionar_gastos, menu_editar_gasto, menu_anterior, cabecalho_excluir_gasto, confirmar_exclusao, menu_listar_gastos, menu_filtro_exportação
+from src.views.menus import menu_adicionar_gastos, menu_editar_gasto, menu_anterior, cabecalho_excluir_gasto, confirmar_exclusao, menu_listar_gastos, menu_filtro_exportação, cabecalho_buscar_por_id
 from src.views.tela import exibir_mensagem, mostrar_gasto, exibir_gastos, exibir_total
 from src.core.constants import VERDE_CLARO, VERMELHO_CLARO, AMARELO_CLARO
 
@@ -77,4 +77,16 @@ def fluxo_listar_gastos():
         case 0:
             return
 
-            
+
+def fluxo_buscar_gasto_por_id():
+    id_busca = cabecalho_buscar_por_id()
+
+    resultado = buscar_gasto_por_id_controller(id_busca)
+
+    if resultado["status"] == "erro":
+        exibir_mensagem(resultado["mensagem"], VERMELHO_CLARO)
+        return
+
+    mostrar_gasto(resultado["gasto"])
+
+    menu_anterior()

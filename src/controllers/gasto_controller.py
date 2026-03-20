@@ -53,3 +53,19 @@ def abrir_dashboard_controller(gastos):
     caminho_arquivo = exportar_gastos_excel(gastos)
     painel_dashboard_em_execucao(caminho_arquivo)
     return caminho_arquivo
+
+
+def buscar_gasto_por_id_controller(id_busca: int):
+    gasto = buscar_gasto_por_id_repository(id_busca)
+
+    if gasto is None:
+        return {
+            "status": "erro",
+            "mensagem": "Gasto não encontrado.",
+            "gasto": None,
+        }
+
+    return {
+        "status": "sucesso",
+        "gasto": gasto,
+    }

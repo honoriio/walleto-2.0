@@ -5,6 +5,7 @@ import string
 import datetime
 from src.models.gastos import Gasto
 from src.core.constants import *
+from src.repositories.gasto_repository import buscar_gasto_por_id_repository
 
 
 # Função refatorada, foi tirado o uso sem necessidade de try
@@ -135,7 +136,7 @@ def id_editar_gasto():
                 print("Erro: ID deve ser maior que zero.")
                 continue
 
-            gasto = buscar_gasto_por_id(numero)
+            gasto = buscar_gasto_por_id_repository(numero)
 
             if gasto is None:
                 print(f"Nenhum gasto encontrado com o ID {numero}.")
@@ -268,7 +269,7 @@ def data_editar_gasto(data_atual):
 
 def coletar_dados_edicao():
     id = id_editar_gasto()
-    gasto = buscar_gasto_por_id(id)
+    gasto = buscar_gasto_por_id_repository(id)
 
     nome = nome_editar_gasto(gasto.nome)
     valor = valor_editar_gasto(gasto.valor)
