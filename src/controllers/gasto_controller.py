@@ -99,3 +99,21 @@ def filtrar_gastos_por_valor_controller(valor_min, valor_max):
         "gastos": gastos,
         "total": total,
     }
+
+
+def exportar_todos_gastos_controller():
+    gastos = listar_gastos_repository()
+    arquivo = exportar_gastos_excel(gastos)
+
+    return {
+        "status": "sucesso",
+        "arquivo": arquivo,
+    }
+
+
+def abrir_dashboard_completo_controller():
+    gastos = listar_gastos_repository()
+    caminho_arquivo = exportar_gastos_excel(gastos)
+    painel_dashboard_em_execucao(caminho_arquivo)
+
+    return caminho_arquivo
