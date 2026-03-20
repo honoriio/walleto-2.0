@@ -6,8 +6,8 @@ from src.views.tela import encerrar_programa, exibir_mensagem, mostrar_gasto, ex
 from src.core.constants import *
 from src.core.database import inicializar_banco
 import time
-from src.services.exportador_excel import exportar_gastos_excel
-from src.services.dashboard import painel_dashboard_em_execucao
+from src.infrastructure.exporters.excel_exporter import exportar_gastos_excel
+from src.infrastructure.dashboard.streamlit_dashboard import painel_dashboard_em_execucao
 
 
 def main():
