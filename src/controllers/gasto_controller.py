@@ -1,4 +1,4 @@
-from src.repositories.gasto_repository import inserir_gasto_repository, editar_gastos_repository, buscar_gasto_por_id_repository, excluir_gastos_repository, listar_gastos_repository, filtrar_gastos_categoria_repository, filtrar_gastos_data_repository, filtrar_gasto_valor_repository
+from src.repositories.gasto_repository import filtrar_gastos_nome_repository, inserir_gasto_repository, editar_gastos_repository, buscar_gasto_por_id_repository, excluir_gastos_repository, listar_gastos_repository, filtrar_gastos_categoria_repository, filtrar_gastos_data_repository, filtrar_gasto_valor_repository
 from src.services.relatorio_service import calcular_gastos_services
 from src.infrastructure.exporters.excel_exporter import exportar_gastos_excel
 from src.views.fluxo_dashboard_view import painel_dashboard_em_execucao
@@ -144,3 +144,9 @@ def buscar_gasto_para_edicao_controller(id_gasto: int):
         "status": "sucesso",
         "gasto": gasto,
     }
+
+
+def filtrar_gastos_nome_controller(nome):
+    gastos = filtrar_gastos_nome_repository(nome)
+    return {"gastos": gastos}
+

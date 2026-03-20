@@ -240,21 +240,21 @@ def filtrar_gastos_categoria_repository(categoria):
         return None
 
 
-def filtrar_gastos_nome(nome):  # --> Não implementada
+def filtrar_gastos_nome_repository(nome):
     with get_connection() as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM gastos WHERE nome = ?", (nome,))
         resultados = cursor.fetchall()
 
-        gastos_objetos = []
-        for tupla in resultados:
-            gastos_objetos.append(Gasto(id=tupla[0], nome=tupla[1], valor=tupla[2], 
-                                        categoria=tupla[3], descricao=tupla[4], data=tupla[5]))
-
-        for gasto in gastos_objetos:
-            valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
-            print(f"ID: {gasto.id} Nome Do Gasto: {VERDE}{gasto.nome}{RESET}, Valor: {valor_formatado}, Categoria: {gasto.categoria}, Descrição: {gasto.descricao}, Data: {gasto.data} ")
-            print(linha("-"))
-
-        return gastos_objetos
+        return [
+            Gasto(
+                id=tupla[0],
+                nome=tupla[1],
+                valor=tupla[2],
+                categoria=tupla[3],
+                descricao=tupla[4],
+                data=tupla[5],
+            )
+            for tupla in resultados
+        ]
 

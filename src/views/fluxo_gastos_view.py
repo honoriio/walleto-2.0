@@ -1,4 +1,4 @@
-from src.controllers.gasto_controller import adicionar_gastos_controller, buscar_gasto_para_edicao_controller, editar_gastos_controller, buscar_gasto_para_exclusao_controller, excluir_gasto_controller, listar_gastos_controller, exportar_gastos_controller, abrir_dashboard_controller, filtrar_gasto_por_id_controller, filtrar_gastos_por_categoria_controller, filtrar_gastos_por_data_controller, filtrar_gastos_por_valor_controller, exportar_todos_gastos_controller, abrir_dashboard_completo_controller
+from src.controllers.gasto_controller import adicionar_gastos_controller, buscar_gasto_para_edicao_controller, editar_gastos_controller, buscar_gasto_para_exclusao_controller, excluir_gasto_controller, filtrar_gastos_nome_controller, listar_gastos_controller, exportar_gastos_controller, abrir_dashboard_controller, filtrar_gasto_por_id_controller, filtrar_gastos_por_categoria_controller, filtrar_gastos_por_data_controller, filtrar_gastos_por_valor_controller, exportar_todos_gastos_controller, abrir_dashboard_completo_controller
 from src.views.gastos_views import coletar_dados_edicao, entrada_gastos, solicitar_id_gasto
 from src.views.menus import menu_adicionar_gastos, menu_editar_gasto, menu_anterior, cabecalho_excluir_gasto, confirmar_exclusao, menu_listar_gastos, menu_filtro_exportação, cabecalho_buscar_por_id, menu_filtrar_gasto_categoria, menu_filtrar_data, menu_filtrar_valor, menu_exportacao
 from src.views.tela import exibir_mensagem, mostrar_gasto, exibir_gastos, exibir_total
@@ -200,3 +200,8 @@ def fluxo_exportacao():
             time.sleep(2)
 
 
+def fluxo_filtrar_por_nome():
+    nome = input("Digite o nome: ")
+    resultado = filtrar_gastos_nome_controller(nome)
+
+    exibir_gastos(resultado["gastos"])
