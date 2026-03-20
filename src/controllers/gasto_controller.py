@@ -71,11 +71,22 @@ def filtrar_gasto_por_id_controller(id_busca: int):
     }
 
 
-def filtrar_gastos_por_categoria_controller(categoria: str):
+def filtrar_gastos_por_categoria_controller(categoria):
     gastos = filtrar_gastos_categoria_repository(categoria)
+
+    if gastos is None:
+        return {
+            "status": "erro",
+            "mensagem": "Erro ao buscar gastos por categoria.",
+            "gastos": [],
+            "total": 0,
+        }
+
     total = calcular_gastos_services(gastos)
 
     return {
+        "status": "sucesso",
+        "mensagem": "Consulta realizada com sucesso.",
         "gastos": gastos,
         "total": total,
     }
