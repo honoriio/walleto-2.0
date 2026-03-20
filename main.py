@@ -1,5 +1,5 @@
 from src.views.menus import menu_principal, menu_gerenciar_gastos, consultas_e_relatorios
-from src.views.tela import encerrar_programa
+from src.views.tela import encerrar_programa, exibir_mensagem_opcao_invalida
 from src.core.constants import VERMELHO_CLARO, RESET
 from src.core.database import inicializar_banco
 from src.views.fluxo_gastos_view import (
@@ -76,9 +76,7 @@ def main():
                 encerrar_programa()
 
             case _:
-                print(f"{VERMELHO_CLARO}Opção inválida. Por favor, tente novamente.{RESET}")
-                time.sleep(2)
-
+                exibir_mensagem_opcao_invalida()
 
 if __name__ == "__main__":
     main()

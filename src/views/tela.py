@@ -97,3 +97,8 @@ def exibir_total(total):
     print(linha("="))
     print(f"Valor Total Gasto: {VERDE}{valor_formatado}{RESET}")
 
+
+def exibir_mensagem_opcao_invalida():
+    print(f"{VERMELHO_CLARO}Opção inválida. Por favor, tente novamente.{RESET}")
+    time.sleep(2)
+
