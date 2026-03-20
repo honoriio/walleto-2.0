@@ -5,7 +5,7 @@ from src.models.gastos import Gasto
 
 
 
-def calcular_gastos(lista_de_gastos: list[Gasto]):
+def calcular_gastos_services(lista_de_gastos: list[Gasto]):
     """Recebe uma lista de objetos Gasto e calcula o total."""
     if not lista_de_gastos:
         total = Decimal("0.00")
@@ -15,7 +15,4 @@ def calcular_gastos(lista_de_gastos: list[Gasto]):
             for gasto in lista_de_gastos
         )
 
-    valor_formatado = f"R$ {total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-    print(linha("="))
-    print(f"Valor Total Gasto: {VERDE}{valor_formatado}{RESET}")
     return total

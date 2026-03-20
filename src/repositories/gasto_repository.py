@@ -136,7 +136,7 @@ def editar_gastos_repository(dados):
 
 
 
-def listar_gastos():
+def listar_gastos_repository():
     """Busca todos os gastos e retorna uma lista de objetos Gasto."""
     with get_connection() as conn:
         cursor = conn.cursor()

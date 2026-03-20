@@ -4,10 +4,7 @@ import re
 import string 
 import datetime
 from src.models.gastos import Gasto
-from src.repositories.gasto_repository import buscar_gasto_por_id
 from src.core.constants import *
-from src.controllers.gasto_controller import adicionar_gastos_controller
-from src.views.tela import exibir_mensagem
 
 
 # Função refatorada, foi tirado o uso sem necessidade de try

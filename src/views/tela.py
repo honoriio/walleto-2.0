@@ -91,3 +91,9 @@ def exibir_gastos(gastos):
         )
         print(linha("-"))
 
+
+def exibir_total(total):
+    valor_formatado = f"R$ {total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+    print(linha("="))
+    print(f"Valor Total Gasto: {VERDE}{valor_formatado}{RESET}")
+

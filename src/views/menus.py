@@ -3,7 +3,7 @@ import time
 from src.core.constants import *
 from decimal import InvalidOperation 
 from src.views.tela import limpar_tela
-from src.views.gastos_views import valor_gasto_filtrar, buscar_gasto_por_id
+from src.views.gastos_views import valor_gasto_filtrar
 import string
 import datetime 
 from src.utils.utils_layer import validar_e_converter_data

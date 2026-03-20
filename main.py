@@ -1,14 +1,13 @@
 # Área destinada as importações
-from src.repositories.gasto_repository import  listar_gastos, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor
-from src.services.relatorio_service import calcular_gastos
+from src.repositories.gasto_repository import filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor
 from src.views.menus import *
-from src.views.tela import encerrar_programa,mostrar_gasto, exibir_gastos
+from src.views.tela import encerrar_programa,mostrar_gasto
 from src.core.constants import *
 from src.core.database import inicializar_banco
 import time
 from src.infrastructure.exporters.excel_exporter import exportar_gastos_excel
 from src.infrastructure.dashboard.streamlit_dashboard import painel_dashboard_em_execucao
-from src.views.fluxo_gastos_view import fluxo_adicionar_gasto, fluxo_editar_gasto, fluxo_excluir_gasto
+from src.views.fluxo_gastos_view import fluxo_adicionar_gasto, fluxo_editar_gasto, fluxo_excluir_gasto, fluxo_listar_gastos
 
 
 
@@ -36,24 +35,11 @@ def main():
                 opc = consultas_e_relatorios()
 
                 match opc:
-                    case 1:# --> Lista todos os gastos
-                        menu_listar_gastos()
-                        gastos = listar_gastos()
-                        exibir_gastos(gastos)
-                        calcular_gastos(gastos)
+                    case 1:
+                        fluxo_listar_gastos()
 
-                        opc = menu_filtro_exportação() # --> Retorna ao menu anterior
-
-                        match opc:
-                            case 1:
-                                exportar_gastos_excel(gastos)
-
-                            case 2:
-                                caminho_arquivo = exportar_gastos_excel(gastos)
-                                painel_dashboard_em_execucao(caminho_arquivo)
-
-                            case 0: # --> Volta ao menu anterior
-                                continue
+                    case 0:
+                        continue
 
                     case 2: # --> Busca gastos por ID
                         id_busca = cabecalho_buscar_por_id()
