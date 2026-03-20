@@ -1,7 +1,8 @@
 # Área destinada as importações
 from src.views.gastos_views import entrada_gastos, coletar_dados_edicao, id_editar_gasto
-from src.repositories.gasto_repository import inserir_gasto, listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor
+from src.repositories.gasto_repository import  listar_gastos, editar_gastos, excluir_gastos, buscar_gasto_por_id, filtrar_gastos_categoria, filtrar_gastos_data, filtrar_gasto_valor
 from src.services.relatorio_service import calcular_gastos
+from src.controllers.gasto_controller import adicionar_gastos_controller
 from src.views.menus import *
 from src.views.tela import encerrar_programa, exibir_mensagem, mostrar_gasto, exibir_gastos
 from src.core.constants import *
@@ -9,6 +10,8 @@ from src.core.database import inicializar_banco
 import time
 from src.infrastructure.exporters.excel_exporter import exportar_gastos_excel
 from src.infrastructure.dashboard.streamlit_dashboard import painel_dashboard_em_execucao
+from src.views.fluxo_gastos_view import fluxo_adicionar_gasto
+
 
 
 def main():
@@ -23,13 +26,7 @@ def main():
 
                 match opc:
                     case 1: # --> ADICIONAR GASTOS
-                        menu_adicionar_gastos()
-                        novo_gasto  = entrada_gastos()
-                        resultado = inserir_gasto(novo_gasto)
-                        if resultado["status"] == "sucesso":
-                            exibir_mensagem(resultado["mensagem"],VERDE_CLARO)
-                        else:
-                            exibir_mensagem(resultado["mensagem"], VERMELHO_CLARO)
+                        fluxo_adicionar_gasto()
 
                     case 2: # --> EDITAR GASTOS JA CRIADOS.
                         menu_editar_gasto()
