@@ -1,4 +1,4 @@
-from src.repositories.gasto_repository import inserir_gasto_repository, editar_gastos_repository, buscar_gasto_por_id_repository, excluir_gastos_repository, listar_gastos_repository
+from src.repositories.gasto_repository import inserir_gasto_repository, editar_gastos_repository, buscar_gasto_por_id_repository, excluir_gastos_repository, listar_gastos_repository, filtrar_gastos_categoria_repository
 from src.services.relatorio_service import calcular_gastos_services
 from src.infrastructure.exporters.excel_exporter import exportar_gastos_excel
 from src.infrastructure.dashboard.streamlit_dashboard import painel_dashboard_em_execucao
@@ -55,7 +55,7 @@ def abrir_dashboard_controller(gastos):
     return caminho_arquivo
 
 
-def buscar_gasto_por_id_controller(id_busca: int):
+def filtrar_gasto_por_id_controller(id_busca: int):
     gasto = buscar_gasto_por_id_repository(id_busca)
 
     if gasto is None:
@@ -68,4 +68,14 @@ def buscar_gasto_por_id_controller(id_busca: int):
     return {
         "status": "sucesso",
         "gasto": gasto,
+    }
+
+
+def filtrar_gastos_por_categoria_controller(categoria: str):
+    gastos = filtrar_gastos_categoria_repository(categoria)
+    total = calcular_gastos_services(gastos)
+
+    return {
+        "gastos": gastos,
+        "total": total,
     }

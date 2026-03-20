@@ -150,7 +150,7 @@ def cabecalho_buscar_por_id():
 
 
 
-def menu_filtrar_categoria():
+def menu_filtrar_gasto_categoria():
     limpar_tela() 
     print(linha("="))
     print(f'{AMARELO}BUSCAR POR CATEGORIA{RESET}'.center(CENTRALIZAR))

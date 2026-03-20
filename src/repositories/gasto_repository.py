@@ -228,7 +228,7 @@ def filtrar_gasto_valor(valor_min, valor_max):
 
 
 
-def filtrar_gastos_categoria(categoria):
+def filtrar_gastos_categoria_repository(categoria):
     try:
         with get_connection() as conn:
             cursor = conn.cursor()
