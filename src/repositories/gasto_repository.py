@@ -191,25 +191,28 @@ def filtrar_gastos_data_repository(data_inicio, data_final):
         return gastos_objetos
 
 
-def filtrar_gasto_valor(valor_min, valor_max):
-    with get_connection() as conn:  
+def filtrar_gasto_valor_repository(valor_min, valor_max):
+    with get_connection() as conn:
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM gastos WHERE valor BETWEEN ? AND ?", (str(valor_min), str(valor_max)))
+        cursor.execute(
+            "SELECT * FROM gastos WHERE valor BETWEEN ? AND ?",
+            (str(valor_min), str(valor_max))
+        )
         resultados = cursor.fetchall()
-        
-        if not resultados:
-            print("Não existe gasto com essa faixa de valor.")
 
         gastos_objetos = []
         for tupla in resultados:
-            gastos_objetos.append(Gasto(id=tupla[0], nome=tupla[1], valor=tupla[2], 
-                                        categoria=tupla[3], descricao=tupla[4], data=tupla[5]))
+            gastos_objetos.append(
+                Gasto(
+                    id=tupla[0],
+                    nome=tupla[1],
+                    valor=tupla[2],
+                    categoria=tupla[3],
+                    descricao=tupla[4],
+                    data=tupla[5],
+                )
+            )
 
-        for gasto in gastos_objetos:
-            valor_formatado = f"R$ {gasto.valor:,.2f}".replace(',', 'X').replace('.', ',').replace('X', '.')
-            print(f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, Valor: {VERDE}{valor_formatado}{RESET}, Categoria: {gasto.categoria}, Descrição: {gasto.descricao}, Data: {gasto.data} ")
-            print(linha("-"))
-        
         return gastos_objetos
 
 
