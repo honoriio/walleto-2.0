@@ -14,7 +14,7 @@ Esta é a estrutura base do projeto **Walleto**, pensada para manter organizaç�
 src/
 ├── core/               OK
 ├── models/v            OK
-├── repositories/
+├── repositories/       OK
 ├── services/           OK
 ├── controllers/        
 ├── views/              OK
