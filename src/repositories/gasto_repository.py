@@ -2,7 +2,6 @@ from src.core.database import get_connection
 from decimal import Decimal
 from src.core.constants import*
 from src.models.gastos import Gasto
-from datetime import datetime
 
 
 def inserir_gasto_repository(gasto): # insere os valores informados pelo usuario a tabela gastos 
@@ -164,7 +163,7 @@ def converter_data_para_banco(data_str: str) -> str:
     return data_str.strftime("%Y-%m-%d")
 
 
-def filtrar_gastos_data(data_inicio, data_final):
+def filtrar_gastos_data_repository(data_inicio, data_final):
     data_inicio = converter_data_para_banco(data_inicio)
     data_final = converter_data_para_banco(data_final)
 
@@ -188,19 +187,6 @@ def filtrar_gastos_data(data_inicio, data_final):
                     data=tupla[5]
                 )
             )
-
-        for gasto in gastos_objetos:
-            valor_formatado = f"R$ {gasto.valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-
-            data_formatada = datetime.strptime(gasto.data, "%Y-%m-%d").strftime("%d/%m/%Y")
-
-            print(linha("-"))
-            print(
-                f"ID: {gasto.id} Nome Do Gasto: {gasto.nome}, "
-                f"Valor: {valor_formatado}, Categoria: {gasto.categoria}, "
-                f"Descrição: {gasto.descricao}, Data: {VERDE}{data_formatada}{RESET}"
-            )
-            print(linha("-"))
 
         return gastos_objetos
 

@@ -1,4 +1,4 @@
-from src.repositories.gasto_repository import inserir_gasto_repository, editar_gastos_repository, buscar_gasto_por_id_repository, excluir_gastos_repository, listar_gastos_repository, filtrar_gastos_categoria_repository
+from src.repositories.gasto_repository import inserir_gasto_repository, editar_gastos_repository, buscar_gasto_por_id_repository, excluir_gastos_repository, listar_gastos_repository, filtrar_gastos_categoria_repository, filtrar_gastos_data_repository
 from src.services.relatorio_service import calcular_gastos_services
 from src.infrastructure.exporters.excel_exporter import exportar_gastos_excel
 from src.infrastructure.dashboard.streamlit_dashboard import painel_dashboard_em_execucao
@@ -73,6 +73,16 @@ def filtrar_gasto_por_id_controller(id_busca: int):
 
 def filtrar_gastos_por_categoria_controller(categoria: str):
     gastos = filtrar_gastos_categoria_repository(categoria)
+    total = calcular_gastos_services(gastos)
+
+    return {
+        "gastos": gastos,
+        "total": total,
+    }
+
+
+def filtrar_gastos_por_data_controller(data_inicio, data_final):
+    gastos = filtrar_gastos_data_repository(data_inicio, data_final)
     total = calcular_gastos_services(gastos)
 
     return {
