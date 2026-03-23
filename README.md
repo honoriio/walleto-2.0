@@ -226,5 +226,3 @@ Sinta-se à vontade para contribuir:
 ## 📄 Licença
 
 MIT License
-
-```
