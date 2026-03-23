@@ -1,135 +1,230 @@
-# walleto-2.0
+markdown
+# 💰 Walleto API 1.0
 
-<h1 align="center">💰 Walleto</h1>
 <p align="center">
+  Evolução do <strong>Walleto</strong> para uma arquitetura de backend escalável, mantendo uma base sólida já construída em CLI.
 </p>
 
 <p align="center">
-  Um gerenciador de finanças pessoais feito com Python e SQLite. Simples, direto e funcional.
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Status-Em desenvolvimento-yellow?style=flat-square"/>
-  <img src="https://img.shields.io/github/languages/top/honoriio/walleto?style=flat-square"/>
-  <img src="https://img.shields.io/github/last-commit/honoriio/walleto?style=flat-square"/>
+  <img src="https://img.shields.io/badge/status-em%20desenvolvimento-yellow?style=flat-square"/>
+  <img src="https://img.shields.io/badge/cli-finalizada-brightgreen?style=flat-square"/>
+  <img src="https://img.shields.io/badge/api-em%20constru%C3%A7%C3%A3o-blue?style=flat-square"/>
+  <img src="https://img.shields.io/github/languages/top/honoriio/walleto-2.0?style=flat-square"/>
 </p>
 
 ---
+
 ## 🧠 Sobre o Projeto
 
-**Walleto** é uma aplicação de terminal feita para ajudar no gerenciamento financeiro pessoal. Com uma arquitetura inspirada em padrões MVC, o projeto está estruturado para facilitar a manutenção, testes e expansão.
+O **Walleto API 1.0** é a evolução do projeto **Walleto**, um gerenciador de finanças pessoais desenvolvido em Python.
+
+A versão original (CLI) já está **finalizada, funcional e organizada**, com regras de negócio bem definidas.  
+Nesta nova etapa, o objetivo é transformar essa base em uma **API REST**, preparada para integração com interfaces web, dashboards e aplicações futuras.
+
+---
+
+## ✅ Status do Projeto
+
+| Módulo          | Status         |
+|----------------|---------------|
+| CLI            | ✅ Finalizado |
+| Core lógica    | ✅ Estável    |
+| Dashboard      | ✅ Funcional  |
+| Exportação XLS | ✅ Implementado |
+| API            | 🚧 Em desenvolvimento |
+| PDF Export     | 🚧 Em desenvolvimento |
 
 ---
 
 ## ✨ Funcionalidades
 
-- Registro de gastos com nome, valor, categoria, data e descrição
-- Visualização de gastos por período e categoria
-- Edição e remoção de registros
-- Validações robustas de entrada
-- Armazenamento local em SQLite
-- Organização por camadas: `controllers`, `models`, `views`, `utils`
-- Testes automatizados com estrutura pronta
+### 🔹 Já implementadas
+- Cadastro de gastos
+- Edição de registros
+- Remoção de gastos
+- Listagem de dados financeiros
+- Filtros por data e categoria
+- Validações robustas
+- Persistência com SQLite
+- Exportação para **Excel (XLSX)**
+- Dashboard com visualização de dados
+
+### 🔹 Em evolução (API 1.0)
+- Exposição via endpoints REST
+- Estrutura desacoplada por camadas
+- DTOs e casos de uso organizados
+- Base para autenticação
+- Exportação em PDF
+- Integração com front-end
 
 ---
 
-## 🧱 Estrutura de Pastas
+## 🧱 Arquitetura
+
+### Estrutura atual (CLI consolidada)
 
 ```bash
-walleto/
-├── data/                # Banco de dados SQLite
-│   └── walleto.db
-│
-├── doc/                 # Documentações (em breve)
-│
+walleto-2.0/
+├── data/
+├── docs/
+├── logs/
 ├── src/
-│   ├── controllers/
-│   │   └── database/
-│   │       ├── connection.py
-│   │       └── gasto_repository.py
-│   │
+│   ├── core/
 │   ├── models/
+│   ├── repositories/
+│   ├── services/
 │   ├── utils/
-│   │   ├── input_utils.py
-│   │   └── validacao.py
-│   │
-│   └── views/           # Interface de apresentação (em desenvolvimento)
-│
-├── tests/               # Testes automatizados
-│
-├── venv/                # Ambiente virtual
-│
-├── main.py              # Arquivo principal
-├── README.md
-├── TODO.md              # Lista de tarefas
-├── coisas_a_fazer.txt   # Anotações do autor
-└── LICENSE
+│   └── views/
+├── tests/
+├── main.py
+├── requirements.txt
+````
 
 ---
+
+### Estrutura nova (Walleto API 1.0)
+
+```bash
+walleto-api-1.0/
+├── src/
+│   ├── core/
+│   ├── domain/
+│   ├── application/
+│   ├── infrastructure/
+│   ├── presentation/
+│   └── api/
+├── tests/
+├── main.py
+├── requirements.txt
 ```
-## ⚙️ Tecnologias Utilizadas
-<p align="left"> <img align="center" alt="Python" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg">&nbsp; <img align="center" alt="SQLite" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sqlite/sqlite-original.svg">&nbsp; <img align="center" alt="VSCode" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original.svg"> </p>
-
----
-## 📌 TODO
-Você pode acompanhar o progresso nos seguintes arquivos:
-
-- [`TODO.md`](TODO.md)
-- [`coisas_a_fazer.txt`](coisas_a_fazer.txt)
 
 ---
 
-## 🧠 Futuras Melhorias
+## ⚙️ Tecnologias
 
-- [ ] Interface gráfica com Tkinter ou PyQt  
-- [ ] Exportação de dados para CSV  
-- [ ] Dashboard com gráficos  
-- [ ] Tela de login e múltiplos usuários  
+### Base atual
 
----
+* Python
+* SQLite
+* Pandas
+* OpenPyXL
+* Streamlit
+* Pytest
 
-### 🔧 Refatoração da função de filtragem
+### API (stack prevista)
 
-- [ ] Unificar a lógica de filtros em uma única função `filtrar_gastos()`, robusta e flexível.
-- [ ] Permitir múltiplos filtros combinados:
-  - Categoria
-  - Local
-  - Data (início e fim)
-  - Valor (mínimo e máximo)
-  - Descrição ou palavra-chave
-- [x] **Decisão tomada:** manter uma única função de filtro "parruda", que aplica apenas os critérios informados.
+* FastAPI
+* Pydantic
+* SQLAlchemy
 
 ---
 
-### 📊 Função de soma e média de gastos
+## 🛠️ Instalação
 
-- [ ] Criar uma função para calcular a **soma total** e a **média de gastos**.
-- [ ] A função usará os dados retornados pela `filtrar_gastos()`.
-- [ ] Implementar cálculo de média mensal fixa.
-- [ ] Permitir cálculo de totais por categoria ou período (baseado nos filtros aplicados).
+```bash
+# Clonar o repositório
+git clone https://github.com/honoriio/walleto-2.0.git
 
+# Entrar na pasta
+cd walleto-2.0
+
+# Criar ambiente virtual
+python3 -m venv env
+
+# Ativar ambiente
+source env/bin/activate  # Linux/macOS
+env\Scripts\activate     # Windows
+
+# Instalar dependências
+pip install -r requirements.txt
+```
+
+---
+
+## ▶️ Como executar
+
+### Rodar versão CLI
+
+```bash
+python main.py
+```
+
+---
+
+### Rodar dashboard
+
+```bash
+streamlit run src/services/dashboard.py
+```
+
+---
+
+## 📊 Exemplo de uso
+
+```bash
+Opção: 1
+Nome: Mercado
+Valor: 150.75
+Categoria: Alimentação
+Descrição: Compra do mês
+Data: 25/01/2026
+```
+
+✔ Gasto registrado com sucesso.
+
+---
+
+## 🎯 Roadmap
+
+### Concluído
+
+* [x] CLI funcional
+* [x] CRUD completo de gastos
+* [x] Persistência com SQLite
+* [x] Exportação XLSX
+* [x] Dashboard
+
+### Em andamento
+
+* [ ] Implementação de exportação para PDF
+* [ ] Refatoração para arquitetura limpa
+* [ ] Criação da API REST
+* [ ] Organização dos casos de uso
+
+### Próximos passos
+
+* [ ] Autenticação
+* [ ] Múltiplos usuários
+* [ ] Deploy
+* [ ] Interface web
+
+---
+
+## 📈 Visão
+
+O objetivo do Walleto é evoluir de uma aplicação local para um **ecossistema completo de gestão financeira**, com backend estruturado, integração com múltiplas interfaces e capacidade de escala.
 
 ---
 
 ## 🤝 Contribuições
 
-Contribuições são bem-vindas!  
-Sinta-se à vontade para:
+Sinta-se à vontade para contribuir:
 
-- Abrir uma [issue](https://github.com/honoriio/walleto/issues)
-- Sugerir melhorias
-- Enviar um [pull request](https://github.com/honoriio/walleto/pulls)
+* Abrir issues
+* Sugerir melhorias
+* Enviar pull requests
 
 ---
 
 ## 📬 Contato
 
-- 📧 Email: [diegohonoriiio@gmail.com](mailto:diegohonoriiio@gmail.com)  
-- 💼 LinkedIn: [Diego Honório](https://www.linkedin.com/in/diego-hon%C3%B3rio-0102581a3/)  
-- 📸 Instagram: [@](https://www.instagram.com/seuuser)
+* 📧 Email: [diegohonoriiio@gmail.com](mailto:diegohonoriiio@gmail.com)
+* 💼 LinkedIn: Diego Honório
 
 ---
 
 ## 📄 Licença
 
-Este projeto está licenciado sob a **MIT License** – veja o arquivo [LICENSE](LICENSE) para mais informações.
+MIT License
+
+```
