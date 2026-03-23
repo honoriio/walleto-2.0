@@ -2,6 +2,7 @@ from src.repositories.gasto_repository import filtrar_gastos_nome_repository, in
 from src.services.relatorio_service import calcular_gastos_services
 from src.infrastructure.exporters.excel_exporter import exportar_gastos_excel
 from src.views.fluxo_dashboard_view import painel_dashboard_em_execucao
+from src.infrastructure.exporters.pdf_exporter import exportar_gastos_pdf
 
 def adicionar_gastos_controller(novo_gasto):
     resultado = inserir_gasto_repository(novo_gasto)
@@ -150,3 +151,11 @@ def filtrar_gastos_nome_controller(nome):
     gastos = filtrar_gastos_nome_repository(nome)
     return {"gastos": gastos}
 
+def exportar_todos_gastos_pdf_controller():
+    gastos = listar_gastos_repository()
+    arquivo = exportar_gastos_pdf(gastos)
+
+    return {
+        "status": "sucesso",
+        "arquivo": arquivo,
+    }
