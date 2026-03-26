@@ -24,17 +24,28 @@ O projeto está em evolução para uma **API REST**, visando integração com ap
 
 ## 📸 Dashboard
 
+### 🔹 Visão geral
+
 <p align="center">
   <img src="images/dashboard_resumo.png" width="900px">
 </p>
+
+---
+
+### 🔹 Gráfico de gastos
 
 <p align="center">
   <img src="images/dashboard_grafico.png" width="900px">
 </p>
 
+---
+
+### 🔹 Últimos registros
+
 <p align="center">
   <img src="images/dashboard_tabela.png" width="900px">
 </p>
+
 ---
 
 ## ✅ Funcionalidades
@@ -84,6 +95,43 @@ O projeto está sendo adaptado para:
 
 ---
 
+## 🛠️ Instalação
+
+```bash
+git clone https://github.com/honoriio/walleto-2.0.git
+cd walleto-2.0
+
+python3 -m venv env
+
+# Linux/macOS
+source env/bin/activate
+
+# Windows
+env\Scripts\activate
+
+pip install -r requirements.txt
+```
+
+---
+
+## ▶️ Como executar
+
+### CLI
+
+```bash
+python main.py
+```
+
+---
+
+### Dashboard
+
+```bash
+streamlit run src/infrastructure/dashboard/streamlit_dashboard.py
+```
+
+---
+
 ## 🎯 Objetivo
 
 Evoluir o Walleto para um backend completo, escalável e preparado para aplicações reais.
@@ -93,5 +141,3 @@ Evoluir o Walleto para um backend completo, escalável e preparado para aplicaç
 ## 📬 Contato
 
 * GitHub: [https://github.com/honoriio](https://github.com/honoriio)
-
-```
